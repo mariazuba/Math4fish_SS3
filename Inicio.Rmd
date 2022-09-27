@@ -1,0 +1,28 @@
+---
+title: "Curso de Stock Synthesis para Math4fish"
+---
+
+
+
+```{r echo=F}
+
+htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),alt='logo',style='position:absolute; top:0; right:-25%; padding:10px; width:250px; height:250px,z-index:200;')
+
+```
+
+
+
+&nbsp;
+&nbsp;
+
+- Requisitos
+- Introducción  a SS3
+- Descripción de formato de entrada de datos
+- Introducción a librería R4SS
+- Leer y manipular datos de entrada usando R4SS
+- Introducción a librería SS3diags
+- Diagnóstico de modelos usando SS3diags
+
+
+
+
