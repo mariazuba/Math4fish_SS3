@@ -3,4 +3,15 @@ title: "INICIO"
 ---
 
 
-Proyecto math4fish realiza un workshop un tutorial para trabajar en Stock Synthesis (SS3) basado en un ejemplo simple de la página oficial xxx
+
+```{r echo=F}
+
+htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),
+               alt='logo',style='position:absolute; top:0; right:-25%; padding:10px; width:250px; height:250px,z-index:200;')
+
+```
+
+&nbsp;
+&nbsp;
+
+Esta guía es elaborada para el Proyecto math4fish cuya finalidad es implementar modelos de evaluación de stock en la plataforma de modelado estadístico llamado "Stock Synthesis" (SS3) desarrollada por el grupo de trabajo de la NOAA.
