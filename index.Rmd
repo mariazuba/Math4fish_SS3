@@ -1,0 +1,6 @@
+---
+title: "INICIO"
+---
+
+
+Proyecto math4fish realiza un workshop un tutorial para trabajar en Stock Synthesis (SS3) basado en un ejemplo simple de la página oficial xxx
