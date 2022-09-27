@@ -1,0 +1,32 @@
+site_name: Math4fish_SS3
+site_autor: Maria Jose Zuniga
+site_url: https://mariazuba.github.io/Math4fish_SS3/
+name: "Curso SS3"
+navbar:
+  title: "Math4fish"
+  left:
+    - text: "Inicio"
+      href: Inicio.html
+    - text: "Datos"
+      href: Datos.html
+    - text: "R4SS"
+      href: R4SS.html
+    - text: "SS3diags"
+      href: SS3diags.html
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc-location: left
+    toc-title: Contenido
+    toc_depth: 3
+    theme: flatly
+    highlight: tango
+    code_folding: hide
+    self_contained: true
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    smooth-scroll: true
+    minimal: true
+    page-layout: full
