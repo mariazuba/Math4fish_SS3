@@ -13,6 +13,7 @@ navbar:
       href: index3.html
     - text: "SS3diags"
       href: index4.html
+output_dir: "docs"
 output: 
   html_document:
     toc: true
@@ -30,3 +31,4 @@ output:
     smooth-scroll: true
     minimal: true
     page-layout: full
+    keep_md: true
