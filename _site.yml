@@ -6,13 +6,13 @@ navbar:
   title: "Math4fish"
   left:
     - text: "Inicio"
-      href: Inicio.html
+      href: index1.html
     - text: "Datos"
-      href: Datos.html
+      href: index2.html
     - text: "R4SS"
-      href: R4SS.html
+      href: index3.html
     - text: "SS3diags"
-      href: SS3diags.html
+      href: index4.html
 output: 
   html_document:
     toc: true
