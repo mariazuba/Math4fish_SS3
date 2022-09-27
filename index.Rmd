@@ -7,7 +7,13 @@ title: "INICIO"
 ```{r echo=F}
 
 htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),
-               alt='logo',style='position:absolute; top:0; right:-25%; padding:10px; width:250px; height:250px,z-index:200;')
+               alt='logo',
+               title='logo',
+               style='position:absolute;
+               margin-top:22px;
+               margin-left: 4%; 
+               width:125px;
+               height:36px')
 
 ```
 
