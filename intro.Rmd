@@ -96,6 +96,10 @@ El repositorio de esta librería la puede encontrar en el siguiente link:
 
 (pasar referencias a formato BibTex)
 
+Methot, R.D. and Wetzel, C.R. (2013). Stock Synthesis: A biological and statistical framework for fish stock assessment and fishery management. Fisheries Research, 142: 86-99. https://doi.org/10.1016/j.fishres.2012.10.012
+
+Methot, R. D., Jr., C. R. Wetzel, I. G. Taylor, and K. Doering. 2020. Stock Synthesis User Manual Version 3.30.15. U.S. Department of Commerce, NOAA Processed Report NMFS-NWFSC-PR-2020-05. https://doi.org/10.25923/5wpn-qt71
+
 Ian G. Taylor, Kathryn L. Doering, Kelli F. Johnson, Chantel R. Wetzel, Ian J. Stewart, 2021. Beyond visualizing catch-at-age models: Lessons learned from the r4ss package about software to support stock assessments, Fisheries Research, 239:105924. https://doi.org/10.1016/j.fishres.2021.105924.
 
 
