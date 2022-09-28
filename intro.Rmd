@@ -1,5 +1,5 @@
 ---
-title: "Guía para implementar modelos de evaluación de stock en SS3"
+title: ""
 ---
 
 
@@ -11,7 +11,7 @@ title: "Guía para implementar modelos de evaluación de stock en SS3"
 #TOC::before {
   content: "";
   display: block;
-  height: 100px;
+  height: 80px;
   margin: 2em 20px 40px 20px;
   background-image: url("LOGO_2SN_recortado.png");
   background-size: contain;
@@ -26,14 +26,77 @@ title: "Guía para implementar modelos de evaluación de stock en SS3"
 &nbsp;
 &nbsp;
 
-# Requisitos
-- Introducción  a SS3
-- Descripción de formato de entrada de datos
-- Introducción a librería R4SS
-- Leer y manipular datos de entrada usando R4SS
-- Introducción a librería SS3diags
-- Diagnóstico de modelos usando SS3diags
 
+# Archivos ejecutables SS3
+
+https://github.com/nmfs-stock-synthesis/stock-synthesis/releases
+
+&nbsp;
+&nbsp;
+
+# Ejemplos SS3
+
+En esta guía se utilizan los ejemplos de Stock Synthesis publicados en el siguiente link: 
+- [Github con ejemplos de SS3](https://github.com/nmfs-stock-synthesis/user-examples)
+
+# Manuales de usuarios 
+
+- [guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) 
+- [guía de library SS3diags](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
+
+&nbsp;
+&nbsp;
+
+# Instalación de librerías de R
+
+&nbsp;
+&nbsp;
+
+## Librería R4SS
+
+El paquete se puede ejecutar en OS X, Windows o Linux. La versión CRAN de r4ss no se actualiza regularmente y, por lo tanto, es probable que esté desactualizada. En su lugar, se recomienda instalar desde GitHub:
+
+```{r eval=F}
+
+# install.packages("remotes") # if needed
+remotes::install_github("r4ss/r4ss")
+
+```
+
+A continuación puede cargar el paquete con:
+```{r eval=F}
+
+library("r4ss")
+
+```
+
+Y leer los archivos de ayuda con:
+
+```{r eval=F}
+
+?r4ss
+help(package = "r4ss")
+
+```
+
+El repositorio de esta librería la puede encontrar en el siguiente link:
+- [github r4ss](https://github.com/r4ss/r4ss)
+
+&nbsp;
+&nbsp;
+
+## Librería SS3diags
+
+- [github ss3diags](https://github.com/jabbamodel/ss3diags)
+
+&nbsp;
+&nbsp;
+
+# Referencias
+
+(pasar referencias a formato BibTex)
+
+Ian G. Taylor, Kathryn L. Doering, Kelli F. Johnson, Chantel R. Wetzel, Ian J. Stewart, 2021. Beyond visualizing catch-at-age models: Lessons learned from the r4ss package about software to support stock assessments, Fisheries Research, 239:105924. https://doi.org/10.1016/j.fishres.2021.105924.
 
 
 

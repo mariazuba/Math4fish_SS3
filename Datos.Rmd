@@ -1,6 +1,8 @@
 ---
-title: "Leer archivos de entrada SS3"
+title: ""
 ---
+
+# Archivos de entrada SS3
 
 Se utiliza como referncia [blog](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) de libreria R4ss y [github](https://github.com/r4ss/r4ss)
 
@@ -72,9 +74,10 @@ Cuando el programa se inicia por primera vez, lee el archivo starter.ss, que nor
 &nbsp;
 &nbsp;
 
-### Starter
+## Starter
 
 SS3 comienza leyendo el archivo starter.ss, el cual contiene los nombres de los archivos de datos y control, además de otros controles de ejecución. Los nombres de los archivos de control.ss y data.ss deben coincidir con los nombres especificados en el archivo starter.ss.
+
 
 ```{r echo=F, message=F,warning=F}
 
@@ -91,7 +94,7 @@ caption = "Contenido de archivo starter") %>%
 
 &nbsp; &nbsp;
 
-### Data 
+## Data 
 
 A continuación se describe como ingresar las especificaciones del modelo, definición de flotas/campañas y los datos de capturas, índices, descarte, composiciones de tallas y edades, entre otros.
 
@@ -109,7 +112,7 @@ kbl(data.frame(names_data=names(dat)), booktabs = T,position="h!") %>%
 &nbsp;
 &nbsp;
 
-#### Especificaciones de la estructura del modelo
+### Especificaciones de la estructura del modelo
 
 En esta sección se especifican el número de años, meses/temporadas de las observaciones, número de edades, sexos, áreas, número de flotas y campañas, entre otras.
 
@@ -127,7 +130,7 @@ caption = "Especificaciones de los datos") %>%
 &nbsp;
 &nbsp;
 
-#### Definición de flotas y campañas
+### Definición de flotas y campañas
 
 En esta sección se especifica el tipo de flota, mes/temporada de la observación, areas donde opero la flota/campaña, unidades de medida de la observación y una opción para utilizar un multiplicador de la captura. **fleet_type:** 1=catch fleet; 2=bycatch only fleet;3=survey; 4=predator(M2). **sample_timing:** -1 for fishing fleet to use season-long catch-at-age for observations, or 1 to use observation month; (always 1 for surveys). **fleet_area:** area the fleet/survey operates in. **units of catch:** 1=bio; 2=num (ignored for surveys; their units read later). **catch_mult:** 0=no; 1=yes. **rows are fleets**.
 
@@ -142,7 +145,7 @@ caption = "Definición de flotas y campañas") %>%
 &nbsp;
 &nbsp;
 
-#### Captura comercial
+### Captura comercial
 
 Los datos de capturas ingresan por año, temporada de pesca, tipo de flota, valor observado de la captura y coeficiente de variación. **Catch data**: yr, seas, fleet, catch, catch_se. **catch_se**: standard error of log(catch). **NOTE**: catch data is ignored for survey fleets
 
@@ -160,11 +163,11 @@ caption = "Datos de captura comercial") %>%
 &nbsp;
 &nbsp;
 
-#### Índices de abundancia {.tabset .tabset-fade }
+### Índices de abundancia {.tabset .tabset-fade }
 
 En las primeras líneas se describen algunas especificaciones de los índices, como las unidades de medida y distribución del error, para posteriormente ingresar los datos por año, mes, flota y coeficiente de variación. **Units**: 0=numbers; 1=biomass; 2=F; 30=spawnbio; 31=recdev; 32=spawnbio\*recdev; 33=recruitment; 34=depletion(&see Qsetup); 35=parm_dev(&see Qsetup). **Errtype**: -1=normal; 0=lognormal; \>0=T. **SD_Report**: 0=no sdreport; 1=enable sdreport.
 
-##### Especificaciones
+#### Especificaciones
 ```{r echo=F,message=F,warning=F}
 
 CPUEinfo<-dat$CPUEinfo #contiene las especificaciones de las campañas
@@ -175,7 +178,7 @@ caption = "Especificaciones de los índices") %>%
                 full_width = FALSE,font_size=12)
 ```
 
-##### Datos
+#### Datos
 ```{r echo=F, message=F,warning=F}
 
 CPUE<-dat$CPUE # contiene los datos de campañas
@@ -244,7 +247,7 @@ caption = "Datos de composición de tallas de ECOCADIZ") %>%
 
 &nbsp;
 
-### Control
+## Control
 
 La función principal del archivo de control es definir los parámetros que utilizará el modelo.  Cada línea de parámetro contiene: un valor mínimo (LO), máximo (HI), inicial (INIT), valor esperado (PRIOR), coeficiente de variación del valor esperado (PRIOR SD), tipo de distribución de error del valor esperado (PRIOR TYPE), fase de estimación (PHASE). Se pueden aplicar tres tipos de propiedades variables en el tiempo a un parámetro base: vinculación ambiental (Env var & Link), desviación aleatoria (Dev link, Dev min yr, Dev max yr, Dev phase) y bloques o tendencia (Block y Block function). 
 
@@ -264,9 +267,9 @@ ctl <- r4ss::SS_readctl(file = file.path(mod_path, start$ctlfile),
 &nbsp;
 &nbsp;
 
-#### Parámetros biológicos {.tabset .tabset-fade }
+### Parámetros biológicos {.tabset .tabset-fade }
 
-##### Especificaciones 
+#### Especificaciones 
 
 1. *Tipos de mortalidad natural*: 0 = 1Parm; 1 = N_breakpoints; 2 = Lorenzen; 3 = agespecific; 4 = agespec with seas interpolate no additional input for selected M option; read 1P per morph
   
@@ -283,7 +286,7 @@ ctl <- r4ss::SS_readctl(file = file.path(mod_path, start$ctlfile),
 &nbsp;
 &nbsp;
 
-##### Parámetros
+#### Parámetros
 
 ```{r echo=F, message=F,warning=F}
 
@@ -301,12 +304,12 @@ caption = "Parámetros biológicos") %>%
 &nbsp;
 &nbsp;
 
-#### Reclutamiento {.tabset .tabset-fade }
+### Reclutamiento {.tabset .tabset-fade }
 
 &nbsp;
 &nbsp;
 
-##### Especificaciones
+#### Especificaciones
 
 
 1. *SR_function*: 2 = Ricker; 3 = std_B-H; 4 = SCAA; 5 = Hockey; 6 = B-H_flattop; 7 = survival_3Parm; 8 = Shepard_3Parm
@@ -316,7 +319,7 @@ caption = "Parámetros biológicos") %>%
 &nbsp;
 &nbsp;
 
-##### Parámetros
+#### Parámetros
 
 ```{r echo=F, message=F,warning=F}
 
@@ -334,9 +337,9 @@ caption = "Reclutamiento") %>%
 &nbsp;
 &nbsp;
 
-#### Capturabilidad {.tabset .tabset-fade }
+### Capturabilidad {.tabset .tabset-fade }
 
-##### Especificaciones
+#### Especificaciones
 
 ```{r echo=F, message=F,warning=F}
 
@@ -348,7 +351,7 @@ kbl(parQ_option, booktabs = T,position="h!") %>%
 
 ```
 
-##### Datos 
+#### Datos 
 
 ```{r echo=F, message=F,warning=F}
 
@@ -365,14 +368,14 @@ kbl(parQ_par, booktabs = T,position="h!") %>%
 &nbsp;
 &nbsp;
 
-#### Selectividad
+### Selectividad
 
 &nbsp;
 &nbsp;
 
-##### Selectividad a la talla {.tabset .tabset-fade }
+#### Selectividad a la talla {.tabset .tabset-fade }
 
-###### Especificaciones
+##### Especificaciones
 
 ```{r echo=F, message=F,warning=F}
 
@@ -385,7 +388,7 @@ caption = "Especificación de la selectividad a la talla") %>%
 
 ```
 
-###### Parámetros
+##### Parámetros
 
 ```{r echo=F, message=F,warning=F}
 
@@ -403,9 +406,9 @@ caption = "Parámetros de selectividad a la talla") %>%
 &nbsp;
 &nbsp;
 
-##### Selectividad a la edad {.tabset .tabset-fade }
+#### Selectividad a la edad {.tabset .tabset-fade }
 
-###### Especificaciones
+##### Especificaciones
 
 ```{r echo=F, message=F,warning=F}
 
@@ -418,7 +421,7 @@ caption = "Especificación de la selectividad a la edad") %>%
 
 ```
 
-###### Parámetros
+##### Parámetros
 
 ```{r echo=F, message=F,warning=F}
 
@@ -436,7 +439,7 @@ caption = "Parámetros de selectividad a la edad") %>%
 &nbsp;
 &nbsp;
 
-### Forecast
+## Forecast
 
 En este archivo se pueden especificar los puntos biológicos de referencia, los años de proyección y reglas de control, entre otras especificaciones.
 

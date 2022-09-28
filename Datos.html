@@ -11,10 +11,10 @@
 
 
 
-<title>Leer archivos de entrada SS3</title>
+<title>Datos.knit</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -34,6 +34,7 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -45,7 +46,6 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
-
 
 
 <style type="text/css">
@@ -60,7 +60,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -178,9 +177,6 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
 }
 pre code {
   padding: 0;
@@ -409,7 +405,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -419,7 +415,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="intro.html">Introducción</a>
+  <a href="intro.html">Requisitos</a>
 </li>
 <li>
   <a href="Datos.html">Datos</a>
@@ -442,7 +438,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -451,14 +447,13 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Leer archivos de entrada SS3</h1>
 
 </div>
 
 
-<p>Se utiliza como referncia <a
-href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">blog</a>
-de libreria R4ss y <a href="https://github.com/r4ss/r4ss">github</a></p>
+<div id="archivos-de-entrada-ss3" class="section level1">
+<h1>Archivos de entrada SS3</h1>
+<p>Se utiliza como referncia <a href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">blog</a> de libreria R4ss y <a href="https://github.com/r4ss/r4ss">github</a></p>
 <style type="text/css">
 .scroll-200{
             max-height: 200px; 
@@ -482,31 +477,19 @@ de libreria R4ss y <a href="https://github.com/r4ss/r4ss">github</a></p>
 }
 
 </style>
-<p>Los archivos de datos necesarios para que SS3 funcione son los
-siguientes:</p>
+<p>Los archivos de datos necesarios para que SS3 funcione son los siguientes:</p>
 <ol style="list-style-type: decimal">
-<li><strong>starter.ss</strong>: archivo requerido que contiene los
-nombres de los archivos de datos y control, además de otros controles de
-ejecución.</li>
-<li><strong>data.ss</strong>: archivo que contiene las dimensiones del
-modelo y los datos</li>
-<li><strong>control.ss</strong>: archivo que contiene la configuración
-de los parámetros</li>
-<li><strong>forecast.ss</strong>: archivo que contiene especificaciones
-para puntos de referencia y proyecciones</li>
+<li><strong>starter.ss</strong>: archivo requerido que contiene los nombres de los archivos de datos y control, además de otros controles de ejecución.</li>
+<li><strong>data.ss</strong>: archivo que contiene las dimensiones del modelo y los datos</li>
+<li><strong>control.ss</strong>: archivo que contiene la configuración de los parámetros</li>
+<li><strong>forecast.ss</strong>: archivo que contiene especificaciones para puntos de referencia y proyecciones</li>
 </ol>
-<p>Cuando el programa se inicia por primera vez, lee el archivo
-starter.ss, que normalmente debe estar ubicado en el mismo directorio
-desde el que se ejecuta SS3.</p>
+<p>Cuando el programa se inicia por primera vez, lee el archivo starter.ss, que normalmente debe estar ubicado en el mismo directorio desde el que se ejecuta SS3.</p>
 <p>   </p>
-<div id="starter" class="section level3">
-<h3>Starter</h3>
-<p>SS3 comienza leyendo el archivo starter.ss, el cual contiene los
-nombres de los archivos de datos y control, además de otros controles de
-ejecución. Los nombres de los archivos de control.ss y data.ss deben
-coincidir con los nombres especificados en el archivo starter.ss.</p>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div id="starter" class="section level2">
+<h2>Starter</h2>
+<p>SS3 comienza leyendo el archivo starter.ss, el cual contiene los nombres de los archivos de datos y control, además de otros controles de ejecución. Los nombres de los archivos de control.ss y data.ss deben coincidir con los nombres especificados en el archivo starter.ss.</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Contenido de archivo starter
@@ -526,7 +509,7 @@ x
 sourcefile
 </td>
 <td style="text-align:left;">
-C:/MJZ/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/starter.ss
+/Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/starter.ss
 </td>
 </tr>
 <tr>
@@ -790,19 +773,16 @@ final
 </div>
 <p>   </p>
 </div>
-<div id="data" class="section level3">
-<h3>Data</h3>
-<p>A continuación se describe como ingresar las especificaciones del
-modelo, definición de flotas/campañas y los datos de capturas, índices,
-descarte, composiciones de tallas y edades, entre otros.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readdat</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, start<span class="sc">$</span>datfile),</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">data.frame</span>(<span class="at">names_data=</span><span class="fu">names</span>(dat)), <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>A continuación se describe como ingresar las especificaciones del modelo, definición de flotas/campañas y los datos de capturas, índices, descarte, composiciones de tallas y edades, entre otros.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>dat &lt;-<span class="st"> </span>r4ss<span class="op">::</span><span class="kw">SS_readdat</span>(<span class="dt">file =</span> <span class="kw">file.path</span>(mod_path, start<span class="op">$</span>datfile),</span>
+<span id="cb1-2"><a href="#cb1-2"></a>                        <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">kbl</span>(<span class="kw">data.frame</span>(<span class="dt">names_data=</span><span class="kw">names</span>(dat)), <span class="dt">booktabs =</span> T,<span class="dt">position=</span><span class="st">&quot;h!&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="dt">full_width=</span>F,<span class="dt">font_size=</span><span class="dv">12</span>)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width=</span><span class="st">&quot;100%&quot;</span>,<span class="dt">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1086,12 +1066,9 @@ lbin_vector_pop
 </table>
 </div>
 <p>   </p>
-<div id="especificaciones-de-la-estructura-del-modelo"
-class="section level4">
-<h4>Especificaciones de la estructura del modelo</h4>
-<p>En esta sección se especifican el número de años, meses/temporadas de
-las observaciones, número de edades, sexos, áreas, número de flotas y
-campañas, entre otras.</p>
+<div id="especificaciones-de-la-estructura-del-modelo" class="section level3">
+<h3>Especificaciones de la estructura del modelo</h3>
+<p>En esta sección se especifican el número de años, meses/temporadas de las observaciones, número de edades, sexos, áreas, número de flotas y campañas, entre otras.</p>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificaciones de los datos
@@ -1189,19 +1166,9 @@ dat.Nfleets
 </table>
 <p>   </p>
 </div>
-<div id="definición-de-flotas-y-campañas" class="section level4">
-<h4>Definición de flotas y campañas</h4>
-<p>En esta sección se especifica el tipo de flota, mes/temporada de la
-observación, areas donde opero la flota/campaña, unidades de medida de
-la observación y una opción para utilizar un multiplicador de la
-captura. <strong>fleet_type:</strong> 1=catch fleet; 2=bycatch only
-fleet;3=survey; 4=predator(M2). <strong>sample_timing:</strong> -1 for
-fishing fleet to use season-long catch-at-age for observations, or 1 to
-use observation month; (always 1 for surveys).
-<strong>fleet_area:</strong> area the fleet/survey operates in.
-<strong>units of catch:</strong> 1=bio; 2=num (ignored for surveys;
-their units read later). <strong>catch_mult:</strong> 0=no; 1=yes.
-<strong>rows are fleets</strong>.</p>
+<div id="definición-de-flotas-y-campañas" class="section level3">
+<h3>Definición de flotas y campañas</h3>
+<p>En esta sección se especifica el tipo de flota, mes/temporada de la observación, areas donde opero la flota/campaña, unidades de medida de la observación y una opción para utilizar un multiplicador de la captura. <strong>fleet_type:</strong> 1=catch fleet; 2=bycatch only fleet;3=survey; 4=predator(M2). <strong>sample_timing:</strong> -1 for fishing fleet to use season-long catch-at-age for observations, or 1 to use observation month; (always 1 for surveys). <strong>fleet_area:</strong> area the fleet/survey operates in. <strong>units of catch:</strong> 1=bio; 2=num (ignored for surveys; their units read later). <strong>catch_mult:</strong> 0=no; 1=yes. <strong>rows are fleets</strong>.</p>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Definición de flotas y campañas
@@ -1293,15 +1260,10 @@ ECOCADIZ
 </table>
 <p>   </p>
 </div>
-<div id="captura-comercial" class="section level4">
-<h4>Captura comercial</h4>
-<p>Los datos de capturas ingresan por año, temporada de pesca, tipo de
-flota, valor observado de la captura y coeficiente de variación.
-<strong>Catch data</strong>: yr, seas, fleet, catch, catch_se.
-<strong>catch_se</strong>: standard error of log(catch).
-<strong>NOTE</strong>: catch data is ignored for survey fleets</p>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div id="captura-comercial" class="section level3">
+<h3>Captura comercial</h3>
+<p>Los datos de capturas ingresan por año, temporada de pesca, tipo de flota, valor observado de la captura y coeficiente de variación. <strong>Catch data</strong>: yr, seas, fleet, catch, catch_se. <strong>catch_se</strong>: standard error of log(catch). <strong>NOTE</strong>: catch data is ignored for survey fleets</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Datos de captura comercial
@@ -3643,19 +3605,11 @@ catch_se
 </div>
 <p>   </p>
 </div>
-<div id="índices-de-abundancia"
-class="section level4 tabset tabset-fade">
-<h4 class="tabset tabset-fade">Índices de abundancia</h4>
-<p>En las primeras líneas se describen algunas especificaciones de los
-índices, como las unidades de medida y distribución del error, para
-posteriormente ingresar los datos por año, mes, flota y coeficiente de
-variación. <strong>Units</strong>: 0=numbers; 1=biomass; 2=F;
-30=spawnbio; 31=recdev; 32=spawnbio*recdev; 33=recruitment;
-34=depletion(&amp;see Qsetup); 35=parm_dev(&amp;see Qsetup).
-<strong>Errtype</strong>: -1=normal; 0=lognormal; &gt;0=T.
-<strong>SD_Report</strong>: 0=no sdreport; 1=enable sdreport.</p>
-<div id="especificaciones" class="section level5">
-<h5>Especificaciones</h5>
+<div id="índices-de-abundancia" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Índices de abundancia</h3>
+<p>En las primeras líneas se describen algunas especificaciones de los índices, como las unidades de medida y distribución del error, para posteriormente ingresar los datos por año, mes, flota y coeficiente de variación. <strong>Units</strong>: 0=numbers; 1=biomass; 2=F; 30=spawnbio; 31=recdev; 32=spawnbio*recdev; 33=recruitment; 34=depletion(&amp;see Qsetup); 35=parm_dev(&amp;see Qsetup). <strong>Errtype</strong>: -1=normal; 0=lognormal; &gt;0=T. <strong>SD_Report</strong>: 0=no sdreport; 1=enable sdreport.</p>
+<div id="especificaciones" class="section level4">
+<h4>Especificaciones</h4>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificaciones de los índices
@@ -3733,10 +3687,9 @@ ECOCADIZ
 </tbody>
 </table>
 </div>
-<div id="datos" class="section level5">
-<h5>Datos</h5>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div id="datos" class="section level4">
+<h4>Datos</h4>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Datos de campañas
@@ -4259,18 +4212,12 @@ se_log
 </div>
 <p>   </p>
 </div>
-</div>
-<div id="composiciones-de-tallas"
-class="section level4 tabset tabset-fade">
+<div id="composiciones-de-tallas" class="section level4 tabset tabset-fade">
 <h4 class="tabset tabset-fade">Composiciones de tallas</h4>
-<p>En esta sección se ingresan los datos de composiciones de tallas por
-año, mes, tipo de flota, sexo y tamaño de muestra, especificando
-previamente el método de agrupamiento (bins) de las tallas, distribución
-de la estructura de error, entre otras especificaciones.</p>
+<p>En esta sección se ingresan los datos de composiciones de tallas por año, mes, tipo de flota, sexo y tamaño de muestra, especificando previamente el método de agrupamiento (bins) de las tallas, distribución de la estructura de error, entre otras especificaciones.</p>
 <div id="flota" class="section level5">
 <h5>Flota</h5>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Datos de composición de tallas de la Flota
@@ -21707,8 +21654,7 @@ l21.5
 </div>
 <div id="pelago" class="section level5">
 <h5>PELAGO</h5>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Datos de composición de tallas de PELAGO
@@ -24473,8 +24419,7 @@ l21.5
 </div>
 <div id="ecocadiz" class="section level5">
 <h5>ECOCADIZ</h5>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Datos de composición de tallas de ECOCADIZ
@@ -26324,48 +26269,28 @@ l21.5
 </div>
 </div>
 </div>
-<div id="control" class="section level3">
-<h3>Control</h3>
-<p>La función principal del archivo de control es definir los parámetros
-que utilizará el modelo. Cada línea de parámetro contiene: un valor
-mínimo (LO), máximo (HI), inicial (INIT), valor esperado (PRIOR),
-coeficiente de variación del valor esperado (PRIOR SD), tipo de
-distribución de error del valor esperado (PRIOR TYPE), fase de
-estimación (PHASE). Se pueden aplicar tres tipos de propiedades
-variables en el tiempo a un parámetro base: vinculación ambiental (Env
-var &amp; Link), desviación aleatoria (Dev link, Dev min yr, Dev max yr,
-Dev phase) y bloques o tendencia (Block y Block function).</p>
+</div>
+<div id="control" class="section level2">
+<h2>Control</h2>
+<p>La función principal del archivo de control es definir los parámetros que utilizará el modelo. Cada línea de parámetro contiene: un valor mínimo (LO), máximo (HI), inicial (INIT), valor esperado (PRIOR), coeficiente de variación del valor esperado (PRIOR SD), tipo de distribución de error del valor esperado (PRIOR TYPE), fase de estimación (PHASE). Se pueden aplicar tres tipos de propiedades variables en el tiempo a un parámetro base: vinculación ambiental (Env var &amp; Link), desviación aleatoria (Dev link, Dev min yr, Dev max yr, Dev phase) y bloques o tendencia (Block y Block function).</p>
 <p>   </p>
-<div id="parámetros-biológicos"
-class="section level4 tabset tabset-fade">
-<h4 class="tabset tabset-fade">Parámetros biológicos</h4>
-<div id="especificaciones-1" class="section level5">
-<h5>Especificaciones</h5>
+<div id="parámetros-biológicos" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Parámetros biológicos</h3>
+<div id="especificaciones-1" class="section level4">
+<h4>Especificaciones</h4>
 <ol style="list-style-type: decimal">
-<li><p><em>Tipos de mortalidad natural</em>: 0 = 1Parm; 1 =
-N_breakpoints; 2 = Lorenzen; 3 = agespecific; 4 = agespec with seas
-interpolate no additional input for selected M option; read 1P per
-morph</p></li>
-<li><p><em>Modelo de crecimiento</em>: 1 = vonBert with L1&amp;L2; 2 =
-Richards with L1&amp;L2; 3 = age_specific_K; 4 = not
-implemented</p></li>
-<li><p><em>CV del patrón de crecimiento</em>: 0 CV=f(LAA); 1 CV=F(A); 2
-SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)</p></li>
-<li><p><em>Opción de madurez</em>: 1 = length logistic; 2 = age
-logistic; 3 = read age-maturity matrix by growth_pattern; 4 = read
-age-fecundity; 5 = disabled; 6 = read length-maturity</p></li>
-<li><p><em>Opción de fecundidad</em>: (1) eggs=Wt<em>(a+b</em>Wt); (2)
-eggs=a<em>L^b; (3) eggs=a</em>Wt^b; (4) eggs=a+b<em>L; (5)
-eggs=a+b</em>W</p></li>
-<li><p><em>Opción de hermaphroditismo</em>: 0 = none; 1 = female-to-male
-age-specific fxn; -1 = male-to-female age-specific fxn</p></li>
+<li><p><em>Tipos de mortalidad natural</em>: 0 = 1Parm; 1 = N_breakpoints; 2 = Lorenzen; 3 = agespecific; 4 = agespec with seas interpolate no additional input for selected M option; read 1P per morph</p></li>
+<li><p><em>Modelo de crecimiento</em>: 1 = vonBert with L1&amp;L2; 2 = Richards with L1&amp;L2; 3 = age_specific_K; 4 = not implemented</p></li>
+<li><p><em>CV del patrón de crecimiento</em>: 0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)</p></li>
+<li><p><em>Opción de madurez</em>: 1 = length logistic; 2 = age logistic; 3 = read age-maturity matrix by growth_pattern; 4 = read age-fecundity; 5 = disabled; 6 = read length-maturity</p></li>
+<li><p><em>Opción de fecundidad</em>: (1) eggs=Wt<em>(a+b</em>Wt); (2) eggs=a<em>L^b; (3) eggs=a</em>Wt^b; (4) eggs=a+b<em>L; (5) eggs=a+b</em>W</p></li>
+<li><p><em>Opción de hermaphroditismo</em>: 0 = none; 1 = female-to-male age-specific fxn; -1 = male-to-female age-specific fxn</p></li>
 </ol>
 <p>   </p>
 </div>
-<div id="parámetros" class="section level5">
-<h5>Parámetros</h5>
-<div
-style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<div id="parámetros" class="section level4">
+<h4>Parámetros</h4>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Parámetros biológicos
@@ -27178,23 +27103,20 @@ FracFemale_GP_1
 <p>   </p>
 </div>
 </div>
-<div id="reclutamiento" class="section level4 tabset tabset-fade">
-<h4 class="tabset tabset-fade">Reclutamiento</h4>
+<div id="reclutamiento" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Reclutamiento</h3>
 <p>   </p>
-<div id="especificaciones-2" class="section level5">
-<h5>Especificaciones</h5>
+<div id="especificaciones-2" class="section level4">
+<h4>Especificaciones</h4>
 <ol style="list-style-type: decimal">
-<li><p><em>SR_function</em>: 2 = Ricker; 3 = std_B-H; 4 = SCAA; 5 =
-Hockey; 6 = B-H_flattop; 7 = survival_3Parm; 8 = Shepard_3Parm</p></li>
-<li><p><em>do_recdev</em>: 0 = none; 1 = devvector; 2 = simple
-deviations</p></li>
+<li><p><em>SR_function</em>: 2 = Ricker; 3 = std_B-H; 4 = SCAA; 5 = Hockey; 6 = B-H_flattop; 7 = survival_3Parm; 8 = Shepard_3Parm</p></li>
+<li><p><em>do_recdev</em>: 0 = none; 1 = devvector; 2 = simple deviations</p></li>
 </ol>
 <p>   </p>
 </div>
-<div id="parámetros-1" class="section level5">
-<h5>Parámetros</h5>
-<div
-style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<div id="parámetros-1" class="section level4">
+<h4>Parámetros</h4>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Reclutamiento
@@ -27507,10 +27429,10 @@ SR_autocorr
 <p>   </p>
 </div>
 </div>
-<div id="capturabilidad" class="section level4 tabset tabset-fade">
-<h4 class="tabset tabset-fade">Capturabilidad</h4>
-<div id="especificaciones-3" class="section level5">
-<h5>Especificaciones</h5>
+<div id="capturabilidad" class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Capturabilidad</h3>
+<div id="especificaciones-3" class="section level4">
+<h4>Especificaciones</h4>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -27586,10 +27508,9 @@ ECOCADIZ
 </tbody>
 </table>
 </div>
-<div id="datos-1" class="section level5">
-<h5>Datos</h5>
-<div
-style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<div id="datos-1" class="section level4">
+<h4>Datos</h4>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -27740,14 +27661,13 @@ LnQ_base_ECOCADIZ(3)
 <p>   </p>
 </div>
 </div>
-<div id="selectividad" class="section level4">
-<h4>Selectividad</h4>
+<div id="selectividad" class="section level3">
+<h3>Selectividad</h3>
 <p>   </p>
-<div id="selectividad-a-la-talla"
-class="section level5 tabset tabset-fade">
-<h5 class="tabset tabset-fade">Selectividad a la talla</h5>
-<div id="especificaciones-4" class="section level6">
-<h6>Especificaciones</h6>
+<div id="selectividad-a-la-talla" class="section level4 tabset tabset-fade">
+<h4 class="tabset tabset-fade">Selectividad a la talla</h4>
+<div id="especificaciones-4" class="section level5">
+<h5>Especificaciones</h5>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificación de la selectividad a la talla
@@ -27825,10 +27745,9 @@ ECOCADIZ
 </tbody>
 </table>
 </div>
-<div id="parámetros-2" class="section level6">
-<h6>Parámetros</h6>
-<div
-style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<div id="parámetros-2" class="section level5">
+<h5>Parámetros</h5>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Parámetros de selectividad a la talla
@@ -28170,11 +28089,10 @@ SizeSel_P_2_ECOCADIZ(3)
 <p>   </p>
 </div>
 </div>
-<div id="selectividad-a-la-edad"
-class="section level5 tabset tabset-fade">
-<h5 class="tabset tabset-fade">Selectividad a la edad</h5>
-<div id="especificaciones-5" class="section level6">
-<h6>Especificaciones</h6>
+<div id="selectividad-a-la-edad" class="section level4 tabset tabset-fade">
+<h4 class="tabset tabset-fade">Selectividad a la edad</h4>
+<div id="especificaciones-5" class="section level5">
+<h5>Especificaciones</h5>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificación de la selectividad a la edad
@@ -28252,10 +28170,9 @@ ECOCADIZ
 </tbody>
 </table>
 </div>
-<div id="parámetros-3" class="section level6">
-<h6>Parámetros</h6>
-<div
-style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<div id="parámetros-3" class="section level5">
+<h5>Parámetros</h5>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Parámetros de selectividad a la edad
@@ -28599,13 +28516,10 @@ AgeSel_P_2_ECOCADIZ(3)
 </div>
 </div>
 </div>
-<div id="forecast" class="section level3">
-<h3>Forecast</h3>
-<p>En este archivo se pueden especificar los puntos biológicos de
-referencia, los años de proyección y reglas de control, entre otras
-especificaciones.</p>
-<div
-style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div id="forecast" class="section level2">
+<h2>Forecast</h2>
+<p>En este archivo se pueden especificar los puntos biológicos de referencia, los años de proyección y reglas de control, entre otras especificaciones.</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -28630,7 +28544,7 @@ SSversion
 sourcefile
 </td>
 <td style="text-align:left;">
-C:/MJZ/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/forecast.ss
+/Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/forecast.ss
 </td>
 </tr>
 <tr>
@@ -28869,6 +28783,7 @@ N_allocation_groups
 </table>
 </div>
 </div>
+</div>
 
 
 
@@ -28907,15 +28822,12 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 
 <script>
 $(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

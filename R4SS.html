@@ -13,8 +13,8 @@
 
 <title>Correr modelo y visualizar salidas de SS3</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -34,6 +34,7 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -45,7 +46,6 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
-
 
 
 <style type="text/css">
@@ -60,7 +60,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -178,9 +177,6 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
 }
 pre code {
   padding: 0;
@@ -409,7 +405,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -419,7 +415,7 @@ div.tocify {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="intro.html">Introducción</a>
+  <a href="intro.html">Requisitos</a>
 </li>
 <li>
   <a href="Datos.html">Datos</a>
@@ -442,7 +438,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -451,8 +447,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Correr modelo y visualizar salidas de
-SS3</h1>
+<h1 class="title toc-ignore">Correr modelo y visualizar salidas de SS3</h1>
 
 </div>
 
@@ -480,28 +475,25 @@ SS3</h1>
 }
 
 </style>
-<div id="salidas-ss3"
-class="section level2 tabset tabset-fade tabset-pills">
+<div id="salidas-ss3" class="section level2 tabset tabset-fade tabset-pills">
 <h2 class="tabset tabset-fade tabset-pills">SALIDAS SS3</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>exe_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_path,<span class="st">&quot;ss.exe&quot;</span>,<span class="at">sep=</span> <span class="st">&quot;/&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec =</span> mod_path, <span class="at">model =</span> exe_path, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">skipfinished =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>exe_path &lt;-<span class="st"> </span><span class="kw">paste</span>(mod_path,<span class="st">&quot;ss.exe&quot;</span>,<span class="dt">sep=</span> <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>r4ss<span class="op">::</span><span class="kw">run_SS_models</span>(<span class="dt">dirvec =</span> mod_path, <span class="dt">model =</span> exe_path, </span>
+<span id="cb1-3"><a href="#cb1-3"></a>                    <span class="dt">skipfinished =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <div id="biología" class="section level3">
 <h3>Biología</h3>
-<p>Estos gráficos corresponden a las salidas de curva de crecimiento,
-peso medios, madurez y desove.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>))</span></code></pre></div>
+<p>Estos gráficos corresponden a las salidas de curva de crecimiento, peso medios, madurez y desove.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="dt">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">SSplotBiology</span>(replist, <span class="dt">subplot =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>))</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>parbio1<span class="ot">&lt;-</span>replist<span class="sc">$</span>estimated_non_dev_parameters</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(parbio1, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Estimated non dev parameters&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
-<div
-style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>parbio1&lt;-replist<span class="op">$</span>estimated_non_dev_parameters</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">kbl</span>(parbio1, <span class="dt">booktabs =</span> T,<span class="dt">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="dt">caption =</span> <span class="st">&quot;Estimated non dev parameters&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">    </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="dt">full_width =</span> <span class="ot">FALSE</span>,<span class="dt">font_size=</span><span class="dv">12</span>)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">    </span><span class="kw">scroll_box</span>(<span class="dt">width=</span><span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Estimated non dev parameters
@@ -1171,49 +1163,47 @@ OK
 </tbody>
 </table>
 </div>
-<p>La distribución de talla a la edad o la edad observada a al edad real
-se representa como un histograma. Los valores son de las secciones de
-Report.sso llamadas AGE_LENGTH-KEY y AGE_AGE_KEY.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotAgeMatrix</span>(replist)</span></code></pre></div>
+<p>La distribución de talla a la edad o la edad observada a al edad real se representa como un histograma. Los valores son de las secciones de Report.sso llamadas AGE_LENGTH-KEY y AGE_AGE_KEY.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">plot.cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">SSplotAgeMatrix</span>(replist)</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-8-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selectividad" class="section level3">
 <h3>Selectividad</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">SSplotSelex</span>(replist,<span class="dt">subplot =</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-9-1.png" width="528" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">SSplotSelex</span>(replist,<span class="dt">subplot =</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-10-1.png" width="528" style="display: block; margin: auto;" /><img src="R4SS_files/figure-html/unnamed-chunk-10-2.png" width="528" style="display: block; margin: auto;" /></p>
 </div>
 <div id="series-de-tiempo" class="section level3">
 <h3>Series de tiempo</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">3</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">4</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">6</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">7</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">9</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">10</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">11</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">plot.cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">3</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">4</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">6</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">7</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">9</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">10</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="kw">SSplotTimeseries</span>(replist,<span class="dt">subplot =</span><span class="dv">11</span>)</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-11-1.png" width="816" style="display: block; margin: auto;" /></p>
 </div>
 <div id="capturas" class="section level3">
 <h3>Capturas</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotCatch</span>(replist, <span class="at">subplots =</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">9</span>, <span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">SSplotCatch</span>(replist, <span class="dt">subplots =</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">9</span>, <span class="dv">10</span>))</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /><img src="R4SS_files/figure-html/unnamed-chunk-12-2.png" width="624" style="display: block; margin: auto;" /><img src="R4SS_files/figure-html/unnamed-chunk-12-3.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="índices" class="section level3">
 <h3>Índices</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotIndices</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">plot.cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">SSplotIndices</span>(replist, <span class="dt">subplots =</span> <span class="kw">c</span>(<span class="dv">9</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /></p>
 </div>
 <div id="datos" class="section level3">
 <h3>Datos</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotData</span>(replist, <span class="at">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">SSplotData</span>(replist, <span class="dt">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="R4SS_files/figure-html/unnamed-chunk-14-1.png" alt="Datos de entrada al modelo" width="624" />
 <p class="caption">
@@ -1223,8 +1213,8 @@ Datos de entrada al modelo
 </div>
 <div id="relación-stock-recluta" class="section level3">
 <h3>Relación stock-recluta</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSpawnrecruit</span>(replist,<span class="at">subplot =</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">legend =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">plot.cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">SSplotSpawnrecruit</span>(replist,<span class="dt">subplot =</span><span class="dv">2</span><span class="op">:</span><span class="dv">3</span>,<span class="dt">legend =</span> T)</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-15-1.png" width="816" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1266,15 +1256,12 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
+  window.initializeCodeFolding("show" === "show");
 });
 </script>
 
 <script>
 $(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
