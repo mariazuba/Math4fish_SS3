@@ -1,21 +1,25 @@
 ---
-title: "INICIO"
+title: ""
 ---
 
 
+```{css,echo=FALSE}
 
-```{r echo=F}
+/*----------LOGO above TOC---------*/
 
-htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),
-               alt='logo',
-               title='logo',
-               style='position:absolute;
-               margin-top:22px;
-               margin-left: 4%; 
-               width:125px;
-               height:36px')
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 
 ```
+
 
 &nbsp;
 &nbsp;

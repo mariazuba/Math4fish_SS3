@@ -16,6 +16,25 @@ Carvalho, F., Winker, H., Courtney, D., Kapur, M., Kell, L., Cardinale, M., Schi
             }
 ```
 
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
 ```{r echo=F, message=F,warning=F,}
 
 library(reshape2)
@@ -40,9 +59,9 @@ knitr::opts_chunk$set(echo=T, warning=F, message=F)
 
 ```
 
-```{r echo=F}
+```{r echo=F,eval=F}
 
-htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),alt='logo',style='position:absolute; top:0; right:-25%; padding:10px; width:250px; height:250px,z-index:200;')
+htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),alt='logo',style='top:0; right:-25%; padding:10px; width:250px; height:250px,z-index:200;')
 
 ```
 

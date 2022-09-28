@@ -28,3 +28,5 @@ output:
     smooth-scroll: true
     minimal: true
     page-layout: full
+    includes:
+      before_body: logo-option.html
