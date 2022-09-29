@@ -13,8 +13,8 @@
 
 <title>Diagnóstico de modelos SS3</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -34,7 +34,6 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -44,6 +43,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -58,6 +58,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -175,6 +176,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -403,7 +407,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -436,7 +440,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -450,9 +454,15 @@ div.tocify {
 </div>
 
 
-<p><a href="https://github.com/jabbamodel/ss3diags">github ss3diags</a> y <a href="https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf">guía</a></p>
+<p><a href="https://github.com/jabbamodel/ss3diags">github ss3diags</a>
+y <a
+href="https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf">guía</a></p>
 <p>Referencia:</p>
-<p>Carvalho, F., Winker, H., Courtney, D., Kapur, M., Kell, L., Cardinale, M., Schirripag, M., Kitakado, T., Yemane, D., Piner, K.R., Maunder, M.N., Taylor, I., Wetzel, C.R., Doering, K., Johnsonm, K.F., Methot, R.D., in press. A Cookbook for Using Model Diagnostics in Integrated Stock Assessments. Fisheries Research.</p>
+<p>Carvalho, F., Winker, H., Courtney, D., Kapur, M., Kell, L.,
+Cardinale, M., Schirripag, M., Kitakado, T., Yemane, D., Piner, K.R.,
+Maunder, M.N., Taylor, I., Wetzel, C.R., Doering, K., Johnsonm, K.F.,
+Methot, R.D., in press. A Cookbook for Using Model Diagnostics in
+Integrated Stock Assessments. Fisheries Research.</p>
 <style type="text/css">
 .scroll-200{
             max-height: 200px; 
@@ -476,19 +486,34 @@ div.tocify {
 }
 
 </style>
-<div id="section" class="section level2 tabset tabset-fade tabset-pills">
+<div id="section"
+class="section level2 tabset tabset-fade tabset-pills">
 <h2 class="tabset tabset-fade tabset-pills"></h2>
 <div id="ajustes-y-residuales" class="section level3">
 <h3>Ajustes y residuales</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">SSplotComps</span>(replist, <span class="dt">subplots =</span> <span class="kw">c</span>(<span class="dv">21</span>,<span class="dv">24</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">24</span>))</span></code></pre></div>
 <p><img src="SS3diags_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /><img src="SS3diags_files/figure-html/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">SSplotComps</span>(replist, <span class="dt">subplots =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="SS3diags_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-2.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-3.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-4.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
 </div>
 <div id="análisis-retrospectivo" class="section level3">
 <h3>Análisis retrospectivo</h3>
-<p>Un análisis retrospectivo elimina una cierta cantidad de años de los datos del modelo y vuelve a calcular el ajuste. Por lo general, esto se hace varias veces y los resultados se utilizan para buscar patrones retrospectivos (es decir, desviaciones no aleatorias en los parámetros estimados o cantidades derivadas a medida que se eliminan años de datos). Si los resultados del modelo cambian de manera drástica y no aleatoria a medida que se eliminan los datos, el soporte para el modelo es menor. Para obtener más información sobre la teoría y los detalles detrás de los análisis retrospectivos, consulte <strong>Hurtado-Ferro et al. 2015</strong> y <strong>Legault 2020</strong>.</p>
-<p>La función retro() se puede utilizar para ejecutar análisis retrospectivos a partir de un modelo de Stock Synthesis existente. Tenga en cuenta que es más seguro crear una copia de su modelo original de Stock Synthesis en el que se ejecuta la retrospectiva, en caso de que haya problemas con la ejecución. Por ejemplo, se podría hacer una retrospectiva de cinco años:</p>
+<p>Un análisis retrospectivo elimina una cierta cantidad de años de los
+datos del modelo y vuelve a calcular el ajuste. Por lo general, esto se
+hace varias veces y los resultados se utilizan para buscar patrones
+retrospectivos (es decir, desviaciones no aleatorias en los parámetros
+estimados o cantidades derivadas a medida que se eliminan años de
+datos). Si los resultados del modelo cambian de manera drástica y no
+aleatoria a medida que se eliminan los datos, el soporte para el modelo
+es menor. Para obtener más información sobre la teoría y los detalles
+detrás de los análisis retrospectivos, consulte <strong>Hurtado-Ferro et
+al. 2015</strong> y <strong>Legault 2020</strong>.</p>
+<p>La función retro() se puede utilizar para ejecutar análisis
+retrospectivos a partir de un modelo de Stock Synthesis existente. Tenga
+en cuenta que es más seguro crear una copia de su modelo original de
+Stock Synthesis en el que se ejecuta la retrospectiva, en caso de que
+haya problemas con la ejecución. Por ejemplo, se podría hacer una
+retrospectiva de cinco años:</p>
 <ul>
 <li>Paso 1: Identificar el período retrospectivo</li>
 <li>Paso 2: Identifique el directorio base</li>
@@ -498,47 +523,47 @@ div.tocify {
 <li>Paso 6: corre el retrospective</li>
 <li>Paso 7: Lea la salida de SS_doRetro()</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">setwd</span>(mod_path)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#------------</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># paso 1</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#------------</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>start.retro &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># end year of reference year</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>end.retro &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># number of years for retrospective e.g.,</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#------------</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># paso 2</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#------------</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a>dirname.base =<span class="st"> </span><span class="kw">getwd</span>()</span>
-<span id="cb3-13"><a href="#cb3-13"></a>run =<span class="st"> &quot;Reference_Run&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>model.run &lt;-<span class="st"> </span><span class="kw">file.path</span>(dirname.base, run)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>retro.phk &lt;-<span class="st"> </span>r4ss<span class="op">::</span><span class="kw">SSgetoutput</span>(<span class="dt">dirvec =</span> <span class="kw">file.path</span>(model.run, <span class="kw">paste0</span>(<span class="st">&quot;retro&quot;</span>, start.retro<span class="op">:-</span>end.retro)))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(mod_path)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># paso 1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>start.retro <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># end year of reference year</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>end.retro <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># number of years for retrospective e.g.,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># paso 2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>dirname.base <span class="ot">=</span> <span class="fu">getwd</span>()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>run <span class="ot">=</span> <span class="st">&quot;Reference_Run&quot;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>model.run <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirname.base, run)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>retro.phk <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec =</span> <span class="fu">file.path</span>(model.run, <span class="fu">paste0</span>(<span class="st">&quot;retro&quot;</span>, start.retro<span class="sc">:-</span>end.retro)))</span></code></pre></div>
 <pre><code>## length(dirvec) as input to SSgetoutput: 5 
-## reading output from /Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro0/Report.sso 
+## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro0/Report.sso 
 ## added element &#39;replist1&#39; to list
-## reading output from /Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-1/Report.sso 
+## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-1/Report.sso 
 ## added element &#39;replist2&#39; to list
-## reading output from /Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-2/Report.sso 
+## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-2/Report.sso 
 ## added element &#39;replist3&#39; to list
-## reading output from /Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-3/Report.sso 
+## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-3/Report.sso 
 ## added element &#39;replist4&#39; to list
-## reading output from /Users/mariajosezunigabasualto/MJZ/IEO-Cadiz/Proyecto/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-4/Report.sso 
+## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-4/Report.sso 
 ## added element &#39;replist5&#39; to list</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># It is often useful to save the retro model runs as .rdata file for further processing with ss3diags, considering that reading the models with r4ss::SSgetoutput() can be quite time-consuming for more complex models.</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">save</span>(retro.phk, <span class="dt">file =</span> <span class="kw">file.path</span>(model.run, <span class="st">&quot;retro.phk.rdata&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>check.retro =<span class="st"> </span>r4ss<span class="op">::</span><span class="kw">SSsummarize</span>(retro.phk)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">plot.cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">SSplotRetro</span>(check.retro, <span class="dt">add =</span> T, <span class="dt">forecast =</span> T, <span class="dt">legend =</span> F, <span class="dt">verbose =</span> F, <span class="dt">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is often useful to save the retro model runs as .rdata file for further processing with ss3diags, considering that reading the models with r4ss::SSgetoutput() can be quite time-consuming for more complex models.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(retro.phk, <span class="at">file =</span> <span class="fu">file.path</span>(model.run, <span class="st">&quot;retro.phk.rdata&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>check.retro <span class="ot">=</span> r4ss<span class="sc">::</span><span class="fu">SSsummarize</span>(retro.phk)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">forecast =</span> T, <span class="at">legend =</span> F, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
 <pre><code>##   type     peel           Rho ForecastRho
 ## 1  SSB     2020  0.3244892270   1.0452230
 ## 2  SSB     2019 -0.0009997573   0.5352011
 ## 3  SSB     2018  0.0285438816  -0.2089978
 ## 4  SSB     2017 -0.5841734340  -0.5442693
 ## 5  SSB Combined -0.0580350207   0.2067893</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">SSplotRetro</span>(check.retro, <span class="dt">add =</span> T, <span class="dt">subplots =</span> <span class="st">&quot;F&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">3.5</span>), <span class="dt">forecast =</span> T,</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="dt">legendloc =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">legendcex =</span> <span class="fl">0.8</span>, <span class="dt">verbose =</span> F, <span class="dt">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">subplots =</span> <span class="st">&quot;F&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">3.5</span>), <span class="at">forecast =</span> T,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">legendloc =</span> <span class="st">&quot;topleft&quot;</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
 <p><img src="SS3diags_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre><code>##   type     peel          Rho   ForecastRho
 ## 1    F     2020 -0.120514087 -0.3353472742
@@ -549,35 +574,47 @@ div.tocify {
 </div>
 <div id="análisis-de-residuos" class="section level3">
 <h3>Análisis de residuos</h3>
-<p>Estas Figuras corresponden a un test de ajustes de los índices y composiciones de tallas. El sombreado verde indica que no hay evidencia (p = 0,05) y el sombreado rojo evidencia (p &lt; 0,05) para rechazar la hipótesis de una serie temporal de residuos distribuida aleatoriamente, respectivamente.</p>
-<p>El área sombreada (verde/roja) abarca tres desviaciones estándar residuales a ambos lados de cero, y los puntos rojos fuera del sombreado violan el “límite de tres sigma” para esa serie.</p>
-<p>Ejecuta el gráfico de prueba y el gráfico de residuos conjuntos para ajustes a los índices de CPUE, donde las líneas verticales con puntos muestran los residuos y las líneas negras sólidas muestran loess más suave en todos los residuos. Los diagramas de caja indican la mediana y cuantiles en los casos en que los residuos de los índices múltiples estén disponibles para un año determinado.</p>
-<p>Los errores cuadráticos medios (RMSE) se incluyen en la esquina superior derecha de cada gráfico.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>r4ss<span class="op">::</span><span class="kw">sspar</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">SSplotRunstest</span>(replist, <span class="dt">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>,<span class="dt">legendcex =</span> <span class="fl">0.8</span>, <span class="dt">verbose =</span> F)</span></code></pre></div>
+<p>Estas Figuras corresponden a un test de ajustes de los índices y
+composiciones de tallas. El sombreado verde indica que no hay evidencia
+(p = 0,05) y el sombreado rojo evidencia (p &lt; 0,05) para rechazar la
+hipótesis de una serie temporal de residuos distribuida aleatoriamente,
+respectivamente.</p>
+<p>El área sombreada (verde/roja) abarca tres desviaciones estándar
+residuales a ambos lados de cero, y los puntos rojos fuera del sombreado
+violan el “límite de tres sigma” para esa serie.</p>
+<p>Ejecuta el gráfico de prueba y el gráfico de residuos conjuntos para
+ajustes a los índices de CPUE, donde las líneas verticales con puntos
+muestran los residuos y las líneas negras sólidas muestran loess más
+suave en todos los residuos. Los diagramas de caja indican la mediana y
+cuantiles en los casos en que los residuos de los índices múltiples
+estén disponibles para un año determinado.</p>
+<p>Los errores cuadráticos medios (RMSE) se incluyen en la esquina
+superior derecha de cada gráfico.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F)</span></code></pre></div>
 <pre><code>##      Index runs.p   test  sigma3.lo sigma3.hi type
 ## 1   PELAGO  0.767 Passed -0.6250597 0.6250597 cpue
 ## 2 ECOCADIZ  0.556 Passed -1.3652589 1.3652589 cpue</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">SSplotJABBAres</span>(replist, <span class="dt">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>,<span class="dt">legendcex =</span> <span class="fl">0.8</span>, <span class="dt">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="dt">verbose =</span> F)</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 3
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="at">verbose =</span> F)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
 ##   Fleet    RMSE.perc  Nobs
 ##   &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;
 ## 1 ECOCADIZ      48.7    13
 ## 2 PELAGO        37.8    16
 ## 3 Combined      43.1    29</code></pre>
 <p><img src="SS3diags_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>r4ss<span class="op">::</span><span class="kw">sspar</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">plot.cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="kw">SSplotRunstest</span>(replist, <span class="dt">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> F,<span class="dt">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">plot.cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## Warning: combining data from multiple seasons</code></pre>
 <pre><code>##      Index runs.p   test  sigma3.lo sigma3.hi type
 ## 1  Fishery  0.000 Failed -0.2146313 0.2146313  len
 ## 2   PELAGO  0.455 Passed -0.2303625 0.2303625  len
 ## 3 ECOCADIZ  0.691 Passed -0.1391272 0.1391272  len</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">SSplotJABBAres</span>(replist, <span class="dt">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="dt">verbose =</span> F,<span class="dt">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## Warning: combining data from multiple seasons</code></pre>
 <p><img src="SS3diags_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<pre><code>## # A tibble: 4 x 3
+<pre><code>## # A tibble: 4 × 3
 ##   Fleet    RMSE.perc  Nobs
 ##   &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;
 ## 1 ECOCADIZ       7.5    10
@@ -630,6 +667,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -27,6 +27,12 @@ title: ""
 &nbsp;
 
 
+
+# Ejemplos SS3
+
+
+Descargar la carpeta  **model_files** del repositorio [Math4fish_SS3](https://github.com/mariazuba/Math4fish_SS3/) para trabajar en esta guía. Estos ejemplos también los pueden encontrar en el siguiente link: [nmfs-stock-synthesis](https://github.com/nmfs-stock-synthesis/user-examples).
+
 # Archivos ejecutables SS3
 
 https://github.com/nmfs-stock-synthesis/stock-synthesis/releases
@@ -34,27 +40,18 @@ https://github.com/nmfs-stock-synthesis/stock-synthesis/releases
 &nbsp;
 &nbsp;
 
-# Ejemplos SS3
 
-En esta guía se utilizan los ejemplos de Stock Synthesis publicados en el siguiente link: 
-- [Github con ejemplos de SS3](https://github.com/nmfs-stock-synthesis/user-examples)
 
-# Manuales de usuarios 
-
-- [guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) 
-- [guía de library SS3diags](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
-
-&nbsp;
-&nbsp;
 
 # Instalación de librerías de R
 
+En esta guía trabajaremos con las librarías [r4ss](https://github.com/r4ss/r4ss) y [ss3diags](https://github.com/jabbamodel/ss3diags). No obstante, también puedes encontrar otras librarías de utilidad para trabajar con SS3 en el [repositorio de github de topicos relacionadas a SS3](https://github.com/topics/stock-synthesis).
 &nbsp;
 &nbsp;
 
-## Librería R4SS
+## Librería r4ss
 
-El paquete se puede ejecutar en OS X, Windows o Linux. La versión CRAN de r4ss no se actualiza regularmente y, por lo tanto, es probable que esté desactualizada. En su lugar, se recomienda instalar desde GitHub:
+Esta librería permite generar gráficos y funciones para trabajar con SS3 en R. Se puede ejecutar en OS X, Windows o Linux. La versión CRAN de r4ss no se actualiza regularmente y, por lo tanto, es probable que esté desactualizada. En su lugar, se recomienda instalar desde GitHub:
 
 ```{r eval=F}
 
@@ -64,6 +61,7 @@ remotes::install_github("r4ss/r4ss")
 ```
 
 A continuación puede cargar el paquete con:
+
 ```{r eval=F}
 
 library("r4ss")
@@ -79,18 +77,49 @@ help(package = "r4ss")
 
 ```
 
-El repositorio de esta librería la puede encontrar en el siguiente link:
-- [github r4ss](https://github.com/r4ss/r4ss)
+&nbsp;
+&nbsp;
+
+## Librería ss3diags
+
+Esta librería permite ejecutar diagnósticos avanzados para los modelos de Stock Synthesis. Los diagnósticos incluyen análisis residuales, retrospectiva y técnicas de validación cruzada, y análisis retrospectivos.
+
+La instalación de ss3diags requiere la library(devtools), el cual puede ser instalado de la siguiente forma 'install.packages('devtools')' y una versión de R >=3.5. 
+
+```{r eval=F}
+
+installed.packages("devtools")
+
+```
+
+ Luego se instala ss3diags desde github con el siguiente comando:
+ 
+```{r eval=F}
+
+devtools::install_github("JABBAmodel/ss3diags")
+
+```
+ 
+A continuación puede cargar el paquete con:
+
+```{r eval=F}
+
+library("ss3diags")
+
+```
 
 &nbsp;
 &nbsp;
 
-## Librería SS3diags
+# Manuales de usuarios 
 
-- [github ss3diags](https://github.com/jabbamodel/ss3diags)
+- [Guía de usuario SS3 versión 3.30.19](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html)
+- [Guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) 
+- [Guía de library ss3diags](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
 
 &nbsp;
 &nbsp;
+
 
 # Referencias
 
@@ -103,4 +132,4 @@ Methot, R. D., Jr., C. R. Wetzel, I. G. Taylor, and K. Doering. 2020. Stock Synt
 Ian G. Taylor, Kathryn L. Doering, Kelli F. Johnson, Chantel R. Wetzel, Ian J. Stewart, 2021. Beyond visualizing catch-at-age models: Lessons learned from the r4ss package about software to support stock assessments, Fisheries Research, 239:105924. https://doi.org/10.1016/j.fishres.2021.105924.
 
 
-
+Carvalho, F., Winker, H., Courtney, D., Kapur, M., Kell, L., Cardinale, M., Schirripag, M., Kitakado, T., Yemane, D., Piner, K.R., Maunder, M.N., Taylor, I., Wetzel, C.R., Doering, K., Johnsonm, K.F., Methot, R.D., in press. A Cookbook for Using Model Diagnostics in Integrated Stock Assessments. Fisheries Research.

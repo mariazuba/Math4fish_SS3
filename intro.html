@@ -13,8 +13,8 @@
 
 <title>intro.knit</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -34,7 +34,6 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -44,6 +43,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -58,6 +58,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -175,6 +176,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -403,7 +407,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -436,7 +440,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -466,53 +470,101 @@ div.tocify {
 
 </style>
 <p>   </p>
-<div id="archivos-ejecutables-ss3" class="section level1">
-<h1>Archivos ejecutables SS3</h1>
-<p><a href="https://github.com/nmfs-stock-synthesis/stock-synthesis/releases" class="uri">https://github.com/nmfs-stock-synthesis/stock-synthesis/releases</a></p>
-<p>   </p>
-</div>
 <div id="ejemplos-ss3" class="section level1">
 <h1>Ejemplos SS3</h1>
-<p>En esta guía se utilizan los ejemplos de Stock Synthesis publicados en el siguiente link: - <a href="https://github.com/nmfs-stock-synthesis/user-examples">Github con ejemplos de SS3</a></p>
+<p>Descargar la carpeta <strong>model_files</strong> del repositorio <a
+href="https://github.com/mariazuba/Math4fish_SS3/">Math4fish_SS3</a>
+para trabajar en esta guía. Estos ejemplos también los pueden encontrar
+en el siguiente link: <a
+href="https://github.com/nmfs-stock-synthesis/user-examples">nmfs-stock-synthesis</a>.</p>
 </div>
-<div id="manuales-de-usuarios" class="section level1">
-<h1>Manuales de usuarios</h1>
-<ul>
-<li><a href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">guía de library r4ss</a></li>
-<li><a href="https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf">guía de library SS3diags</a></li>
-</ul>
+<div id="archivos-ejecutables-ss3" class="section level1">
+<h1>Archivos ejecutables SS3</h1>
+<p><a
+href="https://github.com/nmfs-stock-synthesis/stock-synthesis/releases"
+class="uri">https://github.com/nmfs-stock-synthesis/stock-synthesis/releases</a></p>
 <p>   </p>
 </div>
 <div id="instalación-de-librerías-de-r" class="section level1">
 <h1>Instalación de librerías de R</h1>
-<p>   </p>
+<p>En esta guía trabajaremos con las librarías <a
+href="https://github.com/r4ss/r4ss">r4ss</a> y <a
+href="https://github.com/jabbamodel/ss3diags">ss3diags</a>. No obstante,
+también puedes encontrar otras librarías de utilidad para trabajar con
+SS3 en el <a
+href="https://github.com/topics/stock-synthesis">repositorio de github
+de topicos relacionadas a SS3</a>.    </p>
 <div id="librería-r4ss" class="section level2">
-<h2>Librería R4SS</h2>
-<p>El paquete se puede ejecutar en OS X, Windows o Linux. La versión CRAN de r4ss no se actualiza regularmente y, por lo tanto, es probable que esté desactualizada. En su lugar, se recomienda instalar desde GitHub:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages(&quot;remotes&quot;) # if needed</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;r4ss/r4ss&quot;</span>)</span></code></pre></div>
+<h2>Librería r4ss</h2>
+<p>Esta librería permite generar gráficos y funciones para trabajar con
+SS3 en R. Se puede ejecutar en OS X, Windows o Linux. La versión CRAN de
+r4ss no se actualiza regularmente y, por lo tanto, es probable que esté
+desactualizada. En su lugar, se recomienda instalar desde GitHub:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;) # if needed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;r4ss/r4ss&quot;</span>)</span></code></pre></div>
 <p>A continuación puede cargar el paquete con:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(<span class="st">&quot;r4ss&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;r4ss&quot;</span>)</span></code></pre></div>
 <p>Y leer los archivos de ayuda con:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>?r4ss</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;r4ss&quot;</span>)</span></code></pre></div>
-<p>El repositorio de esta librería la puede encontrar en el siguiente link: - <a href="https://github.com/r4ss/r4ss">github r4ss</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>?r4ss</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="at">package =</span> <span class="st">&quot;r4ss&quot;</span>)</span></code></pre></div>
 <p>   </p>
 </div>
 <div id="librería-ss3diags" class="section level2">
-<h2>Librería SS3diags</h2>
-<ul>
-<li><a href="https://github.com/jabbamodel/ss3diags">github ss3diags</a></li>
-</ul>
+<h2>Librería ss3diags</h2>
+<p>Esta librería permite ejecutar diagnósticos avanzados para los
+modelos de Stock Synthesis. Los diagnósticos incluyen análisis
+residuales, retrospectiva y técnicas de validación cruzada, y análisis
+retrospectivos.</p>
+<p>La instalación de ss3diags requiere la library(devtools), el cual
+puede ser instalado de la siguiente forma ‘install.packages(’devtools’)’
+y una versión de R &gt;=3.5.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">installed.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span></code></pre></div>
+<p>Luego se instala ss3diags desde github con el siguiente comando:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;JABBAmodel/ss3diags&quot;</span>)</span></code></pre></div>
+<p>A continuación puede cargar el paquete con:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ss3diags&quot;</span>)</span></code></pre></div>
 <p>   </p>
 </div>
+</div>
+<div id="manuales-de-usuarios" class="section level1">
+<h1>Manuales de usuarios</h1>
+<ul>
+<li><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html">Guía
+de usuario SS3 versión 3.30.19</a></li>
+<li><a
+href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">Guía
+de library r4ss</a></li>
+<li><a
+href="https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf">Guía
+de library ss3diags</a></li>
+</ul>
+<p>   </p>
 </div>
 <div id="referencias" class="section level1">
 <h1>Referencias</h1>
 <p>(pasar referencias a formato BibTex)</p>
-<p>Methot, R.D. and Wetzel, C.R. (2013). Stock Synthesis: A biological and statistical framework for fish stock assessment and fishery management. Fisheries Research, 142: 86-99. <a href="https://doi.org/10.1016/j.fishres.2012.10.012" class="uri">https://doi.org/10.1016/j.fishres.2012.10.012</a></p>
-<p>Methot, R. D., Jr., C. R. Wetzel, I. G. Taylor, and K. Doering. 2020. Stock Synthesis User Manual Version 3.30.15. U.S. Department of Commerce, NOAA Processed Report NMFS-NWFSC-PR-2020-05. <a href="https://doi.org/10.25923/5wpn-qt71" class="uri">https://doi.org/10.25923/5wpn-qt71</a></p>
-<p>Ian G. Taylor, Kathryn L. Doering, Kelli F. Johnson, Chantel R. Wetzel, Ian J. Stewart, 2021. Beyond visualizing catch-at-age models: Lessons learned from the r4ss package about software to support stock assessments, Fisheries Research, 239:105924. <a href="https://doi.org/10.1016/j.fishres.2021.105924" class="uri">https://doi.org/10.1016/j.fishres.2021.105924</a>.</p>
+<p>Methot, R.D. and Wetzel, C.R. (2013). Stock Synthesis: A biological
+and statistical framework for fish stock assessment and fishery
+management. Fisheries Research, 142: 86-99. <a
+href="https://doi.org/10.1016/j.fishres.2012.10.012"
+class="uri">https://doi.org/10.1016/j.fishres.2012.10.012</a></p>
+<p>Methot, R. D., Jr., C. R. Wetzel, I. G. Taylor, and K. Doering. 2020.
+Stock Synthesis User Manual Version 3.30.15. U.S. Department of
+Commerce, NOAA Processed Report NMFS-NWFSC-PR-2020-05. <a
+href="https://doi.org/10.25923/5wpn-qt71"
+class="uri">https://doi.org/10.25923/5wpn-qt71</a></p>
+<p>Ian G. Taylor, Kathryn L. Doering, Kelli F. Johnson, Chantel R.
+Wetzel, Ian J. Stewart, 2021. Beyond visualizing catch-at-age models:
+Lessons learned from the r4ss package about software to support stock
+assessments, Fisheries Research, 239:105924. <a
+href="https://doi.org/10.1016/j.fishres.2021.105924"
+class="uri">https://doi.org/10.1016/j.fishres.2021.105924</a>.</p>
+<p>Carvalho, F., Winker, H., Courtney, D., Kapur, M., Kell, L.,
+Cardinale, M., Schirripag, M., Kitakado, T., Yemane, D., Piner, K.R.,
+Maunder, M.N., Taylor, I., Wetzel, C.R., Doering, K., Johnsonm, K.F.,
+Methot, R.D., in press. A Cookbook for Using Model Diagnostics in
+Integrated Stock Assessments. Fisheries Research.</p>
 </div>
 
 
@@ -558,6 +610,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
