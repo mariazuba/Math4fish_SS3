@@ -4,11 +4,11 @@ navbar:
   left:
     - text: "Requisitos"
       href: intro.html
-    - text: "Datos"
+    - text: "Archivos de Datos"
       href: Datos.html
-    - text: "R4SS"
+    - text: "Visualización"
       href: R4SS.html
-    - text: "SS3diags"
+    - text: "Diagnóstico"
       href: SS3diags.html
 output_dir: "."
 output: 

@@ -62,7 +62,9 @@ Los archivos de datos necesarios para que SS3 funcione son los siguientes:
 3.  **control.ss**: archivo que contiene la configuración de los parámetros
 4.  **forecast.ss**: archivo que contiene especificaciones para puntos de referencia y proyecciones
 
-Cuando el programa se inicia por primera vez, lee el archivo starter.ss, que normalmente debe estar ubicado en el mismo directorio desde el que se ejecuta SS3. 
+Cuando el programa se inicia por primera vez, lee el archivo starter.ss, que normalmente debe estar ubicado en el mismo directorio desde el que se ejecuta SS3 (**ss.exe**). 
+
+Los archivos de datos se pueden leer como objetos de lista en R usando las funciones SS_read*(). Los componentes de la lista deben estar en el mismo orden en que aparecen en el archivo de texto. Puede usar la función names() para ver todos los componentes de la lista.
 
 &nbsp;
 &nbsp;
@@ -72,9 +74,10 @@ Cuando el programa se inicia por primera vez, lee el archivo starter.ss, que nor
 SS3 comienza leyendo el archivo starter.ss, el cual contiene los nombres de los archivos de datos y control, además de otros controles de ejecución. Los nombres de los archivos de control.ss y data.ss deben coincidir con los nombres especificados en el archivo starter.ss. En esta sección se especifican los ajustes a los parámetros iniciales, summary y convergencia del modelo. [Consulte la Guía de usuario de SS3](intro.html), Sección 5 "Starter File Syntax".
 
 
-[Descarga archivo starter](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss)
+Podemos ver el contenido del archivo  usando la función "SS_readstarter" de r4ss. En este link puedes [Descargar archivo starter](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss) y guardarlo en tu directorio de trabajo.
 
-```{r echo=F, message=F,warning=F}
+
+```{r echo=T, message=F,warning=F}
 
 start <- r4ss::SS_readstarter(file = file.path(mod_path, "starter.ss"),
                               verbose = FALSE)
@@ -93,13 +96,17 @@ caption = "Contenido de archivo starter") %>%
 
 A continuación se describe como ingresar las especificaciones del modelo, definición de flotas/campañas y los datos de capturas, índices, descarte, composiciones de tallas y edades, entre otros.
 
-[Descarga archivo data](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss)
+Podemos leer el archivo  usando la función "SS_readdat" de r4ss y ver los componentes de la lista con la función names(). En este link puedes [Descargar archivo data](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss) y guardarlo en tu directorio de trabajo.
 
 
 ```{r message=F,warning=F,class.output="scroll-200"}
 
+# lee archivo data.ss
+
 dat <- r4ss::SS_readdat(file = file.path(mod_path, start$datfile),
                         verbose = FALSE)
+
+# Genera Tabla de los componentes del objeto "dat". 
 
 kbl(data.frame(names_data=names(dat)), booktabs = T,position="h!") %>% 
   kable_styling("striped",full_width=F,font_size=12)%>% 
@@ -112,12 +119,14 @@ kbl(data.frame(names_data=names(dat)), booktabs = T,position="h!") %>%
 
 ### Dimensiones
 
-En esta sección se especifican el número de años, meses/temporadas de las observaciones, número de edades, sexos, áreas, número de flotas y campañas, entre otras. Consulte el Manual de usuario de SS3: Sección 9.4 "Model Dimensions". 
+En esta sección se especifican el número de años, meses/temporadas de las observaciones, número de edades, sexos, áreas, número de flotas y campañas, entre otras.[Consulte la Guía de usuario de SS3: Sección 7.5 "Model Dimensions"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#model-dimensions).
 
 ```{r echo=F, message=F,warning=F}
 esp<-data.frame(dat$styr,dat$endyr,dat$nseas,dat$months_per_seas[1],
                 dat$Nsubseasons,dat$spawn_month,dat$Ngenders,dat$Nsexes,
                 dat$Nages,dat$N_areas,dat$Nfleets)
+
+# Genera Tabla
 
 kbl(t(esp), booktabs = T,position="h!",
 caption = "Especificaciones de los datos") %>% 
