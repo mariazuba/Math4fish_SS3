@@ -460,6 +460,8 @@ div.tocify {
 <div id="archivos-requeridos" class="section level1">
 <h1>Archivos requeridos</h1>
 <style type="text/css">
+
+/*----------scroll para tablas---------*/
 .scroll-200{
             max-height: 200px; 
             overflow-y: auto; 
@@ -1157,9 +1159,18 @@ lbin_vector_pop
 <h3>Dimensiones</h3>
 <p>En esta sección se especifican el número de años, meses/temporadas de
 las observaciones, número de edades, sexos, áreas, número de flotas y
-campañas, entre otras.<a
+campañas, entre otras. <a
 href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#model-dimensions">Consulte
 la Guía de usuario de SS3: Sección 7.5 “Model Dimensions”</a>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>esp<span class="ot">&lt;-</span><span class="fu">data.frame</span>(dat<span class="sc">$</span>styr,dat<span class="sc">$</span>endyr,dat<span class="sc">$</span>nseas,dat<span class="sc">$</span>months_per_seas[<span class="dv">1</span>],</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                dat<span class="sc">$</span>Nsubseasons,dat<span class="sc">$</span>spawn_month,dat<span class="sc">$</span>Ngenders,dat<span class="sc">$</span>Nsexes,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                dat<span class="sc">$</span>Nages,dat<span class="sc">$</span>N_areas,dat<span class="sc">$</span>Nfleets)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Genera Tabla</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">t</span>(esp), <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Especificaciones de los datos&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificaciones de los datos
@@ -1259,17 +1270,15 @@ dat.Nfleets
 </div>
 <div id="definición-de-flotas-y-campañas" class="section level3">
 <h3>Definición de flotas y campañas</h3>
-<p>En esta sección se especifica el tipo de flota, mes/temporada de la
-observación, areas donde opero la flota/campaña, unidades de medida de
-la observación y una opción para utilizar un multiplicador de la
-captura. <strong>fleet_type:</strong> 1=catch fleet; 2=bycatch only
-fleet;3=survey; 4=predator(M2). <strong>sample_timing:</strong> -1 for
-fishing fleet to use season-long catch-at-age for observations, or 1 to
-use observation month; (always 1 for surveys).
-<strong>fleet_area:</strong> area the fleet/survey operates in.
-<strong>units of catch:</strong> 1=bio; 2=num (ignored for surveys;
-their units read later). <strong>catch_mult:</strong> 0=no; 1=yes.
-<strong>rows are fleets</strong>.</p>
+<p>En esta sección se especifica el tipo de flota (comercial o
+campañas), mes/temporada de la observación, areas donde opero la
+flota/campaña, unidades de medida de la observación y una opción para
+utilizar un multiplicador de la captura. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fleet-definitions">Consulte
+la Guía de usuario de SS3: Sección 7.6 “Fleet Definitions”</a>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(dat<span class="sc">$</span>fleetinfo, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Definición de flotas y campañas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Definición de flotas y campañas
@@ -1367,7 +1376,15 @@ SURVEY2
 flota, valor observado de la captura y coeficiente de variación.
 <strong>Catch data</strong>: yr, seas, fleet, catch, catch_se.
 <strong>catch_se</strong>: standard error of log(catch).
-<strong>NOTE</strong>: catch data is ignored for survey fleets</p>
+<strong>NOTE</strong>: catch data is ignored for survey fleets. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catch">Consulte
+la Guía de usuario de SS3: Sección 7.9 “Catch”</a>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catch<span class="ot">&lt;-</span>dat<span class="sc">$</span>catch </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(catch, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de captura comercial&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1949,13 +1966,17 @@ class="section level3 tabset tabset-fade">
 <p>En las primeras líneas se describen algunas especificaciones de los
 índices, como las unidades de medida y distribución del error, para
 posteriormente ingresar los datos por año, mes, flota y coeficiente de
-variación. <strong>Units</strong>: 0=numbers; 1=biomass; 2=F;
-30=spawnbio; 31=recdev; 32=spawnbio*recdev; 33=recruitment;
-34=depletion(&amp;see Qsetup); 35=parm_dev(&amp;see Qsetup).
-<strong>Errtype</strong>: -1=normal; 0=lognormal; &gt;0=T.
-<strong>SD_Report</strong>: 0=no sdreport; 1=enable sdreport.</p>
+variación. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#indices">Consulte
+la Guía de usuario de SS3: Sección 7.10 “Indices”</a>.</p>
 <div id="especificaciones" class="section level4">
 <h4>Especificaciones</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>CPUEinfo<span class="ot">&lt;-</span>dat<span class="sc">$</span>CPUEinfo <span class="co">#contiene las especificaciones de las campañas</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(CPUEinfo, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Especificaciones de los índices&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificaciones de los índices
@@ -2033,13 +2054,20 @@ SURVEY2
 </tbody>
 </table>
 </div>
-<div id="datos" class="section level4">
-<h4>Datos</h4>
+<div id="formato-de-los-datos" class="section level4">
+<h4>Formato de los Datos</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>CPUE<span class="ot">&lt;-</span>dat<span class="sc">$</span>CPUE <span class="co"># contiene los datos de campañas</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(CPUE, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Formato de los datos&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-Datos de campañas
+Formato de los datos
 </caption>
 <thead>
 <tr>
@@ -2423,20 +2451,33 @@ se_log
 </div>
 <p>   </p>
 </div>
+</div>
 <div id="composiciones-de-tallas"
-class="section level4 tabset tabset-fade">
-<h4 class="tabset tabset-fade">Composiciones de tallas</h4>
+class="section level3 tabset tabset-fade">
+<h3 class="tabset tabset-fade">Composiciones de tallas</h3>
 <p>En esta sección se ingresan los datos de composiciones de tallas por
 año, mes, tipo de flota, sexo y tamaño de muestra, especificando
 previamente el método de agrupamiento (bins) de las tallas, distribución
-de la estructura de error, entre otras especificaciones.</p>
-<div id="flota" class="section level5">
-<h5>Flota</h5>
+de la estructura de error, entre otras especificaciones. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#length-composition-data-structure">Consulte
+la Guía de usuario de SS3: Sección 7.14 “Length Composition Data
+Structure”</a>.</p>
+<div id="fishery" class="section level4">
+<h4>FISHERY</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tallas_a<span class="ot">&lt;-</span>dat<span class="sc">$</span>lencomp  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FltSvy<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas_a, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-Datos de composición de tallas de la Flota
+Datos de composición de tallas
 </caption>
 <thead>
 <tr>
@@ -7885,13 +7926,20 @@ m90
 </table>
 </div>
 </div>
-<div id="pelago" class="section level5">
-<h5>PELAGO</h5>
+<div id="survey-1" class="section level4">
+<h4>SURVEY 1</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tallas2<span class="ot">&lt;-</span>dat<span class="sc">$</span>lencomp  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FltSvy<span class="sc">==</span><span class="dv">2</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas2, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-Datos de composición de tallas de PELAGO
+Datos de composición de tallas
 </caption>
 <thead>
 <tr>
@@ -9600,13 +9648,20 @@ m90
 </table>
 </div>
 </div>
-<div id="ecocadiz" class="section level5">
-<h5>ECOCADIZ</h5>
+<div id="survey-2" class="section level4">
+<h4>SURVEY 2</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tallas3<span class="ot">&lt;-</span>dat<span class="sc">$</span>lencomp  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FltSvy<span class="sc">==</span><span class="dv">3</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas3, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-Datos de composición de tallas de ECOCADIZ
+Datos de composición de tallas
 </caption>
 <thead>
 <tr>
@@ -9788,7 +9843,6 @@ m90
 </div>
 <p> </p>
 <p> </p>
-</div>
 </div>
 </div>
 </div>
@@ -11557,7 +11611,7 @@ SURVEY2
 </tbody>
 </table>
 </div>
-<div id="datos-1" class="section level4">
+<div id="datos" class="section level4">
 <h4>Datos</h4>
 <div
 style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
@@ -12532,86 +12586,86 @@ especificaciones.</p>
 href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/forecast.ss">Descarga
 archivo forecast</a>. Cada línea corresponde a una especificación
 comentada con simbolo #.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#V3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#C generic forecast file</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for all year entries except rebuilder; enter either: actual year, -999 for styr, 0 for endyr, neg number for rel. endyr</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># Benchmarks: 0=skip; 1=calc F_spr,F_btgt,F_msy; 2=calc F_spr,F0.1,F_msy; 3=add F_Blimit; </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># Do_MSY: 1= set to F(SPR); 2=calc F(MSY); 3=set to F(Btgt) or F0.1; 4=set to F(endyr); 5=calc F(MEY) with MSY_unit options</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if Do_MSY=5, enter MSY_Units; then list fleet_ID, cost/F, price/mt, include_in_Fmey_scaling; # -fleet_ID to fill; -9999 to terminate</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4</span> <span class="co"># SPR target (e.g. 0.40)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fl">0.342</span> <span class="co"># Biomass target (e.g. 0.40)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#_Bmark_years: beg_bio, end_bio, beg_selex, end_selex, beg_relF, end_relF, beg_recr_dist, end_recr_dist, beg_SRparm, end_SRparm (enter actual year, or values of 0 or -integer to be rel. endyr)</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">1971</span> <span class="dv">2001</span> <span class="dv">1971</span> <span class="dv">2001</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  2001 2001 2001 2001 2001 2001 1971 2001 1971 2001</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># value &lt;0 convert to endyr-value; except -999 converts to start_yr; must be &gt;=start_yr and &lt;=endyr</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#Bmark_relF_Basis: 1 = use year range; 2 = set relF same as forecast below</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># Forecast: -1=none; 0=simple_1yr; 1=F(SPR); 2=F(MSY) 3=F(Btgt) or F0.1; 4=Ave F (uses first-last relF yrs); 5=input annual F scalar</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># where none and simple require no input after this line; simple sets forecast F same as end year F</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="co"># N forecast years </span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2</span> <span class="co"># Fmult (only used for Do_Forecast==5) such that apical_F(f)=Fmult*relF(f)</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#_Fcast_years:  beg_selex, end_selex, beg_relF, end_relF, beg_mean recruits, end_recruits  (enter actual year, or values of 0 or -integer to be rel. endyr)</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">10</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">999</span> <span class="dv">0</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  2001 2001 1991 2001 1971 2001</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># Forecast selectivity (0=fcast selex is mean from year range; 1=fcast selectivity from annual time-vary parms)</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># Control rule method (0: none; 1: ramp does catch=f(SSB), buffer on F; 2: ramp does F=f(SSB), buffer on F; 3: ramp does catch=f(SSB), buffer on catch; 4: ramp does F=f(SSB), buffer on catch) </span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># values for top, bottom and buffer exist, but not used when Policy=0</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4</span> <span class="co"># Control rule Biomass level for constant F (as frac of Bzero, e.g. 0.40); (Must be &gt; the no F level below) </span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="co"># Control rule Biomass level for no F (as frac of Bzero, e.g. 0.10) </span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fl">0.75</span> <span class="co"># Buffer:  enter Control rule target as fraction of Flimit (e.g. 0.75), negative value invokes list of [year, scalar] with filling from year to YrMax </span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co">#_N forecast loops (1=OFL only; 2=ABC; 3=get F from forecast ABC catch with allocations applied)</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co">#_First forecast loop with stochastic recruitment</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_Forecast recruitment:  0= spawn_recr; 1=value*spawn_recr_fxn; 2=value*VirginRecr; 3=recent mean from yr range above (need to set phase to -1 in control to get constant recruitment in MCMC)</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># value is multiplier of SRR </span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_Forecast loop control #5 (reserved for future bells&amp;whistles) </span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="dv">2010</span>  <span class="co">#FirstYear for caps and allocations (should be after years with fixed inputs) </span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># stddev of log(realized catch/target catch) in forecast (set value&gt;0.0 to cause active impl_error)</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># Do West Coast gfish rebuilder output: 0=no; 1=yes </span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="dv">1999</span> <span class="co"># Rebuilder:  first year catch could have been set to zero (Ydecl)(-1 to set to 1999)</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="dv">2002</span> <span class="co"># Rebuilder:  year for current age structure (Yinit) (-1 to set to endyear+1)</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># fleet relative F:  1=use first-last alloc year; 2=read seas, fleet, alloc list below</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that fleet allocation is used directly as average F if Do_Forecast=4 </span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># basis for fcast catch tuning and for fcast catch caps and allocation  (2=deadbio; 3=retainbio; 5=deadnum; 6=retainnum); </span><span class="al">NOTE</span><span class="co">: same units for all fleets</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional input if relative F choice = 2</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of:  season,  fleet, relF; if used, terminate with season=-9999</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 1 1</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># -9999 0 0  # terminator for list of relF</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of: fleet number, max annual catch for fleets with a max; terminate with fleet=-9999</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of area ID and max annual catch; terminate with area=-9999</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of fleet number and allocation group assignment, if any; terminate with fleet=-9999</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co">#_if N allocation groups &gt;0, list year, allocation fraction for each group </span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co"># list sequentially because read values fill to end of N forecast</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co"># terminate with -9999 in year field </span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co"># no allocation groups</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># basis for input Fcast catch: -1=read basis with each obs; 2=dead catch; 3=retained catch; 99=input apical_F; </span><span class="al">NOTE</span><span class="co">: bio vs num based on fleet&#39;s catchunits</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co">#enter list of Fcast catches or Fa; terminate with line having year=-9999</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">#_Yr Seas Fleet Catch(or_F)</span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> </span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="dv">999</span> <span class="co"># verify end of input </span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#V3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#C generic forecast file</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for all year entries except rebuilder; enter either: actual year, -999 for styr, 0 for endyr, neg number for rel. endyr</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># Benchmarks: 0=skip; 1=calc F_spr,F_btgt,F_msy; 2=calc F_spr,F0.1,F_msy; 3=add F_Blimit; </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># Do_MSY: 1= set to F(SPR); 2=calc F(MSY); 3=set to F(Btgt) or F0.1; 4=set to F(endyr); 5=calc F(MEY) with MSY_unit options</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if Do_MSY=5, enter MSY_Units; then list fleet_ID, cost/F, price/mt, include_in_Fmey_scaling; # -fleet_ID to fill; -9999 to terminate</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4</span> <span class="co"># SPR target (e.g. 0.40)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fl">0.342</span> <span class="co"># Biomass target (e.g. 0.40)</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#_Bmark_years: beg_bio, end_bio, beg_selex, end_selex, beg_relF, end_relF, beg_recr_dist, end_recr_dist, beg_SRparm, end_SRparm (enter actual year, or values of 0 or -integer to be rel. endyr)</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">2001</span> <span class="dv">1971</span> <span class="dv">2001</span> <span class="dv">1971</span> <span class="dv">2001</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  2001 2001 2001 2001 2001 2001 1971 2001 1971 2001</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># value &lt;0 convert to endyr-value; except -999 converts to start_yr; must be &gt;=start_yr and &lt;=endyr</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#Bmark_relF_Basis: 1 = use year range; 2 = set relF same as forecast below</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># Forecast: -1=none; 0=simple_1yr; 1=F(SPR); 2=F(MSY) 3=F(Btgt) or F0.1; 4=Ave F (uses first-last relF yrs); 5=input annual F scalar</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># where none and simple require no input after this line; simple sets forecast F same as end year F</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="co"># N forecast years </span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2</span> <span class="co"># Fmult (only used for Do_Forecast==5) such that apical_F(f)=Fmult*relF(f)</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#_Fcast_years:  beg_selex, end_selex, beg_relF, end_relF, beg_mean recruits, end_recruits  (enter actual year, or values of 0 or -integer to be rel. endyr)</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">10</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">999</span> <span class="dv">0</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  2001 2001 1991 2001 1971 2001</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># Forecast selectivity (0=fcast selex is mean from year range; 1=fcast selectivity from annual time-vary parms)</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># Control rule method (0: none; 1: ramp does catch=f(SSB), buffer on F; 2: ramp does F=f(SSB), buffer on F; 3: ramp does catch=f(SSB), buffer on catch; 4: ramp does F=f(SSB), buffer on catch) </span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># values for top, bottom and buffer exist, but not used when Policy=0</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4</span> <span class="co"># Control rule Biomass level for constant F (as frac of Bzero, e.g. 0.40); (Must be &gt; the no F level below) </span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="co"># Control rule Biomass level for no F (as frac of Bzero, e.g. 0.10) </span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fl">0.75</span> <span class="co"># Buffer:  enter Control rule target as fraction of Flimit (e.g. 0.75), negative value invokes list of [year, scalar] with filling from year to YrMax </span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co">#_N forecast loops (1=OFL only; 2=ABC; 3=get F from forecast ABC catch with allocations applied)</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co">#_First forecast loop with stochastic recruitment</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_Forecast recruitment:  0= spawn_recr; 1=value*spawn_recr_fxn; 2=value*VirginRecr; 3=recent mean from yr range above (need to set phase to -1 in control to get constant recruitment in MCMC)</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># value is multiplier of SRR </span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_Forecast loop control #5 (reserved for future bells&amp;whistles) </span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="dv">2010</span>  <span class="co">#FirstYear for caps and allocations (should be after years with fixed inputs) </span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># stddev of log(realized catch/target catch) in forecast (set value&gt;0.0 to cause active impl_error)</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># Do West Coast gfish rebuilder output: 0=no; 1=yes </span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="dv">1999</span> <span class="co"># Rebuilder:  first year catch could have been set to zero (Ydecl)(-1 to set to 1999)</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="dv">2002</span> <span class="co"># Rebuilder:  year for current age structure (Yinit) (-1 to set to endyear+1)</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># fleet relative F:  1=use first-last alloc year; 2=read seas, fleet, alloc list below</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that fleet allocation is used directly as average F if Do_Forecast=4 </span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># basis for fcast catch tuning and for fcast catch caps and allocation  (2=deadbio; 3=retainbio; 5=deadnum; 6=retainnum); </span><span class="al">NOTE</span><span class="co">: same units for all fleets</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional input if relative F choice = 2</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of:  season,  fleet, relF; if used, terminate with season=-9999</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 1 1</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co"># -9999 0 0  # terminator for list of relF</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of: fleet number, max annual catch for fleets with a max; terminate with fleet=-9999</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of area ID and max annual catch; terminate with area=-9999</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co"># enter list of fleet number and allocation group assignment, if any; terminate with fleet=-9999</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co">#_if N allocation groups &gt;0, list year, allocation fraction for each group </span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="co"># list sequentially because read values fill to end of N forecast</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="co"># terminate with -9999 in year field </span></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="co"># no allocation groups</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># basis for input Fcast catch: -1=read basis with each obs; 2=dead catch; 3=retained catch; 99=input apical_F; </span><span class="al">NOTE</span><span class="co">: bio vs num based on fleet&#39;s catchunits</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="co">#enter list of Fcast catches or Fa; terminate with line having year=-9999</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a><span class="co">#_Yr Seas Fleet Catch(or_F)</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> </span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="dv">999</span> <span class="co"># verify end of input </span></span></code></pre></div>
 <p>Para revisar las líneas que se están leyendo de nuestro código
 podemos utilizar la función SS_readforecast de la librería r4ss y de
 esta forma visualizar los datos que nos interesan.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lee el archivo forecast</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readforecast</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, <span class="st">&quot;forecast.ss&quot;</span>),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># can also read in wtatage.ss for an empirical wt at age model using</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># r4ss::SS_readwtatage()</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#names(fore) # see names of the list components of forecast</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecciono los datos que puedo ver el lista</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>fore_kbl<span class="ot">&lt;-</span><span class="fu">data.frame</span>(fore[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>],fore[<span class="dv">10</span><span class="sc">:</span><span class="dv">13</span>],fore[<span class="dv">15</span><span class="sc">:</span><span class="dv">33</span>])</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Genera la tabla </span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">t</span>(fore_kbl), <span class="at">booktabs =</span> T, <span class="at">position=</span><span class="st">&quot;h!&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>),</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lee el archivo forecast</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readforecast</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, <span class="st">&quot;forecast.ss&quot;</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># can also read in wtatage.ss for an empirical wt at age model using</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># r4ss::SS_readwtatage()</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#names(fore) # see names of the list components of forecast</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecciono los datos que puedo ver el lista</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>fore_kbl<span class="ot">&lt;-</span><span class="fu">data.frame</span>(fore[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>],fore[<span class="dv">10</span><span class="sc">:</span><span class="dv">13</span>],fore[<span class="dv">15</span><span class="sc">:</span><span class="dv">33</span>])</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Genera la tabla </span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">t</span>(fore_kbl), <span class="at">booktabs =</span> T, <span class="at">position=</span><span class="st">&quot;h!&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>),</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">

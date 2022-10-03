@@ -9,6 +9,8 @@ title: "Descripción de los archivos de datos"
 
 
 ```{css,echo=FALSE}
+
+/*----------scroll para tablas---------*/
 .scroll-200{
             max-height: 200px; 
             overflow-y: auto; 
@@ -47,8 +49,6 @@ library(ggplot2) # plot
 library(patchwork) # plot
 library(kableExtra) # genera tablas
 library(r4ss)
-
-#remotes::install_github("PIFSCstockassessments/ss3diags")
 
 mod_path<-(paste(getwd(),'/model_files/simple',sep=""))
 
@@ -122,9 +122,9 @@ kbl(data.frame(names_data=names(dat)), booktabs = T,position="h!") %>%
 
 ### Dimensiones
 
-En esta sección se especifican el número de años, meses/temporadas de las observaciones, número de edades, sexos, áreas, número de flotas y campañas, entre otras.[Consulte la Guía de usuario de SS3: Sección 7.5 "Model Dimensions"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#model-dimensions).
+En esta sección se especifican el número de años, meses/temporadas de las observaciones, número de edades, sexos, áreas, número de flotas y campañas, entre otras. [Consulte la Guía de usuario de SS3: Sección 7.5 "Model Dimensions"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#model-dimensions).
 
-```{r echo=F, message=F,warning=F}
+```{r echo=T, message=F,warning=F}
 esp<-data.frame(dat$styr,dat$endyr,dat$nseas,dat$months_per_seas[1],
                 dat$Nsubseasons,dat$spawn_month,dat$Ngenders,dat$Nsexes,
                 dat$Nages,dat$N_areas,dat$Nfleets)
@@ -142,9 +142,10 @@ caption = "Especificaciones de los datos") %>%
 
 ### Definición de flotas y campañas
 
-En esta sección se especifica el tipo de flota, mes/temporada de la observación, areas donde opero la flota/campaña, unidades de medida de la observación y una opción para utilizar un multiplicador de la captura. **fleet_type:** 1=catch fleet; 2=bycatch only fleet;3=survey; 4=predator(M2). **sample_timing:** -1 for fishing fleet to use season-long catch-at-age for observations, or 1 to use observation month; (always 1 for surveys). **fleet_area:** area the fleet/survey operates in. **units of catch:** 1=bio; 2=num (ignored for surveys; their units read later). **catch_mult:** 0=no; 1=yes. **rows are fleets**.
+En esta sección se especifica el tipo de flota (comercial o campañas), mes/temporada de la observación, areas donde opero la flota/campaña, unidades de medida de la observación y una opción para utilizar un multiplicador de la captura. [Consulte la Guía de usuario de SS3: Sección 7.6 "Fleet Definitions"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fleet-definitions).
 
-```{r echo=F,message=F,warning=F}
+
+```{r echo=T,message=F,warning=F}
 
 kbl(dat$fleetinfo, booktabs = T,position="h!",
 caption = "Definición de flotas y campañas") %>% 
@@ -157,9 +158,9 @@ caption = "Definición de flotas y campañas") %>%
 
 ### Captura comercial
 
-Los datos de capturas ingresan por año, temporada de pesca, tipo de flota, valor observado de la captura y coeficiente de variación. **Catch data**: yr, seas, fleet, catch, catch_se. **catch_se**: standard error of log(catch). **NOTE**: catch data is ignored for survey fleets
+Los datos de capturas ingresan por año, temporada de pesca, tipo de flota, valor observado de la captura y coeficiente de variación. **Catch data**: yr, seas, fleet, catch, catch_se. **catch_se**: standard error of log(catch). **NOTE**: catch data is ignored for survey fleets. [Consulte la Guía de usuario de SS3: Sección 7.9 "Catch"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catch).
 
-```{r echo=F,message=F,warning=F}
+```{r echo=T,message=F,warning=F}
 catch<-dat$catch 
 
 kbl(catch, booktabs = T,position="h!",
@@ -175,10 +176,11 @@ caption = "Datos de captura comercial") %>%
 
 ### Índices de abundancia {.tabset .tabset-fade }
 
-En las primeras líneas se describen algunas especificaciones de los índices, como las unidades de medida y distribución del error, para posteriormente ingresar los datos por año, mes, flota y coeficiente de variación. **Units**: 0=numbers; 1=biomass; 2=F; 30=spawnbio; 31=recdev; 32=spawnbio\*recdev; 33=recruitment; 34=depletion(&see Qsetup); 35=parm_dev(&see Qsetup). **Errtype**: -1=normal; 0=lognormal; \>0=T. **SD_Report**: 0=no sdreport; 1=enable sdreport.
+En las primeras líneas se describen algunas especificaciones de los índices, como las unidades de medida y distribución del error, para posteriormente ingresar los datos por año, mes, flota y coeficiente de variación. [Consulte la Guía de usuario de SS3: Sección 7.10 "Indices"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#indices).
+
 
 #### Especificaciones
-```{r echo=F,message=F,warning=F}
+```{r echo=T,message=F,warning=F}
 
 CPUEinfo<-dat$CPUEinfo #contiene las especificaciones de las campañas
 
@@ -188,13 +190,13 @@ caption = "Especificaciones de los índices") %>%
                 full_width = FALSE,font_size=12)
 ```
 
-#### Datos
-```{r echo=F, message=F,warning=F}
+#### Formato de los Datos
+```{r echo=T, message=F,warning=F}
 
 CPUE<-dat$CPUE # contiene los datos de campañas
 
 kbl(CPUE, booktabs = T,position="h!",
-caption = "Datos de campañas") %>% 
+caption = "Formato de los datos") %>% 
   kable_styling("striped",
                 full_width = FALSE,font_size=12)%>% 
   scroll_box(width="100%",height="500px")
@@ -204,19 +206,20 @@ caption = "Datos de campañas") %>%
 &nbsp;
 &nbsp;
 
-#### Composiciones de tallas {.tabset .tabset-fade }
+### Composiciones de tallas {.tabset .tabset-fade }
 
-En esta sección se ingresan los datos de composiciones de tallas por año, mes, tipo de flota, sexo y tamaño de muestra, especificando previamente el método de agrupamiento (bins) de las tallas, distribución de la estructura de error, entre otras especificaciones.
+En esta sección se ingresan los datos de composiciones de tallas por año, mes, tipo de flota, sexo y tamaño de muestra, especificando previamente el método de agrupamiento (bins) de las tallas, distribución de la estructura de error, entre otras especificaciones. [Consulte la Guía de usuario de SS3: Sección 7.14 "Length Composition Data Structure"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#length-composition-data-structure).
 
-##### Flota
 
-```{r echo=F, message=F,warning=F}
+#### FISHERY
+
+```{r echo=T, message=F,warning=F}
 tallas_a<-dat$lencomp  %>% filter(FltSvy==1)
-tallas_a<-tallas_a
+
 
 
 kbl(tallas_a, booktabs = T,position="h!",digits = 0,
-caption = "Datos de composición de tallas de la Flota") %>% 
+caption = "Datos de composición de tallas") %>% 
   kable_styling("striped",
                 full_width = FALSE,font_size=12) %>% 
   scroll_box(width="100%",height="500px")
@@ -224,13 +227,13 @@ caption = "Datos de composición de tallas de la Flota") %>%
 
 ```
 
-##### PELAGO
+#### SURVEY 1
 
-```{r echo=F, message=F,warning=F}
+```{r echo=T, message=F,warning=F}
 tallas2<-dat$lencomp  %>% filter(FltSvy==2)
 
 kbl(tallas2, booktabs = T,position="h!",digits = 0,
-caption = "Datos de composición de tallas de PELAGO") %>% 
+caption = "Datos de composición de tallas") %>% 
   kable_styling("striped",
                 full_width = FALSE,font_size=12)%>% 
   scroll_box(width="100%",height="500px")
@@ -238,13 +241,13 @@ caption = "Datos de composición de tallas de PELAGO") %>%
 
 ```
 
-##### ECOCADIZ
+#### SURVEY 2
 
-```{r echo=F, message=F,warning=F}
+```{r echo=T, message=F,warning=F}
 tallas3<-dat$lencomp  %>% filter(FltSvy==3)
 
 kbl(tallas3, booktabs = T,position="h!",digits = 0,
-caption = "Datos de composición de tallas de ECOCADIZ") %>% 
+caption = "Datos de composición de tallas") %>% 
   kable_styling("striped",
                 full_width = FALSE,font_size=12)%>% 
   scroll_box(width="100%",height="500px")
