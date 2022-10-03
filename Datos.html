@@ -461,7 +461,7 @@ div.tocify {
 <h1>Archivos requeridos</h1>
 <style type="text/css">
 
-/*----------scroll para tablas---------*/
+
 .scroll-200{
             max-height: 200px; 
             overflow-y: auto; 
@@ -505,8 +505,8 @@ usando las funciones SS_read*(). Los componentes de la lista deben estar
 en el mismo orden en que aparecen en el archivo de texto. Puede usar la
 función names() para ver todos los componentes de la lista.</p>
 <p>   </p>
-<div id="starter" class="section level2">
-<h2>Starter</h2>
+<div id="starter.ss" class="section level2">
+<h2>Starter.ss</h2>
 <p>SS3 comienza leyendo el archivo starter.ss, el cual contiene los
 nombres de los archivos de datos y control, además de otros controles de
 ejecución. Los nombres de los archivos de control.ss y data.ss deben
@@ -518,15 +518,12 @@ de usuario de SS3</a>, Sección 5 “Starter File Syntax”.</p>
 “SS_readstarter” de r4ss. En este link puedes <a
 href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss">Descargar
 archivo starter</a> y guardarlo en tu directorio de trabajo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readstarter</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, <span class="st">&quot;starter.ss&quot;</span>),</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>start    <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readstarter</span>(<span class="at">file=</span><span class="fu">file.path</span>(mod_path,<span class="st">&quot;starter.ss&quot;</span>),<span class="at">verbose =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>DT_start <span class="ot">&lt;-</span> start <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">t</span>() </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">t</span>(<span class="fu">data.frame</span>(start))[,<span class="dv">1</span>], <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Contenido de archivo starter&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span> )<span class="sc">%&gt;%</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(DT_start[,<span class="dv">1</span>],<span class="at">booktabs=</span>T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">caption=</span><span class="st">&quot;Contenido de archivo starter&quot;</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span> )<span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -820,8 +817,8 @@ seed
 </div>
 <p>   </p>
 </div>
-<div id="data" class="section level2">
-<h2>Data</h2>
+<div id="data.ss" class="section level2">
+<h2>Data.ss</h2>
 <p>A continuación se describe como ingresar las especificaciones del
 modelo, definición de flotas/campañas y los datos de capturas, índices,
 descarte, composiciones de tallas y edades, entre otros.</p>
@@ -831,22 +828,19 @@ los componentes de la lista con la función names(). En este link puedes
 href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss">Descargar
 archivo data</a> y guardarlo en tu directorio de trabajo.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lee archivo data.ss</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readdat</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, start<span class="sc">$</span>datfile),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Genera Tabla de los componentes del objeto &quot;dat&quot;. </span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">data.frame</span>(<span class="at">names_data=</span><span class="fu">names</span>(dat)), <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readdat</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, start<span class="sc">$</span>datfile),<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Genera Tabla de los componentes del objeto &quot;dat&quot;. </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">names</span>(dat), <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-names_data
+x
 </th>
 </tr>
 </thead>
@@ -1167,10 +1161,8 @@ la Guía de usuario de SS3: Sección 7.5 “Model Dimensions”</a>.</p>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                dat<span class="sc">$</span>Nages,dat<span class="sc">$</span>N_areas,dat<span class="sc">$</span>Nfleets)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Genera Tabla</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">t</span>(esp), <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Especificaciones de los datos&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">t</span>(esp), <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">caption =</span> <span class="st">&quot;Especificaciones de los datos&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificaciones de los datos
@@ -1276,9 +1268,8 @@ flota/campaña, unidades de medida de la observación y una opción para
 utilizar un multiplicador de la captura. <a
 href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fleet-definitions">Consulte
 la Guía de usuario de SS3: Sección 7.6 “Fleet Definitions”</a>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(dat<span class="sc">$</span>fleetinfo, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Definición de flotas y campañas&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(dat<span class="sc">$</span>fleetinfo, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">caption =</span> <span class="st">&quot;Definición de flotas y campañas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Definición de flotas y campañas
@@ -1381,10 +1372,9 @@ href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catch">C
 la Guía de usuario de SS3: Sección 7.9 “Catch”</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catch<span class="ot">&lt;-</span>dat<span class="sc">$</span>catch </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(catch, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de captura comercial&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(catch, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">caption =</span> <span class="st">&quot;Datos de captura comercial&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width=</span>F,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1973,10 +1963,8 @@ la Guía de usuario de SS3: Sección 7.10 “Indices”</a>.</p>
 <h4>Especificaciones</h4>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>CPUEinfo<span class="ot">&lt;-</span>dat<span class="sc">$</span>CPUEinfo <span class="co">#contiene las especificaciones de las campañas</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(CPUEinfo, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Especificaciones de los índices&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(CPUEinfo, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">caption =</span> <span class="st">&quot;Especificaciones de los índices&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)</span></code></pre></div>
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 Especificaciones de los índices
@@ -2058,11 +2046,9 @@ SURVEY2
 <h4>Formato de los Datos</h4>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>CPUE<span class="ot">&lt;-</span>dat<span class="sc">$</span>CPUE <span class="co"># contiene los datos de campañas</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(CPUE, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Formato de los datos&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(CPUE, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">caption =</span> <span class="st">&quot;Formato de los datos&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -2466,13 +2452,9 @@ Structure”</a>.</p>
 <h4>FISHERY</h4>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tallas_a<span class="ot">&lt;-</span>dat<span class="sc">$</span>lencomp  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FltSvy<span class="sc">==</span><span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas_a, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas_a, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,<span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -9652,11 +9634,9 @@ m90
 <h4>SURVEY 2</h4>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tallas3<span class="ot">&lt;-</span>dat<span class="sc">$</span>lencomp  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FltSvy<span class="sc">==</span><span class="dv">3</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas3, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tallas3, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,<span class="at">digits =</span> <span class="dv">0</span>,<span class="at">caption =</span> <span class="st">&quot;Datos de composición de tallas&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,<span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>,<span class="at">height=</span><span class="st">&quot;500px&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -9846,8 +9826,8 @@ m90
 </div>
 </div>
 </div>
-<div id="control" class="section level2">
-<h2>Control</h2>
+<div id="control.ss" class="section level2">
+<h2>Control.ss</h2>
 <p>La función principal del archivo de control es definir los parámetros
 que utilizará el modelo. Cada línea de parámetro contiene: un valor
 mínimo (LO), máximo (HI), inicial (INIT), valor esperado (PRIOR),
@@ -12577,8 +12557,8 @@ AgeSel_P_2_SURVEY2(3)
 </div>
 </div>
 </div>
-<div id="forecast" class="section level2">
-<h2>Forecast</h2>
+<div id="forecast.ss" class="section level2">
+<h2>Forecast.ss</h2>
 <p>En este archivo se pueden especificar los puntos biológicos de
 referencia, los años de proyección y reglas de control, entre otras
 especificaciones.</p>
