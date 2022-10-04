@@ -26,16 +26,19 @@ title: ""
 &nbsp;
 &nbsp;
 
+Stock Synthesis (SS3) es un marco de modelado estadístico de la dinámica de la población pesquera integrado en AD Model Builder. Esta Guía introduce a los usuarios a ejecutar SS3. Se asume cierta experiencia con modelos de dinámica de población y una comprensión básica de cómo usar la línea de comando.
+
+
 
 
 # Ejemplos SS3
 
 
-Descargar la carpeta  **model_files** del repositorio [Math4fish_SS3](https://github.com/mariazuba/Math4fish_SS3/) para trabajar en esta guía. Estos ejemplos también los pueden encontrar en el siguiente link: [nmfs-stock-synthesis](https://github.com/nmfs-stock-synthesis/user-examples).
+Descargar la carpeta  **model_files** del repositorio [Math4fish_SS3](https://github.com/mariazuba/Math4fish_SS3/) para trabajar en esta guía. Estos ejemplos también los pueden encontrar en el siguiente link: [nmfs-stock-synthesis](https://github.com/nmfs-stock-synthesis/user-examples). Trabajaremos con el ejemplo simple, este es un modelo SS3 en funcionamiento que se ejecuta en menos de tres minutos y permite experimentar flujos de trabajo SS3 sin tener que preocuparse por el contenido del modelo
 
 # Archivos ejecutables SS3
 
-https://github.com/nmfs-stock-synthesis/stock-synthesis/releases
+Se recomienda descargar la última versión de SS3 desde el siguiente repositorio: https://github.com/nmfs-stock-synthesis/stock-synthesis/releases
 
 &nbsp;
 &nbsp;
@@ -108,14 +111,15 @@ library("ss3diags")
 
 ```
 
-&nbsp;
-&nbsp;
+&nbsp; &nbsp;
 
 # Manuales de usuarios 
 
-- [Guía de usuario SS3 versión 3.30.19](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html)
+- [Manual de usuario SS3 versión 3.30.19](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html)
 - [Guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) 
-- [Guía de library ss3diags](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
+- [Manual de library ss3diags](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
+- [Manual de library ss3sim](https://ss3sim.github.io/ss3sim)
+- [Manual de library SSMSE](https://nmfs-fish-tools.github.io/SSMSE/manual)
 
 &nbsp;
 &nbsp;
