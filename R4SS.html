@@ -457,6 +457,211 @@ SS3</h1>
 </div>
 
 
+<p>En esta sección seguiremos los pasos propuestos por el SS3
+Development Team para Desarrollar nuestro primer modelo Stock Synthesis
+(SS3) <a
+href="https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html"
+class="uri">https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html</a>.</p>
+<div id="cómo-crear-nuevos-modelos-ss3" class="section level1">
+<h1>Cómo crear nuevos modelos SS3</h1>
+</div>
+<div id="sobre-la-especificación-del-modelo" class="section level1">
+<h1>Sobre la especificación del modelo</h1>
+</div>
+<div id="fases-en-ss3-y-admb" class="section level1">
+<h1>Fases en SS3 y ADMB</h1>
+</div>
+<div id="debugging-básicos-use-echoinput.sso-y-warning.sso"
+class="section level1">
+<h1>Debugging básicos: use echoinput.sso y warning.sso</h1>
+</div>
+<div id="visualización-de-resultados" class="section level1">
+<h1>Visualización de resultados</h1>
+<p>La visualización es útil a medida que desarrolla iterativamente su
+modelo y para la presentación de los resultados finales del modelo. La
+salida de un modelo SS3 se puede leer en r4ss. La viñeta r4ss tiene más
+información sobre cómo usar el paquete de R r4ss.</p>
+</div>
+<div id="flujo-de-trabajo-propuesto-para-llegar-a-un-modelo-final"
+class="section level1">
+<h1>Flujo de trabajo propuesto para llegar a un modelo FINAL</h1>
+<p>¡Es importante recordar que llegar a un modelo lleva tiempo y muchas
+iteraciones! Debe planear hacer pequeñas revisiones, volver a ejecutar
+el modelo y ver cómo ha cambiado el modelo con cada pequeña revisión.
+Por lo general, se requieren muchas ejecuciones intermedias del modelo
+antes de llegar a un modelo final. Como mínimo, mantenga notas dentro de
+la carpeta de la ejecución o en otro lugar con respecto a los cambios
+específicos de la ejecución. El uso del control de versiones también
+podría ser útil para realizar un seguimiento de los cambios en el
+modelo. A continuación, proporcionamos algunas sugerencias sobre los
+pasos a seguir a medida que itera hacia su modelo “final”.</p>
+<div id="primer-paso-ejecutar-el-modelo-sin-estimación"
+class="section level2">
+<h2>Primer paso: ejecutar el modelo sin estimación</h2>
+<p>Primero, verifique que SS3 lea los archivos de entrada según lo
+previsto. Utilice las opciones de línea de comando -stopph 0 -nohess
+para ejecutar el modelo sin estimación. Luego, examine los archivos de
+<strong>warning.sso</strong>, <strong>echoinput.sso</strong> y
+<strong>.ss_new files</strong> producidos para ver cómo SS3 interpretó
+sus archivos de entrada y si fue como pretendía.</p>
+<p>Una vez que haya verificado que SS3 está leyendo su entrada
+correctamente, también puede considerar ajustar los parámetros de
+selectividad, crecimiento y reclutamiento.</p>
+</div>
+<div id="segundo-paso-ejecutar-estimando-algunos-parámetros"
+class="section level2">
+<h2>Segundo paso: ejecutar estimando algunos parámetros</h2>
+<p>Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o
+3) para estimar algunos pero no todos los parámetros. Haga esto usando
+-stopph x -nohess, donde x debe ser la fase máxima deseada (por ejemplo,
+2 o 3). -nohess todavía se usa para reducir el tiempo de ejecución.
+Durante esta etapa de las ejecuciones del modelo, debe intentar ajustar
+el modelo para resolver todos los patrones principales en los
+residuales. Esto puede incluir considerar y realizar cambios en la
+estructura del modelo.</p>
+</div>
+<div id="tercer-paso-ejecutar-estimando-todos-los-parámetros"
+class="section level2">
+<h2>Tercer paso: ejecutar estimando todos los parámetros</h2>
+<p>Una vez que se hayan resuelto todos los patrones principales en los
+residuos, intente estimar todos los parámetros en el modelo. Cambie la
+fase máxima para incluir todas las fases de su modelo (es decir, igual o
+superior a la fase más alta especificada en su modelo). Querrá hacer
+varias ejecuciones para diferentes propósitos de refinamiento del modelo
+en este momento:</p>
+<ol style="list-style-type: decimal">
+<li>Realice una o más corridas con la hessiana estimada para obtener la
+varianza de las desviaciones de reclutamiento y luego use este vector de
+varianzas para ajustar la rampa de ajuste del sesgo (consulte el Manual
+del usuario de SS3 para obtener detalles adicionales).</li>
+<li>Realice ejecuciones con o sin estimar la hessiana para ajustar las
+ponderaciones de datos.</li>
+<li>Ejecute el modelo varias veces y altere los valores iniciales (la
+opción de fluctuación se selecciona en starter.ss). Esto ejecuta el
+modelo con nuevos valores de parámetros iniciales para determinar si es
+posible un mejor ajuste del modelo utilizando diferentes valores
+iniciales.</li>
+</ol>
+<p>Después de estas ejecuciones, su modelo debería estar ajustado y
+listo para las ejecuciones finales.</p>
+</div>
+</div>
+<div id="debugging-avanzado" class="section level1">
+<h1>Debugging avanzado</h1>
+<p>En esta sección, hemos enumerado algunos problemas comunes que puede
+encontrar y algunas técnicas para resolverlos dentro de su modelo.</p>
+<div id="si-los-residuos-tienen-patrones-sustanciales"
+class="section level2">
+<h2>Si los residuos tienen patrones sustanciales</h2>
+<p>A menudo es difícil identificar la causa de los residuos que tienen
+patrones sustanciales, pero dos posibles razones por las que esto podría
+suceder son valores iniciales poco realistas o una especificación de
+modelo deficiente. Si tiene residuos con un patrón sustancial, puede
+intentar cambiar los valores iniciales. Si un parámetro no se mueve del
+valor inicial, es posible que no haya suficiente información para
+determinar su valor y que sea necesario fijar el valor en el modelo. Si
+el parámetro se mueve con diferentes valores iniciales, es posible que
+el valor inicial utilizado antes no fuera razonable y, por lo tanto,
+cambiar el valor inicial a un valor razonable soluciona el problema.</p>
+</div>
+<div id="si-ss3-se-ejecuta-pero-hay-un-gradiente-final-muy-grande"
+class="section level2">
+<h2>Si SS3 se ejecuta, pero hay un gradiente final muy grande</h2>
+<p>Los gradientes grandes generalmente se informan en el archivo de
+<strong>warnings.sso</strong>, por lo que este problema debería estar
+claro al examinar el archivo después de ejecutar un modelo. Si este es
+el caso, intente lo siguiente:</p>
+<ul>
+<li>Examine <strong>Report.sso</strong> en busca de parámetros que estén
+dentro o cerca de los límites, ya que estos pueden ser los parámetros
+que están causando problemas. Depende del valor, pero puede considerar
+cambiar sus límites o los parámetros, según lo que parezca más plausible
+dado su modelo.</li>
+<li>Examine los residuos para identificar si hay una falta de ajuste
+general. Esto puede indicar que el algoritmo ADMB no pudo encontrar el
+mínimo global. Pruebe valores iniciales alternativos para intentar
+resolver este problema. Sin embargo, también es posible que haya un gran
+conflicto entre la estructura de su modelo y el archivo de su modelo, en
+cuyo caso es posible que desee reconsiderar la especificación del
+modelo; tal vez haya una estructura de modelo alternativa que tenga más
+sentido para la población.</li>
+</ul>
+</div>
+<div id="si-la-hessiana-no-se-invierte" class="section level2">
+<h2>Si la Hessiana no se invierte</h2>
+<p>La información de de la Hessiana se informa en el archivo Report.sso,
+así que vaya a esta sección para confirmar si se trata de un problema.
+Este es un problema difícil de resolver, pero puede ser necesario
+considerar modelos alternativos si la arpillera no se invierte.</p>
+</div>
+</div>
+<div
+id="algunas-preguntas-a-considerar-durante-el-desarrollo-del-modelo"
+class="section level1">
+<h1>Algunas preguntas a considerar durante el desarrollo del modelo</h1>
+<p>Hay muchos elementos a considerar en un modelo SS3. A continuación se
+presentan algunas preguntas y consideraciones que los usuarios
+experimentados de SS3 han utilizado para comprobar que su modelo tiene
+sentido durante todo el proceso de desarrollo iterativo del modelo.</p>
+<div id="mi-modelo-tiene-sentido" class="section level2">
+<h2>¿Mi modelo tiene sentido?</h2>
+<ul>
+<li>¿Tiene sentido la biología? ¿Selectividad?</li>
+<li>¿El modelo se ajusta a los índices? ¿Datos de longitud y edad?</li>
+<li>¿Cuál es el patrón en el reclutamiento?</li>
+<li>¿Las priors coinciden con lo que pensé que estaba
+especificando?</li>
+</ul>
+</div>
+<div id="mi-modelo-ajusta-bien" class="section level2">
+<h2>¿Mi modelo ajusta bien?</h2>
+<p>La función r4ss::SS_output() imprime algunos diagnósticos muy útiles
+en la ventana de la consola R, incluida una lista de los parámetros
+estimados, el valor estimado, si el parámetro está alcanzando un límite,
+el gradiente y el tipo anterior. Utilice este (u otros archivos de
+salida SS3) para responder:</p>
+<ul>
+<li>¿Se movió el parámetro del valor inicial?</li>
+<li>¿Está el parámetro llegando a un límite?</li>
+<li>¿El gradiente del parámetro es bajo?</li>
+</ul>
+<p>Debajo de las estimaciones de parámetros que r4ss::SS_output()
+imprime en la consola, hay una sección específica que resalta los
+parámetros con los gradientes de modelo más altos. Examinar esta lista
+podría indicar qué parámetros (si los hay) pueden necesitar ser
+corregidos debido a la falta de información en los datos.</p>
+<p>Por ejemplo, puede haber parámetros de selectividad incluidos en la
+lista donde pequeños cambios en el valor del parámetro no cambian los
+resultados del modelo (o la forma de la selectividad).</p>
+</div>
+<div id="mi-ponderación-de-datos-tiene-sentido" class="section level2">
+<h2>¿Mi ponderación de datos tiene sentido?</h2>
+<p>La función r4ss::SS_output() imprime información sobre la
+sintonización de la consola R. Esto incluye información de ajuste para
+datos de longitud y edad que se pueden usar para la ponderación de datos
+cuando se usa la ponderación de McAllister Ianelli (es decir,
+ponderación por la media armónica).</p>
+<p>La función r4ss::SS_plots() crea cifras medias de longitud y edad con
+leyendas que muestran los pesos de Francis recomendados para cada fuente
+de datos. Incluso si está utilizando un enfoque de ponderación de datos
+alternativo (es decir, Francis, Dirichlet u otro), siempre es una buena
+práctica explorar un enfoque alternativo y ver cómo la ponderación de
+datos cambia el modelo.</p>
+</div>
+<div id="ajusté-correctamente-la-variación-del-reclutamiento"
+class="section level2">
+<h2>¿Ajusté correctamente la variación del reclutamiento?</h2>
+<p>Verifique la información de sigmaR (es decir, desviación estándar de
+desarrollo de reclutamiento). El parámetro sigmaR generalmente se fija
+dentro del modelo, por lo que si no se fija dentro de su modelo, debe
+considerar si tiene o no sentido para la población y dada la calidad y
+cantidad de datos.</p>
+<p>Para un valor fijo de sigmaR, una sección del resultado proporcionará
+diagnósticos para determinar si el valor fijo de sigmaR está capturando
+las variaciones estimadas en el reclutamiento. La función
+r4ss::SS_output() imprimirá un valor recomendado basado en la variación
+en las desviaciones de reclutamiento estimadas que quizás desee
+considerar usar.</p>
 <style type="text/css">
 .scroll-200{
             max-height: 200px; 
@@ -480,6 +685,7 @@ SS3</h1>
 }
 
 </style>
+</div>
 <div id="salidas-ss3"
 class="section level2 tabset tabset-fade tabset-pills">
 <h2 class="tabset tabset-fade tabset-pills">SALIDAS SS3</h2>
@@ -1226,6 +1432,7 @@ Datos de entrada al modelo
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSpawnrecruit</span>(replist,<span class="at">subplot =</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">legend =</span> T)</span></code></pre></div>
 <p><img src="R4SS_files/figure-html/unnamed-chunk-15-1.png" width="816" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 </div>
 

@@ -34,7 +34,7 @@ Stock Synthesis (SS3) es un marco de modelado estadístico de la dinámica de la
 # Ejemplos SS3
 
 
-Descargar la carpeta  **model_files** del repositorio [Math4fish_SS3](https://github.com/mariazuba/Math4fish_SS3/) para trabajar en esta guía. Estos ejemplos también los pueden encontrar en el siguiente link: [nmfs-stock-synthesis](https://github.com/nmfs-stock-synthesis/user-examples). Trabajaremos con el ejemplo simple, este es un modelo SS3 en funcionamiento que se ejecuta en menos de tres minutos y permite experimentar flujos de trabajo SS3 sin tener que preocuparse por el contenido del modelo
+Descargar la carpeta  **model_files** del repositorio [Math4fish_SS3](https://github.com/mariazuba/Math4fish_SS3/) para trabajar en esta guía. Estos ejemplos también los pueden encontrar en el siguiente link: [nmfs-stock-synthesis](https://github.com/nmfs-stock-synthesis/user-examples).  En esta guía trabajaremos con el ejemplo simple, este es un modelo SS3 en funcionamiento que se ejecuta en menos de tres minutos y permite experimentar flujos de trabajo SS3 sin tener que preocuparse por el contenido del modelo
 
 # Archivos ejecutables SS3
 
