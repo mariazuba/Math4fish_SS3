@@ -1,0 +1,132 @@
+---
+title: "Visualización"
+---
+
+
+
+## SALIDAS SS3 {.tabset .tabset-fade .tabset-pills}
+
+```{r , message=F,warning=F,eval=F,incluide=F}
+
+exe_path <- paste(mod_path,"ss.exe",sep= "/")
+r4ss::run_SS_models(dirvec = mod_path, model = exe_path, 
+                    skipfinished = FALSE)
+
+
+```
+
+```{r echo=F, message=F,warning=F,include=F, eval=T}
+
+# initial model to modify
+mod_path<-(paste(getwd(),'/quarter/10a_anchcadiz',sep=""))
+
+# create a new directory to put a new, modified version of the model
+new_mod_path <- (paste(getwd(),'/quarter/10a_anchcadiz_new',sep=""))
+
+
+replist <- SS_output(dir = mod_path, 
+                     verbose = TRUE,
+                     printstats = TRUE)
+
+```
+
+
+### Biología
+
+Estos gráficos corresponden a las salidas de curva de crecimiento,  peso medios, madurez y desove.
+
+
+```{r message=F,warning=F,eval=T, fig.align='center',fig.width=8,fig.height=9}
+
+sspar(mfrow = c(3, 2), plot.cex = 0.7)
+SSplotBiology(replist, subplot = c(1,5,6,10,11))
+
+```
+
+
+```{r}
+
+parbio1<-replist$estimated_non_dev_parameters
+
+kbl(parbio1, booktabs = T,position="h!",
+    caption = "Estimated non dev parameters") %>%
+    kable_styling("striped",
+    full_width = FALSE,font_size=12)%>% 
+    scroll_box(width="100%")
+
+```
+
+La distribución de talla a la edad o la edad observada a al edad real se representa como un histograma. Los valores son de las secciones de Report.sso llamadas AGE_LENGTH-KEY y AGE_AGE_KEY.
+
+
+```{r message=F,warning=F, fig.align='center',fig.width=9,fig.height=9.5}
+
+sspar(mfrow = c(4, 2), plot.cex = 0.5)
+
+SSplotAgeMatrix(replist)
+
+```
+
+### Selectividad
+
+```{r message=F,warning=F,fig.align='center',fig.width=5.5,fig.height=4.5}
+
+SSplotSelex(replist,subplot =1)
+
+```
+
+```{r message=F,warning=F,fig.align='center',fig.width=5.5,fig.height=4.5}
+
+SSplotSelex(replist,subplot =2)
+
+```
+
+### Series de tiempo
+
+```{r message=F,warning=F,fig.align='center',fig.width=8.5,fig.height=10}
+
+sspar(mfrow = c(4, 2), plot.cex = 0.6)
+
+SSplotTimeseries(replist,subplot =1)
+SSplotTimeseries(replist,subplot =3)
+SSplotTimeseries(replist,subplot =4)
+SSplotTimeseries(replist,subplot =6)
+SSplotTimeseries(replist,subplot =7)
+SSplotTimeseries(replist,subplot =9)
+SSplotTimeseries(replist,subplot =10)
+SSplotTimeseries(replist,subplot =11)
+
+```
+
+
+### Capturas
+
+```{r message=F,warning=F,eval=T,fig.align='center',fig.width=6.5,fig.height=4.5}
+
+SSplotCatch(replist, subplots =c(2,9, 10))
+
+```
+
+### Índices
+
+```{r message=F,warning=F,fig.align='center',fig.width=8.5,fig.height=5.5}
+sspar(mfrow = c(2, 2), plot.cex = 0.6)
+SSplotIndices(replist, subplots = c(9,2,7))
+
+```
+
+### Datos
+
+```{r message=F,warning=F,eval=T, fig.align='center',fig.width=6.5,fig.height=4.5,fig.cap="Datos de entrada al modelo"}
+
+SSplotData(replist, subplot = 1)
+
+```
+
+### Relación stock-recluta
+
+```{r message=F,warning=F,fig.align='center',fig.width=8.5,fig.height=4.5}
+sspar(mfrow = c(1, 2), plot.cex = 0.8)
+SSplotSpawnrecruit(replist,subplot =2:3,legend = T)
+
+```
