@@ -1,11 +1,38 @@
 ---
-title: "Correr modelo y visualizar salidas de SS3"
+title: "Ejecutar modelos SS3"
 ---
+
+Los archivos del modelo (starter.ss, data file, forecast.ss, control file) y el ejecutable SS3 (ss.exe) deben estar en la misma carpeta. SS3 siempre se abre y lee los archivos en el mismo orden, escribiendo las salidas de debugging en echoinput.sso  y advertencias en warnings.sso a medida que se lee.  
+
+Luego, SS3 va a la sección de procedimiento donde ADMB realiza cambios de parámetrso iterativos para minimizar la negative log likelihood. 
+
+Cuando ADMB logra la convergencia, el control pasa a sd_phase para el cálculo de la varianza de los parámetros (a menos que se especifique la opción -nohess). Después de sd_phase, SS3 pasa a la sección de código de benchmark y forecast y luego al informe final.  Los archivos de salida que contienen resultados normalmente se escriben en el directorio desde el que se ejecutó el modelo.
+
+Cuando se completa la ejecución, aparece SS3!!. La ejecución ha finalizado!!. Se recomienda revisar warnings.sso en busca de problemas y sugerencias, independientemente si la ejecución se completó correctamente o no. Si SS3 sale por error no verá el mensaje !! Run has completed !!.
+
+
+¿Qué hacer cuando SS3 no se ejecuta?.  
+
+- Asegurese de que todos los archivos y directorios tengan el nombre correcto.
+- Verifique que el archivo "starter.ss" haga referencia a los nombres correctos de los archivos de control y datos.
+- Si SS3 comienza a leer archivos y luego falla, revise los archivos warnings.sso y echoinput.sso. El archivo warnings.sso revelaán posibles problemas con el modelo, mientras que echoinput.sso mostrará hasta donde pudo ejecutarse SS3. Trajaje hacia atrás desde la parte inferior de echoinput.sso, buscándo donde se detuvo SS3 y si las entradas se llen correctamente o no.
+
+
+
+Muchos archivos de texto de salida se crean durante la ejecución de un modelo. Los archivos de salida más útiles se pueden dividir en :
+
+- **Archivos que contienen resultados**. Estos archivos incluyen ss_summary.sso y report.sso que contienen los resultados del modelo resumidos de diferentes maneras. 
+- **.ss_new files**. Estos archivos repiten los archivos de entrada SS3, pero incluyen comentarios  estandarizados. Los valores deben ser los mismos que los archivos de entrada, excepto control.ss_new, que actualiza los valores iniciales a los valores estimados finales. Los archivos .ss_new pueden ser útiles para estandarizar los comentarios en los archivos de entrada y se pueden verificar para asegurarse de que SS3 interpretó las entradas como pretendía el usuario.
+- **Archivos utilizados para debugging**. Estos archivos incluyen warnings.sso y echoinput.sso.
+
+
 
 En esta sección seguiremos los pasos propuestos por el SS3 Development Team para Desarrollar nuestro primer modelo Stock Synthesis (SS3) https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html.
 
 
 # Cómo crear nuevos modelos SS3
+
+
 
 # Sobre la especificación del modelo
 
@@ -151,131 +178,3 @@ knitr::opts_chunk$set(echo=T, warning=F, message=F)
 ```
 
 
-
-
-## SALIDAS SS3 {.tabset .tabset-fade .tabset-pills}
-
-```{r , message=F,warning=F,eval=F,incluide=F}
-
-exe_path <- paste(mod_path,"ss.exe",sep= "/")
-r4ss::run_SS_models(dirvec = mod_path, model = exe_path, 
-                    skipfinished = FALSE)
-
-
-```
-
-```{r echo=F, message=F,warning=F,include=F, eval=T}
-
-# initial model to modify
-mod_path<-(paste(getwd(),'/quarter/10a_anchcadiz',sep=""))
-
-# create a new directory to put a new, modified version of the model
-new_mod_path <- (paste(getwd(),'/quarter/10a_anchcadiz_new',sep=""))
-
-
-replist <- SS_output(dir = mod_path, 
-                     verbose = TRUE,
-                     printstats = TRUE)
-
-```
-
-
-### Biología
-
-Estos gráficos corresponden a las salidas de curva de crecimiento,  peso medios, madurez y desove.
-
-
-```{r message=F,warning=F,eval=T, fig.align='center',fig.width=8,fig.height=9}
-
-sspar(mfrow = c(3, 2), plot.cex = 0.7)
-SSplotBiology(replist, subplot = c(1,5,6,10,11))
-
-```
-
-
-```{r}
-
-parbio1<-replist$estimated_non_dev_parameters
-
-kbl(parbio1, booktabs = T,position="h!",
-    caption = "Estimated non dev parameters") %>%
-    kable_styling("striped",
-    full_width = FALSE,font_size=12)%>% 
-    scroll_box(width="100%")
-
-```
-
-La distribución de talla a la edad o la edad observada a al edad real se representa como un histograma. Los valores son de las secciones de Report.sso llamadas AGE_LENGTH-KEY y AGE_AGE_KEY.
-
-
-```{r message=F,warning=F, fig.align='center',fig.width=9,fig.height=9.5}
-
-sspar(mfrow = c(4, 2), plot.cex = 0.5)
-
-SSplotAgeMatrix(replist)
-
-```
-
-### Selectividad
-
-```{r message=F,warning=F,fig.align='center',fig.width=5.5,fig.height=4.5}
-
-SSplotSelex(replist,subplot =1)
-
-```
-
-```{r message=F,warning=F,fig.align='center',fig.width=5.5,fig.height=4.5}
-
-SSplotSelex(replist,subplot =2)
-
-```
-
-### Series de tiempo
-
-```{r message=F,warning=F,fig.align='center',fig.width=8.5,fig.height=10}
-
-sspar(mfrow = c(4, 2), plot.cex = 0.6)
-
-SSplotTimeseries(replist,subplot =1)
-SSplotTimeseries(replist,subplot =3)
-SSplotTimeseries(replist,subplot =4)
-SSplotTimeseries(replist,subplot =6)
-SSplotTimeseries(replist,subplot =7)
-SSplotTimeseries(replist,subplot =9)
-SSplotTimeseries(replist,subplot =10)
-SSplotTimeseries(replist,subplot =11)
-
-```
-
-
-### Capturas
-
-```{r message=F,warning=F,eval=T,fig.align='center',fig.width=6.5,fig.height=4.5}
-
-SSplotCatch(replist, subplots =c(2,9, 10))
-
-```
-
-### Índices
-
-```{r message=F,warning=F,fig.align='center',fig.width=8.5,fig.height=5.5}
-sspar(mfrow = c(2, 2), plot.cex = 0.6)
-SSplotIndices(replist, subplots = c(9,2,7))
-
-```
-
-### Datos
-
-```{r message=F,warning=F,eval=T, fig.align='center',fig.width=6.5,fig.height=4.5,fig.cap="Datos de entrada al modelo"}
-
-SSplotData(replist, subplot = 1)
-
-```
-
-### Relación stock-recluta
-
-```{r message=F,warning=F,fig.align='center',fig.width=8.5,fig.height=4.5}
-sspar(mfrow = c(1, 2), plot.cex = 0.8)
-SSplotSpawnrecruit(replist,subplot =2:3,legend = T)
-
-```
