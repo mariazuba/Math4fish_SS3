@@ -492,13 +492,6 @@ Integrated Stock Assessments. Fisheries Research.</p>
 <div id="section"
 class="section level2 tabset tabset-fade tabset-pills">
 <h2 class="tabset tabset-fade tabset-pills"></h2>
-<div id="ajustes-y-residuales" class="section level3">
-<h3>Ajustes y residuales</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">24</span>))</span></code></pre></div>
-<p><img src="SS3diags_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /><img src="SS3diags_files/figure-html/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="SS3diags_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-2.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-3.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-4.png" width="672" /><img src="SS3diags_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
-</div>
 <div id="análisis-retrospectivo" class="section level3">
 <h3>Análisis retrospectivo</h3>
 <p>Un análisis retrospectivo elimina una cierta cantidad de años de los
@@ -526,21 +519,21 @@ retrospectiva de cinco años:</p>
 <li>Paso 6: corre el retrospective</li>
 <li>Paso 7: Lea la salida de SS_doRetro()</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(mod_path)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># paso 1</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>start.retro <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># end year of reference year</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>end.retro <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># number of years for retrospective e.g.,</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># paso 2</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>dirname.base <span class="ot">=</span> <span class="fu">getwd</span>()</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>run <span class="ot">=</span> <span class="st">&quot;Reference_Run&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>model.run <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirname.base, run)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>retro.phk <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec =</span> <span class="fu">file.path</span>(model.run, <span class="fu">paste0</span>(<span class="st">&quot;retro&quot;</span>, start.retro<span class="sc">:-</span>end.retro)))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(mod_path)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># paso 1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>start.retro <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># end year of reference year</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>end.retro <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># number of years for retrospective e.g.,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># paso 2</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dirname.base <span class="ot">=</span> <span class="fu">getwd</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>run <span class="ot">=</span> <span class="st">&quot;Reference_Run&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>model.run <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dirname.base, run)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>retro.phk <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SSgetoutput</span>(<span class="at">dirvec =</span> <span class="fu">file.path</span>(model.run, <span class="fu">paste0</span>(<span class="st">&quot;retro&quot;</span>, start.retro<span class="sc">:-</span>end.retro)))</span></code></pre></div>
 <pre><code>## length(dirvec) as input to SSgetoutput: 5 
 ## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro0/Report.sso 
 ## added element &#39;replist1&#39; to list
@@ -552,22 +545,22 @@ retrospectiva de cinco años:</p>
 ## added element &#39;replist4&#39; to list
 ## reading output from C:/MATH4FISH/Math4fish_SS3/quarter/10a_anchcadiz/Reference_Run/retro-4/Report.sso 
 ## added element &#39;replist5&#39; to list</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is often useful to save the retro model runs as .rdata file for further processing with ss3diags, considering that reading the models with r4ss::SSgetoutput() can be quite time-consuming for more complex models.</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is often useful to save the retro model runs as .rdata file for further processing with ss3diags, considering that reading the models with r4ss::SSgetoutput() can be quite time-consuming for more complex models.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(retro.phk, <span class="at">file =</span> <span class="fu">file.path</span>(model.run, <span class="st">&quot;retro.phk.rdata&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>check.retro <span class="ot">=</span> r4ss<span class="sc">::</span><span class="fu">SSsummarize</span>(retro.phk)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(retro.phk, <span class="at">file =</span> <span class="fu">file.path</span>(model.run, <span class="st">&quot;retro.phk.rdata&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>check.retro <span class="ot">=</span> r4ss<span class="sc">::</span><span class="fu">SSsummarize</span>(retro.phk)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">forecast =</span> T, <span class="at">legend =</span> F, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">forecast =</span> T, <span class="at">legend =</span> F, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
 <pre><code>##   type     peel           Rho ForecastRho
 ## 1  SSB     2020  0.3244892270   1.0452230
 ## 2  SSB     2019 -0.0009997573   0.5352011
 ## 3  SSB     2018  0.0285438816  -0.2089978
 ## 4  SSB     2017 -0.5841734340  -0.5442693
 ## 5  SSB Combined -0.0580350207   0.2067893</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">subplots =</span> <span class="st">&quot;F&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">3.5</span>), <span class="at">forecast =</span> T,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">legendloc =</span> <span class="st">&quot;topleft&quot;</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
-<p><img src="SS3diags_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">subplots =</span> <span class="st">&quot;F&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">3.5</span>), <span class="at">forecast =</span> T,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">legendloc =</span> <span class="st">&quot;topleft&quot;</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<p><img src="SS3diags_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre><code>##   type     peel          Rho   ForecastRho
 ## 1    F     2020 -0.120514087 -0.3353472742
 ## 2    F     2019  0.041828380 -0.1638073101
@@ -593,30 +586,30 @@ cuantiles en los casos en que los residuos de los índices múltiples
 estén disponibles para un año determinado.</p>
 <p>Los errores cuadráticos medios (RMSE) se incluyen en la esquina
 superior derecha de cada gráfico.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F)</span></code></pre></div>
 <pre><code>##      Index runs.p   test  sigma3.lo sigma3.hi type
 ## 1   PELAGO  0.767 Passed -0.6250597 0.6250597 cpue
 ## 2 ECOCADIZ  0.556 Passed -1.3652589 1.3652589 cpue</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="at">verbose =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;cpue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>,<span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="at">verbose =</span> F)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   Fleet    RMSE.perc  Nobs
 ##   &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;
 ## 1 ECOCADIZ      48.7    13
 ## 2 PELAGO        37.8    16
 ## 3 Combined      43.1    29</code></pre>
-<p><img src="SS3diags_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">plot.cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="SS3diags_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">sspar</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">plot.cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRunstest</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## Warning: combining data from multiple seasons</code></pre>
 <pre><code>##      Index runs.p   test  sigma3.lo sigma3.hi type
 ## 1  Fishery  0.000 Failed -0.2146313 0.2146313  len
 ## 2   PELAGO  0.455 Passed -0.2303625 0.2303625  len
 ## 3 ECOCADIZ  0.691 Passed -0.1391272 0.1391272  len</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotJABBAres</span>(replist, <span class="at">subplots =</span> <span class="st">&quot;len&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">seas=</span><span class="st">&quot;comb&quot;</span>, <span class="at">verbose =</span> F,<span class="at">legendcex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## Warning: combining data from multiple seasons</code></pre>
-<p><img src="SS3diags_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="SS3diags_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre><code>## # A tibble: 4 × 3
 ##   Fleet    RMSE.perc  Nobs
 ##   &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;

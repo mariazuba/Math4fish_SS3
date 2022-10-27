@@ -84,20 +84,6 @@ replist <- SS_output(dir = mod_path,
 
 ##  {.tabset .tabset-fade .tabset-pills}
 
-### Ajustes y residuales
-
-```{r message=F,warning=F,fig.align='center'}
-
-SSplotComps(replist, subplots = c(21,24))
-
-```
-
-```{r message=F,warning=F}
-
-SSplotComps(replist, subplots = c(1:1))
-
-```
-
 ### Análisis retrospectivo
 
 Un análisis retrospectivo elimina una cierta cantidad de años de los datos del modelo y vuelve a calcular el ajuste. Por lo general, esto se hace varias veces y los resultados se utilizan para buscar patrones retrospectivos (es decir, desviaciones no aleatorias en los parámetros estimados o cantidades derivadas a medida que se eliminan años de datos). Si los resultados del modelo cambian de manera drástica y no aleatoria a medida que se eliminan los datos, el soporte para el modelo es menor. Para obtener más información sobre la teoría y los detalles detrás de los análisis retrospectivos, consulte **Hurtado-Ferro et al. 2015** y **Legault 2020**.
