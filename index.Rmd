@@ -46,7 +46,7 @@ El objetivo de esta guía es:
 
 - Comprender la estructura de archivos de entrada y salida para SS3
 
-- Ser capaz de ejecutar un modelo SS3 a través de la línea de comandos
+- Ser capaz de ejecutar un modelo SS3 
 
 - Comprender qué herramientas están disponibles para trabajar con modelos SS3
 
