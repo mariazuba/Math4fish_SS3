@@ -354,13 +354,18 @@ div.tocify {
 </div>
 
 
-<p>Los archivos del modelo (starter.ss, data file, forecast.ss, control
-file) y el ejecutable SS3 (ss.exe) deben estar en la misma carpeta. SS3
-siempre se abre y lee los archivos en el mismo orden, escribiendo las
-salidas de debugging en echoinput.sso y advertencias en warnings.sso a
-medida que se lee.</p>
+<p>En esta sección seguiremos los pasos propuestos por el <strong>SS3
+Development Team</strong> para Desarrollar nuestro primer modelo Stock
+Synthesis (SS3) <a
+href="https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html"
+class="uri">https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html</a>.</p>
+<p>Los archivos del modelo (starter.ss, data.ss, forecast.ss,
+control.ss) y el ejecutable SS3 (ss.exe) deben estar en la misma
+carpeta. SS3 siempre se abre y lee los archivos en el mismo orden,
+escribiendo las salidas de debugging en <strong>echoinput.sso</strong> y
+advertencias en <strong>warnings.sso</strong> a medida que se lee.</p>
 <p>Luego, SS3 va a la sección de procedimiento donde ADMB realiza
-cambios de parámetrso iterativos para minimizar la negative log
+cambios de parámetros iterativos para minimizar la negative log
 likelihood.</p>
 <p>Cuando ADMB logra la convergencia, el control pasa a sd_phase para el
 cálculo de la varianza de los parámetros (a menos que se especifique la
@@ -403,30 +408,109 @@ pretendía el usuario.</li>
 <li><strong>Archivos utilizados para debugging</strong>. Estos archivos
 incluyen warnings.sso y echoinput.sso.</li>
 </ul>
-<p>En esta sección seguiremos los pasos propuestos por el SS3
-Development Team para Desarrollar nuestro primer modelo Stock Synthesis
-(SS3) <a
-href="https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html"
-class="uri">https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html</a>.</p>
 <div id="cómo-crear-nuevos-modelos-ss3" class="section level1">
 <h1>Cómo crear nuevos modelos SS3</h1>
+<p>Hay muchos flujos de trabajo potenciales para desarrollar un nuevo
+modelo SS3, pero una técnica común es comenzar con un modelo existente y
+cambiarlo por partes. La técnica básica es:</p>
+<ol style="list-style-type: decimal">
+<li><p>Encuentre un modelo de trabajo existente (quizás uno de los
+modelos de ejemplo SS3 disponibles en el repositorio de ejemplos de
+usuario o quizás un modelo más similar en forma al modelo que planea
+crear).</p></li>
+<li><p>Edite partes del modelo e intente ejecutar a medida que avanza
+para verificar que SS3 pueda leer correctamente sus entradas y que
+tengan sentido lógico (consejo: use options
+<code>-stopph 0 -nohess</code> para reducir el tiempo de ejecución con
+cada iteración de verificación de entradas al no estimar nada y no
+invertir la arpillera).</p></li>
+</ol>
 </div>
 <div id="sobre-la-especificación-del-modelo" class="section level1">
 <h1>Sobre la especificación del modelo</h1>
+<p>SS3 tiene un rico conjunto de características. Algunas entradas
+requeridas están condicionadas a otras entradas, por lo que es
+importante tener en cuenta que cambiar una opción puede hacer que SS3
+espere una cantidad diferente de valores en los archivos de entrada que
+antes. La mayoría de las veces, estas entradas condicionales se leen
+justo después de la opción.</p>
+<p>El manual de usuario de SS3 se puede utilizar como guía para ayudarlo
+a editar su modelo. Las entradas condicionales se indican en el
+manual.</p>
+<p>Si no está seguro de haber realizado la configuración correcta
+(p. ej., agregando el número correcto de líneas de parámetros para una
+configuración de capturabilidad elegida), intente ejecutar el modelo con
+<code>maxphase = 0</code> en el archivo de inicio y la opción ADMB
+<code>-nohess</code> (o para SS3 3.30. 16 y posteriores, ejecute el
+modelo con opciones de línea de comando <code>-stopph 0 -nohess</code>,
+no es necesario cambiar el archivo de inicio). Si se completa la
+ejecución del modelo, puede comparar el archivo
+<strong>control.ss_new</strong> y el primer conjunto de datos en
+<strong>data.ss_new</strong> con sus archivos de entrada de SS3 para
+asegurarse de que SS3 interpretó los valores según lo previsto. Si la
+ejecución finaliza antes de completarse, puede buscar en
+<strong>warning.sso</strong> y <strong>echoinput.sso</strong> para
+obtener pistas sobre el problema de su configuración.</p>
 </div>
 <div id="fases-en-ss3-y-admb" class="section level1">
 <h1>Fases en SS3 y ADMB</h1>
+<p>Las fases se utilizan dentro de ADMB para decirle al programa en qué
+orden se deben estimar los parámetros. Para obtener más detalles sobre
+las fases en ADMB, consulte el <a
+href="http://www.admb-project.org/docs/manuals/">manual de usuario de
+ADMB</a>.</p>
+<ul>
+<li><p>Una <strong>fase negativa</strong> indica que el parámetro no se
+estima, sino que se especifica.</p></li>
+<li><p>Una <strong>fase positiva</strong> indica que el parámetro será
+estimado. Los parámetros con una fase positiva más baja se estimarán
+antes que aquellos con una fase positiva más alta.</p></li>
+</ul>
+<div id="en-qué-fase-debería-poner-un-parámetro-estimado"
+class="section level4">
+<h4>¿En qué fase debería poner un parámetro estimado?</h4>
+<p>Si bien existe variabilidad entre los analistas y los modelos en la
+forma en que se utiliza la fase, en general, los parámetros con fases
+positivas bajas deben ser para valores que definen la escala de la
+población (es decir, R0, mortalidad natural, steepness,
+selectividad).</p>
+<p>Los parámetros para afinar los ajustes a los datos a menudo se
+estiman en fases posteriores (es decir, parámetros de capturabilidad,
+crecimiento y desviación del reclutamiento). Muchos modelos usan fases
+positivas de aproximadamente 1 a 5, aunque es posible usar valores de
+fase más altos.</p>
+<p>Cuando se ejecuta un modelo sin estimar nada, las fases se ignoran;
+debido a que no hay estimación, ejecutar sin estimación es como incluir
+una fase negativa para todos los parámetros.</p>
+</div>
 </div>
 <div id="debugging-básicos-use-echoinput.sso-y-warning.sso"
 class="section level1">
 <h1>Debugging básicos: use echoinput.sso y warning.sso</h1>
+<p>Las herramientas más útiles para depurar problemas de SS3 son los
+archivos de salida de SS3 <strong>echoinput.sso</strong> y
+<strong>warning.sso</strong>. A medida que se ejecuta SS3, vuelve a
+escribir en <strong>echoinput.sso</strong>. Cuando SS3 sale sin
+terminar, mirar el último contenido escrito en
+<strong>echoinput.sso</strong> y compararlo con sus archivos de entrada
+puede proporcionar pistas sobre dónde (y posiblemente por qué) falló la
+ejecución.</p>
+<p>Tenga en cuenta que SS3 lee las entradas en orden y las leerá
+incorrectamente si se proporciona el número incorrecto de entradas. Las
+advertencias generadas durante la ejecución se escriben en
+<strong>warning.sso</strong>. El archivo de <strong>warning.sso</strong>
+siempre debe examinarse al final de la ejecución, incluso si la
+ejecución fue exitosa, ya que incluye sugerencias para mejorar la
+especificación del modelo y advertencias sobre errores comunes de
+especificación del modelo.</p>
 </div>
 <div id="visualización-de-resultados" class="section level1">
 <h1>Visualización de resultados</h1>
 <p>La visualización es útil a medida que desarrolla iterativamente su
 modelo y para la presentación de los resultados finales del modelo. La
-salida de un modelo SS3 se puede leer en r4ss. La viñeta r4ss tiene más
-información sobre cómo usar el paquete de R r4ss.</p>
+salida de un modelo SS3 se puede leer en <strong>r4ss</strong>. La
+viñeta r4ss tiene más información sobre cómo usar el paquete de R
+<strong>r4ss</strong>.</p>
 </div>
 <div id="flujo-de-trabajo-propuesto-para-llegar-a-un-modelo-final"
 class="section level1">
@@ -459,12 +543,12 @@ class="section level2">
 <h2>Segundo paso: ejecutar estimando algunos parámetros</h2>
 <p>Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o
 3) para estimar algunos pero no todos los parámetros. Haga esto usando
--stopph x -nohess, donde x debe ser la fase máxima deseada (por ejemplo,
-2 o 3). -nohess todavía se usa para reducir el tiempo de ejecución.
-Durante esta etapa de las ejecuciones del modelo, debe intentar ajustar
-el modelo para resolver todos los patrones principales en los
-residuales. Esto puede incluir considerar y realizar cambios en la
-estructura del modelo.</p>
+<code>-stopph x -nohess</code>, donde x debe ser la fase máxima deseada
+(por ejemplo, 2 o 3). -nohess todavía se usa para reducir el tiempo de
+ejecución. Durante esta etapa de las ejecuciones del modelo, debe
+intentar ajustar el modelo para resolver todos los patrones principales
+en los residuales. Esto puede incluir considerar y realizar cambios en
+la estructura del modelo.</p>
 </div>
 <div id="tercer-paso-ejecutar-estimando-todos-los-parámetros"
 class="section level2">
@@ -535,10 +619,11 @@ sentido para la población.</li>
 </div>
 <div id="si-la-hessiana-no-se-invierte" class="section level2">
 <h2>Si la Hessiana no se invierte</h2>
-<p>La información de de la Hessiana se informa en el archivo Report.sso,
-así que vaya a esta sección para confirmar si se trata de un problema.
-Este es un problema difícil de resolver, pero puede ser necesario
-considerar modelos alternativos si la arpillera no se invierte.</p>
+<p>La información de de la Hessiana se informa en el archivo
+<strong>Report.sso</strong>, así que vaya a esta sección para confirmar
+si se trata de un problema. Este es un problema difícil de resolver,
+pero puede ser necesario considerar modelos alternativos si la arpillera
+no se invierte.</p>
 </div>
 </div>
 <div
@@ -561,11 +646,11 @@ especificando?</li>
 </div>
 <div id="mi-modelo-ajusta-bien" class="section level2">
 <h2>¿Mi modelo ajusta bien?</h2>
-<p>La función r4ss::SS_output() imprime algunos diagnósticos muy útiles
-en la ventana de la consola R, incluida una lista de los parámetros
-estimados, el valor estimado, si el parámetro está alcanzando un límite,
-el gradiente y el tipo anterior. Utilice este (u otros archivos de
-salida SS3) para responder:</p>
+<p>La función <code>r4ss::SS_output()</code> imprime algunos
+diagnósticos muy útiles en la ventana de la consola R, incluida una
+lista de los parámetros estimados, el valor estimado, si el parámetro
+está alcanzando un límite, el gradiente y el tipo anterior. Utilice este
+(u otros archivos de salida SS3) para responder:</p>
 <ul>
 <li>¿Se movió el parámetro del valor inicial?</li>
 <li>¿Está el parámetro llegando a un límite?</li>
@@ -582,17 +667,17 @@ resultados del modelo (o la forma de la selectividad).</p>
 </div>
 <div id="mi-ponderación-de-datos-tiene-sentido" class="section level2">
 <h2>¿Mi ponderación de datos tiene sentido?</h2>
-<p>La función r4ss::SS_output() imprime información sobre la
-sintonización de la consola R. Esto incluye información de ajuste para
-datos de longitud y edad que se pueden usar para la ponderación de datos
-cuando se usa la ponderación de McAllister Ianelli (es decir,
+<p>La función <code>r4ss::SS_output()</code> imprime información sobre
+la sintonización de la consola R. Esto incluye información de ajuste
+para datos de longitud y edad que se pueden usar para la ponderación de
+datos cuando se usa la ponderación de McAllister Ianelli (es decir,
 ponderación por la media armónica).</p>
-<p>La función r4ss::SS_plots() crea cifras medias de longitud y edad con
-leyendas que muestran los pesos de Francis recomendados para cada fuente
-de datos. Incluso si está utilizando un enfoque de ponderación de datos
-alternativo (es decir, Francis, Dirichlet u otro), siempre es una buena
-práctica explorar un enfoque alternativo y ver cómo la ponderación de
-datos cambia el modelo.</p>
+<p>La función <code>r4ss::SS_plots()</code> crea cifras medias de
+longitud y edad con leyendas que muestran los pesos de Francis
+recomendados para cada fuente de datos. Incluso si está utilizando un
+enfoque de ponderación de datos alternativo (es decir, Francis,
+Dirichlet u otro), siempre es una buena práctica explorar un enfoque
+alternativo y ver cómo la ponderación de datos cambia el modelo.</p>
 </div>
 <div id="ajusté-correctamente-la-variación-del-reclutamiento"
 class="section level2">
@@ -605,9 +690,9 @@ cantidad de datos.</p>
 <p>Para un valor fijo de sigmaR, una sección del resultado proporcionará
 diagnósticos para determinar si el valor fijo de sigmaR está capturando
 las variaciones estimadas en el reclutamiento. La función
-r4ss::SS_output() imprimirá un valor recomendado basado en la variación
-en las desviaciones de reclutamiento estimadas que quizás desee
-considerar usar.</p>
+<code>r4ss::SS_output()</code> imprimirá un valor recomendado basado en
+la variación en las desviaciones de reclutamiento estimadas que quizás
+desee considerar usar.</p>
 <style type="text/css">
 .scroll-200{
             max-height: 200px; 
