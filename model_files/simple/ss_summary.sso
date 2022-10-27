@@ -1,7 +1,7 @@
-#V3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3
+#V3.30.19.00-prerel;_safe;_compile_date:_Feb 25 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3
 data.ss #_DataFile 
 control.ss #_Control 
-Run_Date: Tue Apr 12 09:41:03 2022
+Run_Date: Thu Oct 27 11:00:29 2022
 Final_phase: 5  N_iterations: 418
 #_LIKELIHOOD 
 Label logL*Lambda
@@ -12,8 +12,8 @@ Length_comp 651.008
 Age_comp 586.61
 Size_at_age 79.225
 Recruitment -7.39702
-InitEQ_regime 1.54502e-30
-Sum_recdevs -4.44089e-16
+InitEQ_regime 0
+Sum_recdevs 0
 Forecast_Recruitment 0
 Parm_priors 1.05602
 Parm_softbounds 0.0012046
