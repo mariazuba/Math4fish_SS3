@@ -1,32 +1,54 @@
 ---
-title: "Visualización"
+title: ""
 ---
 
 
 
-## SALIDAS SS3 {.tabset .tabset-fade .tabset-pills}
+## Visualización SS3 
+
+
+```{r echo=F, message=F,warning=F}
+
+library(reshape2)
+require(dplyr)
+require(tidyr)
+library(knitr) #Rmarkdown
+library(ggplot2) # plot
+library(patchwork) # plot
+library(kableExtra) # genera tablas
+library(r4ss)
+
+# initial model to modify
+mod_path<-(paste(getwd(),'/model_files/simple',sep=""))
+
+# create a new directory to put a new, modified version of the model
+new_mod_path <- (paste(getwd(),'/model_files/simple_new',sep=""))
+
+```
 
 ```{r , message=F,warning=F,eval=F,incluide=F}
 
-exe_path <- paste(mod_path,"ss.exe",sep= "/")
-r4ss::run_SS_models(dirvec = mod_path, model = exe_path, 
-                    skipfinished = FALSE)
+exe_path <- paste(mod_path,"ss_win.exe",sep= "/")
+
+r4ss::run_SS_models(dirvec=mod_path, model=exe_path,skipfinished=FALSE)
 
 
 ```
 
 ```{r echo=F, message=F,warning=F,include=F, eval=T}
 
-# initial model to modify
-mod_path<-(paste(getwd(),'/quarter/10a_anchcadiz',sep=""))
+replist <- SS_output(dir=mod_path,verbose=TRUE,printstats=TRUE)
 
-# create a new directory to put a new, modified version of the model
-new_mod_path <- (paste(getwd(),'/quarter/10a_anchcadiz_new',sep=""))
+# SS_plots(replist)
+
+```
 
 
-replist <- SS_output(dir = mod_path, 
-                     verbose = TRUE,
-                     printstats = TRUE)
+### Datos
+
+```{r message=F,warning=F,eval=T, fig.align='center',fig.width=6.5,fig.height=4.5,fig.cap="Datos de entrada al modelo"}
+
+SSplotData(replist, subplot = 1)
 
 ```
 
@@ -115,13 +137,21 @@ SSplotIndices(replist, subplots = c(9,2,7))
 
 ```
 
-### Datos
 
-```{r message=F,warning=F,eval=T, fig.align='center',fig.width=6.5,fig.height=4.5,fig.cap="Datos de entrada al modelo"}
+### Ajustes y residuales
 
-SSplotData(replist, subplot = 1)
+```{r message=F,warning=F,fig.align='center'}
+
+SSplotComps(replist, subplots = c(21,24))
 
 ```
+
+```{r message=F,warning=F}
+
+SSplotComps(replist, subplots = c(1:1))
+
+```
+
 
 ### Relación stock-recluta
 
