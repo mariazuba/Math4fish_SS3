@@ -4,8 +4,10 @@ title: ""
 
 
 
-## Visualización SS3 
+## Visualización de resultados  
 
+
+La visualización es útil a medida que desarrolla iterativamente su modelo y para la presentación de los resultados finales del modelo. La salida de un modelo SS3 se puede leer en **r4ss**. La [Guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) tiene más información sobre cómo usar el paquete de R **r4ss**.
 
 ```{r echo=F, message=F,warning=F}
 

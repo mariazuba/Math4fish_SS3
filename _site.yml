@@ -6,11 +6,11 @@ navbar:
       href: intro.html
     - text: "Archivos de Datos"
       href: Datos.html
-    - text: "Ejecutar SS3"
+    - text: "Cómo Ejecutar SS3"
       href: R4SS.html
     - text: "Visualización"
       href: Visualizacion.html
-    - text: "Diagnóstico"
+    - text: "Diagnóstico Avanzado"
       href: SS3diags.html
 output_dir: "."
 output: 

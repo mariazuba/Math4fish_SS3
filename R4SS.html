@@ -320,13 +320,13 @@ div.tocify {
   <a href="Datos.html">Archivos de Datos</a>
 </li>
 <li>
-  <a href="R4SS.html">Ejecutar SS3</a>
+  <a href="R4SS.html">Cómo Ejecutar SS3</a>
 </li>
 <li>
   <a href="Visualizacion.html">Visualización</a>
 </li>
 <li>
-  <a href="SS3diags.html">Diagnóstico</a>
+  <a href="SS3diags.html">Diagnóstico Avanzado</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -359,20 +359,21 @@ Development Team</strong> para Desarrollar nuestro primer modelo Stock
 Synthesis (SS3) <a
 href="https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html"
 class="uri">https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html</a>.</p>
-<p>Los archivos del modelo (starter.ss, data.ss, forecast.ss,
-control.ss) y el ejecutable SS3 (ss.exe) deben estar en la misma
-carpeta. SS3 siempre se abre y lee los archivos en el mismo orden,
-escribiendo las salidas de debugging en <strong>echoinput.sso</strong> y
-advertencias en <strong>warnings.sso</strong> a medida que se lee.</p>
+<p>Los archivos del modelo (<strong>starter.ss, data.ss, forecast.ss,
+control.ss</strong>) y el ejecutable SS3 (<strong>ss.exe</strong>) deben
+estar en la misma carpeta. SS3 siempre se abre y lee los archivos en el
+mismo orden, escribiendo las salidas de debugging en
+<strong>echoinput.sso</strong> y advertencias en
+<strong>warnings.sso</strong> a medida que se lee.</p>
 <p>Luego, SS3 va a la sección de procedimiento donde ADMB realiza
 cambios de parámetros iterativos para minimizar la negative log
 likelihood.</p>
 <p>Cuando ADMB logra la convergencia, el control pasa a sd_phase para el
 cálculo de la varianza de los parámetros (a menos que se especifique la
-opción -nohess). Después de sd_phase, SS3 pasa a la sección de código de
-benchmark y forecast y luego al informe final. Los archivos de salida
-que contienen resultados normalmente se escriben en el directorio desde
-el que se ejecutó el modelo.</p>
+opción <code>-nohess</code>). Después de sd_phase, SS3 pasa a la sección
+de código de benchmark y forecast y luego al informe final. Los archivos
+de salida que contienen resultados normalmente se escriben en el
+directorio desde el que se ejecutó el modelo.</p>
 <p>Cuando se completa la ejecución, aparece SS3!!. La ejecución ha
 finalizado!!. Se recomienda revisar warnings.sso en busca de problemas y
 sugerencias, independientemente si la ejecución se completó
@@ -382,21 +383,23 @@ completed !!.</p>
 <ul>
 <li>Asegurese de que todos los archivos y directorios tengan el nombre
 correcto.</li>
-<li>Verifique que el archivo “starter.ss” haga referencia a los nombres
-correctos de los archivos de control y datos.</li>
+<li>Verifique que el archivo <strong>starter.ss</strong> haga referencia
+a los nombres correctos de los archivos de control y datos.</li>
 <li>Si SS3 comienza a leer archivos y luego falla, revise los archivos
-warnings.sso y echoinput.sso. El archivo warnings.sso revelaán posibles
-problemas con el modelo, mientras que echoinput.sso mostrará hasta donde
-pudo ejecutarse SS3. Trajaje hacia atrás desde la parte inferior de
-echoinput.sso, buscándo donde se detuvo SS3 y si las entradas se llen
-correctamente o no.</li>
+<strong>warnings.sso</strong> y <strong>echoinput.sso</strong>. El
+archivo <strong>warnings.sso</strong> revelarán posibles problemas con
+el modelo, mientras que <strong>echoinput.sso</strong> mostrará hasta
+donde pudo ejecutarse SS3. Trabaje hacia atrás desde la parte inferior
+de <strong>echoinput.sso</strong>, buscándo donde se detuvo SS3 y si las
+entradas se ingresaron correctamente o no.</li>
 </ul>
 <p>Muchos archivos de texto de salida se crean durante la ejecución de
 un modelo. Los archivos de salida más útiles se pueden dividir en :</p>
 <ul>
 <li><strong>Archivos que contienen resultados</strong>. Estos archivos
-incluyen ss_summary.sso y report.sso que contienen los resultados del
-modelo resumidos de diferentes maneras.</li>
+incluyen <strong>ss_summary.sso</strong> y <strong>report.sso</strong>
+que contienen los resultados del modelo resumidos de diferentes
+maneras.</li>
 <li><strong>.ss_new files</strong>. Estos archivos repiten los archivos
 de entrada SS3, pero incluyen comentarios estandarizados. Los valores
 deben ser los mismos que los archivos de entrada, excepto
@@ -406,7 +409,8 @@ estandarizar los comentarios en los archivos de entrada y se pueden
 verificar para asegurarse de que SS3 interpretó las entradas como
 pretendía el usuario.</li>
 <li><strong>Archivos utilizados para debugging</strong>. Estos archivos
-incluyen warnings.sso y echoinput.sso.</li>
+incluyen <strong>warnings.sso</strong> y
+<strong>echoinput.sso</strong>.</li>
 </ul>
 <div id="cómo-crear-nuevos-modelos-ss3" class="section level1">
 <h1>Cómo crear nuevos modelos SS3</h1>
@@ -452,8 +456,8 @@ ejecución finaliza antes de completarse, puede buscar en
 <strong>warning.sso</strong> y <strong>echoinput.sso</strong> para
 obtener pistas sobre el problema de su configuración.</p>
 </div>
-<div id="fases-en-ss3-y-admb" class="section level1">
-<h1>Fases en SS3 y ADMB</h1>
+<div id="fases-de-estimación-de-parámetros" class="section level1">
+<h1>Fases de estimación de parámetros</h1>
 <p>Las fases se utilizan dentro de ADMB para decirle al programa en qué
 orden se deben estimar los parámetros. Para obtener más detalles sobre
 las fases en ADMB, consulte el <a
@@ -484,9 +488,8 @@ debido a que no hay estimación, ejecutar sin estimación es como incluir
 una fase negativa para todos los parámetros.</p>
 </div>
 </div>
-<div id="debugging-básicos-use-echoinput.sso-y-warning.sso"
-class="section level1">
-<h1>Debugging básicos: use echoinput.sso y warning.sso</h1>
+<div id="debugging-básicos" class="section level1">
+<h1>Debugging básicos</h1>
 <p>Las herramientas más útiles para depurar problemas de SS3 son los
 archivos de salida de SS3 <strong>echoinput.sso</strong> y
 <strong>warning.sso</strong>. A medida que se ejecuta SS3, vuelve a
@@ -503,14 +506,6 @@ siempre debe examinarse al final de la ejecución, incluso si la
 ejecución fue exitosa, ya que incluye sugerencias para mejorar la
 especificación del modelo y advertencias sobre errores comunes de
 especificación del modelo.</p>
-</div>
-<div id="visualización-de-resultados" class="section level1">
-<h1>Visualización de resultados</h1>
-<p>La visualización es útil a medida que desarrolla iterativamente su
-modelo y para la presentación de los resultados finales del modelo. La
-salida de un modelo SS3 se puede leer en <strong>r4ss</strong>. La
-viñeta r4ss tiene más información sobre cómo usar el paquete de R
-<strong>r4ss</strong>.</p>
 </div>
 <div id="flujo-de-trabajo-propuesto-para-llegar-a-un-modelo-final"
 class="section level1">
@@ -574,125 +569,6 @@ iniciales.</li>
 </ol>
 <p>Después de estas ejecuciones, su modelo debería estar ajustado y
 listo para las ejecuciones finales.</p>
-</div>
-</div>
-<div id="debugging-avanzado" class="section level1">
-<h1>Debugging avanzado</h1>
-<p>En esta sección, hemos enumerado algunos problemas comunes que puede
-encontrar y algunas técnicas para resolverlos dentro de su modelo.</p>
-<div id="si-los-residuos-tienen-patrones-sustanciales"
-class="section level2">
-<h2>Si los residuos tienen patrones sustanciales</h2>
-<p>A menudo es difícil identificar la causa de los residuos que tienen
-patrones sustanciales, pero dos posibles razones por las que esto podría
-suceder son valores iniciales poco realistas o una especificación de
-modelo deficiente. Si tiene residuos con un patrón sustancial, puede
-intentar cambiar los valores iniciales. Si un parámetro no se mueve del
-valor inicial, es posible que no haya suficiente información para
-determinar su valor y que sea necesario fijar el valor en el modelo. Si
-el parámetro se mueve con diferentes valores iniciales, es posible que
-el valor inicial utilizado antes no fuera razonable y, por lo tanto,
-cambiar el valor inicial a un valor razonable soluciona el problema.</p>
-</div>
-<div id="si-ss3-se-ejecuta-pero-hay-un-gradiente-final-muy-grande"
-class="section level2">
-<h2>Si SS3 se ejecuta, pero hay un gradiente final muy grande</h2>
-<p>Los gradientes grandes generalmente se informan en el archivo de
-<strong>warnings.sso</strong>, por lo que este problema debería estar
-claro al examinar el archivo después de ejecutar un modelo. Si este es
-el caso, intente lo siguiente:</p>
-<ul>
-<li>Examine <strong>Report.sso</strong> en busca de parámetros que estén
-dentro o cerca de los límites, ya que estos pueden ser los parámetros
-que están causando problemas. Depende del valor, pero puede considerar
-cambiar sus límites o los parámetros, según lo que parezca más plausible
-dado su modelo.</li>
-<li>Examine los residuos para identificar si hay una falta de ajuste
-general. Esto puede indicar que el algoritmo ADMB no pudo encontrar el
-mínimo global. Pruebe valores iniciales alternativos para intentar
-resolver este problema. Sin embargo, también es posible que haya un gran
-conflicto entre la estructura de su modelo y el archivo de su modelo, en
-cuyo caso es posible que desee reconsiderar la especificación del
-modelo; tal vez haya una estructura de modelo alternativa que tenga más
-sentido para la población.</li>
-</ul>
-</div>
-<div id="si-la-hessiana-no-se-invierte" class="section level2">
-<h2>Si la Hessiana no se invierte</h2>
-<p>La información de de la Hessiana se informa en el archivo
-<strong>Report.sso</strong>, así que vaya a esta sección para confirmar
-si se trata de un problema. Este es un problema difícil de resolver,
-pero puede ser necesario considerar modelos alternativos si la arpillera
-no se invierte.</p>
-</div>
-</div>
-<div
-id="algunas-preguntas-a-considerar-durante-el-desarrollo-del-modelo"
-class="section level1">
-<h1>Algunas preguntas a considerar durante el desarrollo del modelo</h1>
-<p>Hay muchos elementos a considerar en un modelo SS3. A continuación se
-presentan algunas preguntas y consideraciones que los usuarios
-experimentados de SS3 han utilizado para comprobar que su modelo tiene
-sentido durante todo el proceso de desarrollo iterativo del modelo.</p>
-<div id="mi-modelo-tiene-sentido" class="section level2">
-<h2>¿Mi modelo tiene sentido?</h2>
-<ul>
-<li>¿Tiene sentido la biología? ¿Selectividad?</li>
-<li>¿El modelo se ajusta a los índices? ¿Datos de longitud y edad?</li>
-<li>¿Cuál es el patrón en el reclutamiento?</li>
-<li>¿Las priors coinciden con lo que pensé que estaba
-especificando?</li>
-</ul>
-</div>
-<div id="mi-modelo-ajusta-bien" class="section level2">
-<h2>¿Mi modelo ajusta bien?</h2>
-<p>La función <code>r4ss::SS_output()</code> imprime algunos
-diagnósticos muy útiles en la ventana de la consola R, incluida una
-lista de los parámetros estimados, el valor estimado, si el parámetro
-está alcanzando un límite, el gradiente y el tipo anterior. Utilice este
-(u otros archivos de salida SS3) para responder:</p>
-<ul>
-<li>¿Se movió el parámetro del valor inicial?</li>
-<li>¿Está el parámetro llegando a un límite?</li>
-<li>¿El gradiente del parámetro es bajo?</li>
-</ul>
-<p>Debajo de las estimaciones de parámetros que r4ss::SS_output()
-imprime en la consola, hay una sección específica que resalta los
-parámetros con los gradientes de modelo más altos. Examinar esta lista
-podría indicar qué parámetros (si los hay) pueden necesitar ser
-corregidos debido a la falta de información en los datos.</p>
-<p>Por ejemplo, puede haber parámetros de selectividad incluidos en la
-lista donde pequeños cambios en el valor del parámetro no cambian los
-resultados del modelo (o la forma de la selectividad).</p>
-</div>
-<div id="mi-ponderación-de-datos-tiene-sentido" class="section level2">
-<h2>¿Mi ponderación de datos tiene sentido?</h2>
-<p>La función <code>r4ss::SS_output()</code> imprime información sobre
-la sintonización de la consola R. Esto incluye información de ajuste
-para datos de longitud y edad que se pueden usar para la ponderación de
-datos cuando se usa la ponderación de McAllister Ianelli (es decir,
-ponderación por la media armónica).</p>
-<p>La función <code>r4ss::SS_plots()</code> crea cifras medias de
-longitud y edad con leyendas que muestran los pesos de Francis
-recomendados para cada fuente de datos. Incluso si está utilizando un
-enfoque de ponderación de datos alternativo (es decir, Francis,
-Dirichlet u otro), siempre es una buena práctica explorar un enfoque
-alternativo y ver cómo la ponderación de datos cambia el modelo.</p>
-</div>
-<div id="ajusté-correctamente-la-variación-del-reclutamiento"
-class="section level2">
-<h2>¿Ajusté correctamente la variación del reclutamiento?</h2>
-<p>Verifique la información de sigmaR (es decir, desviación estándar de
-desarrollo de reclutamiento). El parámetro sigmaR generalmente se fija
-dentro del modelo, por lo que si no se fija dentro de su modelo, debe
-considerar si tiene o no sentido para la población y dada la calidad y
-cantidad de datos.</p>
-<p>Para un valor fijo de sigmaR, una sección del resultado proporcionará
-diagnósticos para determinar si el valor fijo de sigmaR está capturando
-las variaciones estimadas en el reclutamiento. La función
-<code>r4ss::SS_output()</code> imprimirá un valor recomendado basado en
-la variación en las desviaciones de reclutamiento estimadas que quizás
-desee considerar usar.</p>
 <style type="text/css">
 .scroll-200{
             max-height: 200px; 

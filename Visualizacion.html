@@ -425,13 +425,13 @@ div.tocify {
   <a href="Datos.html">Archivos de Datos</a>
 </li>
 <li>
-  <a href="R4SS.html">Ejecutar SS3</a>
+  <a href="R4SS.html">Cómo Ejecutar SS3</a>
 </li>
 <li>
   <a href="Visualizacion.html">Visualización</a>
 </li>
 <li>
-  <a href="SS3diags.html">Diagnóstico</a>
+  <a href="SS3diags.html">Diagnóstico Avanzado</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -458,8 +458,14 @@ div.tocify {
 </div>
 
 
-<div id="visualización-ss3" class="section level2">
-<h2>Visualización SS3</h2>
+<div id="visualización-de-resultados" class="section level2">
+<h2>Visualización de resultados</h2>
+<p>La visualización es útil a medida que desarrolla iterativamente su
+modelo y para la presentación de los resultados finales del modelo. La
+salida de un modelo SS3 se puede leer en <strong>r4ss</strong>. La <a
+href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">Guía
+de library r4ss</a> tiene más información sobre cómo usar el paquete de
+R <strong>r4ss</strong>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>exe_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_path,<span class="st">&quot;ss_win.exe&quot;</span>,<span class="at">sep=</span> <span class="st">&quot;/&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec=</span>mod_path, <span class="at">model=</span>exe_path,<span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
