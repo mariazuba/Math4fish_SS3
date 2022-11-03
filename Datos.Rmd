@@ -1,8 +1,9 @@
 ---
-title: "Descripción de los archivos de datos"
+title: "Archivos del modelo"
 ---
 
 &nbsp; &nbsp;
+
 
 
 SS3 usa archivos de entrada de texto y produce archivos de salida de texto. En esta sección se describen los archivos de entrada de SS3 así como las herramientas que se pueden usar con estos archivos. Vea como se relacionana en la **Figura 1**.
@@ -69,6 +70,14 @@ Los archivos de datos necesarios para que SS3 funcione son los siguientes:
 4.  **forecast.ss**: archivo que contiene especificaciones para puntos de referencia y proyecciones
 
 Cuando el programa se inicia por primera vez, lee el archivo starter.ss, que normalmente debe estar ubicado en el mismo directorio desde el que se ejecuta SS3 (**ss.exe**). 
+
+
+
+
+```{r pressure, echo=FALSE, fig.cap="", out.width = "80%" }
+knitr::include_graphics("figuras/files_data.png")
+```
+
 
 Los archivos de datos se pueden leer como objetos de lista en R usando las funciones SS_read*(). Los componentes de la lista deben estar en el mismo orden en que aparecen en el archivo de texto. Puede usar la función names() para ver todos los componentes de la lista.
 
@@ -343,7 +352,7 @@ kbl(parQ_option, booktabs = T,position="h!") %>%
 
 ```
 
-#### Datos 
+#### Parámetros 
 
 ```{r echo=F, message=F,warning=F}
 
