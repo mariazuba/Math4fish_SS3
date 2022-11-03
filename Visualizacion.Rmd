@@ -28,7 +28,7 @@ new_mod_path <- (paste(getwd(),'/model_files/simple_new',sep=""))
 
 ```
 
-```{r , message=F,warning=F,eval=F,incluide=F}
+```{r echo=F, message=F,warning=F,eval=F,incluide=F}
 
 exe_path <- paste(mod_path,"ss_win.exe",sep= "/")
 
@@ -45,6 +45,11 @@ replist <- SS_output(dir=mod_path,verbose=TRUE,printstats=TRUE)
 
 ```
 
+```{r}
+
+
+
+```
 
 ### Datos
 
