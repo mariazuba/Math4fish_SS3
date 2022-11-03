@@ -1,0 +1,177 @@
+---
+title: ""
+---
+
+
+
+```{css,echo=FALSE}
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+```{r echo=F, message=F,warning=F,}
+
+library(reshape2)
+require(dplyr)
+require(tidyr)
+library(knitr) #Rmarkdown
+library(ggplot2) # plot
+library(patchwork) # plot
+library(kableExtra) # genera tablas
+library(r4ss)
+library(ss3diags)
+
+# remotes::install_github("gadget-framework/rgadget")
+# library(Rgadget) # tengo problemas para instalar esta libreria
+
+
+#remotes::install_github("PIFSCstockassessments/ss3diags")
+
+mod_path<-(paste(getwd(),'/model_files/simple',sep=""))
+
+knitr::opts_chunk$set(echo=T, warning=F, message=F)
+
+```
+
+```{r echo=F,eval=F}
+
+htmltools::img(src=knitr::image_uri(paste(getwd(),"/LOGO_2SN_recortado.png",sep="")),alt='logo',style='top:0; right:-25%; padding:10px; width:250px; height:250px,z-index:200;')
+
+```
+
+
+```{r echo=F, message=F,warning=F,include=F, eval=T}
+
+# initial model to modify
+mod_path<-(paste(getwd(),'/model_files/simple',sep=""))
+
+# create a new directory to put a new, modified version of the model
+new_mod_path <- (paste(getwd(),'/model_files/simple_new',sep=""))
+
+
+replist <- SS_output(dir = mod_path, 
+                     verbose = TRUE,
+                     printstats = TRUE,covar=FALSE)
+
+```
+
+
+
+
+### Análisis retrospectivo
+
+Un análisis retrospectivo elimina una cierta cantidad de años de los datos del modelo y vuelve a calcular el ajuste. Por lo general, esto se hace varias veces y los resultados se utilizan para buscar patrones retrospectivos (es decir, desviaciones no aleatorias en los parámetros estimados o cantidades derivadas a medida que se eliminan años de datos). Si los resultados del modelo cambian de manera drástica y no aleatoria a medida que se eliminan los datos, el soporte para el modelo es menor. Para obtener más información sobre la teoría y los detalles detrás de los análisis retrospectivos, consulte **Hurtado-Ferro et al. 2015** y **Legault 2020**.
+
+La función retro() se puede utilizar para ejecutar análisis retrospectivos a partir de un modelo de Stock Synthesis existente. Tenga en cuenta que es más seguro crear una copia de su modelo original de Stock Synthesis en el que se ejecuta la retrospectiva, en caso de que haya problemas con la ejecución. Por ejemplo, se podría hacer una retrospectiva de cinco años:
+
+-   Paso 1: Identificar el período retrospectivo
+-   Paso 2: Identifique el directorio base
+-   Paso 3: Archivos DAT y CONTROL
+-   Paso 4: Crea un subdirectorio para las Retrospectivas
+-   Paso 5: Modificar el archivo Starter.ss
+-   Paso 6: corre el retrospective
+-   Paso 7: Lea la salida de SS_doRetro()
+
+```{r}
+setwd(mod_path)
+
+#------------
+# paso 1
+#------------
+start.retro <- 0 # end year of reference year
+end.retro <- 4 # number of years for retrospective e.g.,
+
+#------------
+# paso 2
+#------------
+dirname.base = getwd()
+run = "Reference_Run"
+model.run <- file.path(dirname.base, run)
+
+```
+
+```{r message=F,warning=F,eval=F,include=FALSE}
+#------------
+# paso 4
+#------------
+
+copy_SS_inputs(dir.old = mod_path, dir.new = model.run) # copy over the stock synthesis model
+file.copy(file.path(mod_path, "ss_win.exe"), file.path(model.run, "ss_win.exe"))
+
+# Automatically ignored for models without wtatage.ss
+#(file.path(model.run, "wtatage.ss"), file.path(dir.retro, "wtatage.ss"))
+#------------
+# paso 5 
+#------------
+# Modifying the Starter File helps to speed up model runs
+starter <- readLines(paste0(model.run, "/starter.ss"))
+# [8] '2 # run display detail (0,1,2)'
+linen <- grep("# run display detail", starter)
+starter[linen] <- paste0(1, " # run display detail (0,1,2)")
+# write modified starter.ss
+write(starter, file.path(model.run, "starter.ss"))
+#------------
+# paso 6 
+#------------
+#Run the retrospective analyses using r4SS function r4ss::SS_doRetro Ideally, the runs should be done with Hessian to evaluate the retrospective trajectories with respect to the confidence interval coverage of the reference model.
+
+r4ss::SS_doRetro(masterdir = model.run, oldsubdir = "", newsubdir = "", years = start.retro:-end.retro)
+
+```
+
+```{r message=F,warning=F}
+
+retro.phk <- r4ss::SSgetoutput(dirvec = file.path(model.run, paste0("retro", start.retro:-end.retro)))
+
+# It is often useful to save the retro model runs as .rdata file for further processing with ss3diags, considering that reading the models with r4ss::SSgetoutput() can be quite time-consuming for more complex models.
+
+save(retro.phk, file = file.path(model.run, "retro.phk.rdata"))
+
+
+```
+
+```{r message=F,warning=F}
+
+check.retro = r4ss::SSsummarize(retro.phk)
+
+```
+
+
+```{r}
+sspar(mfrow = c(1, 2), plot.cex = 0.8)
+
+SSplotRetro(check.retro, add = T, forecast = T, legend = F, verbose = F, xmin = 2000)
+SSplotRetro(check.retro, add = T, subplots = "F", ylim = c(0, 3.5), forecast = T,
+legendloc = "topleft", legendcex = 0.8, verbose = F, xmin = 2000)
+
+```
+
+
+
+[github ss3diags](https://github.com/jabbamodel/ss3diags) y [guía](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
+
+Referencia:
+
+Carvalho, F., Winker, H., Courtney, D., Kapur, M., Kell, L., Cardinale, M., Schirripag, M., Kitakado, T., Yemane, D., Piner, K.R., Maunder, M.N., Taylor, I., Wetzel, C.R., Doering, K., Johnsonm, K.F., Methot, R.D., in press. A Cookbook for Using Model Diagnostics in Integrated Stock Assessments. Fisheries Research.
