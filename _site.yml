@@ -4,13 +4,17 @@ navbar:
   left:
     - text: "Requisitos"
       href: intro.html
-    - text: "Archivos de Datos"
+    - text: "Archivos SS3"
       href: Datos.html
-    - text: "Cómo Ejecutar SS3"
+    - text: "Ejecutar SS3"
       href: R4SS.html
     - text: "Visualización"
       href: Visualizacion.html
-    - text: "Diagnóstico Avanzado"
+    - text: "Retrospectivo"
+      href: retro.html 
+    - text: "Residuos"
+      href: residuos.html
+    - text: "Debugging"
       href: SS3diags.html
 output_dir: "."
 output: 
