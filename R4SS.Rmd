@@ -1,46 +1,187 @@
 ---
-title: "Ejecutar modelos SS3"
+title: ""
 ---
 
 
-En esta sección seguiremos los pasos propuestos por el **SS3 Development Team** para Desarrollar nuestro primer modelo Stock Synthesis (SS3) https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html.
+# Cómo ejecutar modelos SS3
+
+
+&nbsp;
+&nbsp;
+
+Para comenzar guarde los archivos del modelo simple ([**starter.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss), [**data.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss), [**forecast.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss),
+[**control.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss)) y el ejecutable SS3 ([**ss.exe**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss)), en su directorio de trabajo, como se muestra a continuación. 
 
 
 
-Los archivos del modelo (**starter.ss, data.ss, forecast.ss, control.ss**) y el ejecutable SS3 (**ss.exe**) deben estar en la misma carpeta. SS3 siempre se abre y lee los archivos en el mismo orden, escribiendo las salidas de debugging en **echoinput.sso**  y advertencias en **warnings.sso** a medida que se lee.  
+&nbsp;
+&nbsp;
 
-Luego, SS3 va a la sección de procedimiento donde ADMB realiza cambios de parámetros iterativos para minimizar la negative log likelihood. 
+```{r pressure, echo=FALSE, fig.cap="", out.width = "80%", fig.align='center'}
+knitr::include_graphics("figuras/files_data.png")
+```
 
-Cuando ADMB logra la convergencia, el control pasa a sd_phase para el cálculo de la varianza de los parámetros (a menos que se especifique la opción `-nohess`). Después de sd_phase, SS3 pasa a la sección de código de benchmark y forecast y luego al informe final.  Los archivos de salida que contienen resultados normalmente se escriben en el directorio desde el que se ejecutó el modelo.
+&nbsp;
+&nbsp;
 
-Cuando se completa la ejecución, aparece SS3!!. La ejecución ha finalizado!!. Se recomienda revisar warnings.sso en busca de problemas y sugerencias, independientemente si la ejecución se completó correctamente o no. Si SS3 sale por error no verá el mensaje !! Run has completed !!.
 
+Para ejecutar el modelo simple utilizaremos la función `run_SS_models` de la libreria r4ss . Debemos especificar el directorio de trabajo que contiene los archivos del modelo (dirvec = mod_path) y  el nombre del ejecutable (model=exe_path) como se muestra a continuación.
 
-¿Qué hacer cuando SS3 no se ejecuta?.  
+```{r echo=T, message=F,warning=F,eval=F,incluide=F}
+
+library(r4ss)
+
+mod_path <- paste(getwd(),'/model_files/simple',sep="")
+exe_path <- paste(mod_path,"ss_win.exe",sep= "/")
+
+r4ss::run_SS_models(dirvec=mod_path, model=exe_path,skipfinished=FALSE)
+
+```
+
+Al iniciar la ejecución, SS3 siempre lee los archivos **starter.ss, data.ss** y **forecast.ss, control.ss** en el mismo orden, escribiendo las salidas de debugging en **echoinput.sso**  y advertencias en **warnings.sso** a medida que se lee. 
+
+Si la salida no se ejecuta o NO SUPERA el mensaje **Estimating...please wait...**, entonces siga los siguientes pasos:
 
 - Asegurese de que todos los archivos y directorios tengan el nombre correcto.
-- Verifique que el archivo **starter.ss** haga referencia a los nombres correctos de los archivos de control y datos.
-- Si SS3 comienza a leer archivos y luego falla, revise los archivos **warnings.sso** y **echoinput.sso**. El archivo **warnings.sso** revelarán posibles problemas con el modelo, mientras que **echoinput.sso** mostrará hasta donde pudo ejecutarse SS3. Trabaje hacia atrás desde la parte inferior de **echoinput.sso**, buscándo donde se detuvo SS3 y si las entradas se ingresaron correctamente o no.
+- Verifique que el archivo **starter.ss** tenga los nombres correctos de los archivos de **control.ss** y **data.ss**.
+- Si SS3 comienza a leer archivos y luego falla, revise los archivos **warnings.sso** y **echoinput.sso**. Mirar el último contenido escrito en **echoinput.sso** y compararlo con sus archivos de entrada puede proporcionar pistas sobre dónde (y posiblemente por qué) falló la ejecución.
 
 
 
-Muchos archivos de texto de salida se crean durante la ejecución de un modelo. Los archivos de salida más útiles se pueden dividir en :
+Si la salida SI SUPERA el mensaje **Estimating...please wait...** entonces la estructura de los datos de entrada de SS3 es correcta y por lo tanto, debería ver un resultado en la línea de comando similar a la que se muestra a continuación.
+ 
+&nbsp;
+&nbsp;
 
-- **Archivos que contienen resultados**. Estos archivos incluyen **ss_summary.sso** y **report.sso** que contienen los resultados del modelo resumidos de diferentes maneras. 
-- **.ss_new files**. Estos archivos repiten los archivos de entrada SS3, pero incluyen comentarios  estandarizados. Los valores deben ser los mismos que los archivos de entrada, excepto control.ss_new, que actualiza los valores iniciales a los valores estimados finales. Los archivos .ss_new pueden ser útiles para estandarizar los comentarios en los archivos de entrada y se pueden verificar para asegurarse de que SS3 interpretó las entradas como pretendía el usuario.
+```{r pressure2, echo=FALSE, fig.cap="", out.width = "60%", fig.align='center'}
+
+knitr::include_graphics("figuras/run_simple_initial.png")
+
+```
+
+&nbsp;
+&nbsp;
+
+Luego, SS3 va a la sección de procedimiento donde ADMB realiza cambios iterativos de parámetros (iteration) para minimizar la función de verosimilitud (-log(L)), como se muestra a continuación. 
+
+
+&nbsp;
+&nbsp;
+
+```{r pressure3, echo=FALSE, fig.cap="", out.width = "100%", fig.align='center'}
+
+knitr::include_graphics("figuras/run_simple_iteration.png")
+
+```
+
+&nbsp;
+&nbsp;
+
+Cuando ADMB logra la convergencia, el control pasa a sdphase para el cálculo de la varianza de los parámetros (a menos que se especifique la opción `-nohess`). Después de sdphase, SS3 pasa a la sección de código de benchmark y forecast y luego al reporte final. Cuando se completa la ejecución de SS3, aparece **!! Run has completed !!**. 
+
+Se recomienda revisar el archivo **warnings.sso** en busca de problemas y sugerencias, independientemente si la ejecución se completó correctamente o no, ya que incluye sugerencias para mejorar la especificación del modelo y advertencias sobre errores comunes de especificación del modelo. 
+
+Si SS3 no fue ejecutado correctamente, no verá el mensaje **!! Run has completed !!**.
+
+
+&nbsp;
+&nbsp;
+
+```{r pressure4, echo=FALSE, fig.cap="", out.width = "60%", fig.align='center'}
+
+knitr::include_graphics("figuras/run_simple.png")
+
+```
+
+
+&nbsp;
+&nbsp;
+
+
+Los archivos de salida que contienen resultados normalmente se escriben en el directorio de trabajo donde fue ejecutado el modelo SS3, como se muestra a continuación. 
+
+```{r message=F,warning=F,incluide=F}
+
+mod_path <- paste(getwd(),'/model_files/simple',sep="")
+
+dir(mod_path)
+
+```
+&nbsp;
+&nbsp;
+
+Muchos archivos de texto de salida se crean durante la ejecución del modelo. Los archivos de salida más útiles se pueden dividir en :
+
+- **Archivos que contienen resultados**. Estos archivos incluyen **ss_summary.sso** y **Report.sso** que contienen los resultados del modelo resumidos de diferentes maneras. 
+- **.ss_new files**. Estos archivos repiten los archivos de entrada SS3, pero incluyen comentarios  estandarizados. Los valores deben ser los mismos que los archivos de entrada, excepto **control.ss_new**, que actualiza los valores iniciales a los valores estimados finales. Los archivos **.ss_new** pueden ser útiles para estandarizar los comentarios en los archivos de entrada y se pueden verificar para asegurarse de que SS3 interpretó las entradas como pretendía el usuario.
 - **Archivos utilizados para debugging**. Estos archivos incluyen **warnings.sso** y **echoinput.sso**.
 
 
+&nbsp;
+&nbsp;
+
+# Cómo modificar  modelos SS3
+
+Flujo de trabajo para modificar archivos de entrada y ejecutar modelos 
+
+Demostraremos esto creando un nuevo modelo desde un modelo inicial utilizando la librería r4ss.
+
+```{r message=F,warning=F}
+
+# initial model to modify
+mod_path <-paste(getwd(),'/model_files/simple',sep="")
+
+# create a new directory to put a new, modified version of the model
+new_mod_path <- paste(getwd(),'/model_files/simple_new',sep="")
+
+```
 
 
+Se utiliza la funcion `copy_SS_inputs` de la librería r4ss para copiar los archivos del directorio de trabajo del modelo inicial (dir.old=mod_path) al directorio de trabajo del nuevo modelo (dir.new=new_mod_path).
+
+
+```{r message=F,warning=F}
+
+library(r4ss)
+
+copy_SS_inputs(dir.old = mod_path, dir.new = new_mod_path)
+
+```
+
+
+## Read in Stock Synthesis files
+
+Stock Synthesis files can be read in as list objects in R using the `SS_read*()` functions.
+
+
+```{r message=F,warning=F}
+start <- r4ss::SS_readstarter(file = file.path(new_mod_path, "starter.ss"), 
+                              verbose = FALSE)
+# note the data and control file names can vary, so are determined from the 
+# starter file.
+dat <- r4ss::SS_readdat(file = file.path(new_mod_path, start$datfile),
+                        verbose = FALSE)
+# Read in ctl file. Note that the data fileR object is needed so that SS_readctl
+# assumes the correct data structure
+ctl <- r4ss::SS_readctl(file = file.path(new_mod_path, start$ctlfil),
+                        verbose = FALSE,
+                        use_datlist = TRUE, datlist = dat)
+fore <- r4ss::SS_readforecast(file = file.path(new_mod_path, "forecast.ss"),
+                              verbose = FALSE)
+# can also read in wtatage.ss for an empirical wt at age model using
+# r4ss::SS_readwtatage()
+```
 
 # Cómo crear nuevos modelos SS3
+
+&nbsp;
+&nbsp;
 
 Hay muchos flujos de trabajo potenciales para desarrollar un nuevo modelo SS3, pero una técnica común es comenzar con un modelo existente y cambiarlo por partes. La técnica básica es:
 
 1. Encuentre un modelo de trabajo existente (quizás uno de los modelos de ejemplo SS3 disponibles en el repositorio de ejemplos de usuario o quizás un modelo más similar en forma al modelo que planea crear).
 
-2. Edite partes del modelo e intente ejecutar a medida que avanza para verificar que SS3 pueda leer correctamente sus entradas y que tengan sentido lógico (consejo: use options  `-stopph 0 -nohess` para reducir el tiempo de ejecución con cada iteración de verificación de entradas al no estimar nada y no invertir la arpillera).
+2. Edite partes del modelo e intente ejecutar a medida que avanza para verificar que SS3 pueda leer correctamente sus entradas y que tengan sentido lógico (consejo: use options  `-stopph 0 -nohess` para reducir el tiempo de ejecución con cada iteración de verificación de entradas al no estimar nada y no invertir la hessiana).
 
 
 
@@ -71,16 +212,6 @@ Cuando se ejecuta un modelo sin estimar nada, las fases se ignoran; debido a que
 
 
 
-# Debugging básicos
-
-
-Las herramientas más útiles para depurar problemas de SS3 son los archivos de salida de SS3 **echoinput.sso** y **warning.sso**. A medida que se ejecuta SS3, vuelve a escribir en **echoinput.sso**. Cuando SS3 sale sin terminar, mirar el último contenido escrito en **echoinput.sso** y compararlo con sus archivos de entrada puede proporcionar pistas sobre dónde (y posiblemente por qué) falló la ejecución. 
-
-Tenga en cuenta que SS3 lee las entradas en orden y las leerá incorrectamente si se proporciona el número incorrecto de entradas. Las advertencias generadas durante la ejecución se escriben en **warning.sso**. El archivo de **warning.sso** siempre debe examinarse al final de la ejecución, incluso si la ejecución fue exitosa, ya que incluye sugerencias para mejorar la especificación del modelo y advertencias sobre errores comunes de especificación del modelo.
-
-
-
-
 # Flujo de trabajo propuesto para llegar a un modelo FINAL
 
 ¡Es importante recordar que llegar a un modelo lleva tiempo y muchas iteraciones! Debe planear hacer pequeñas revisiones, volver a ejecutar el modelo y ver cómo ha cambiado el modelo con cada pequeña revisión. Por lo general, se requieren muchas ejecuciones intermedias del modelo antes de llegar a un modelo final. Como mínimo, mantenga notas dentro de la carpeta de la ejecución o en otro lugar con respecto a los cambios específicos de la ejecución. El uso del control de versiones también podría ser útil para realizar un seguimiento de los cambios en el modelo. A continuación, proporcionamos algunas sugerencias sobre los pasos a seguir a medida que itera hacia su modelo "final".
@@ -93,7 +224,7 @@ Una vez que haya verificado que SS3 está leyendo su entrada correctamente, tamb
 
 ## Segundo paso: ejecutar estimando algunos parámetros
 
-Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o 3) para estimar algunos pero no todos los parámetros. Haga esto usando `-stopph x -nohess`, donde x debe ser la fase máxima deseada (por ejemplo, 2 o 3). -nohess todavía se usa para reducir el tiempo de ejecución. Durante esta etapa de las ejecuciones del modelo, debe intentar ajustar el modelo para resolver todos los patrones principales en los residuales. Esto puede incluir considerar y realizar cambios en la estructura del modelo.
+Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o 3) para estimar algunos pero no todos los parámetros. Haga esto usando `-stopph x -nohess`, donde x debe ser la fase máxima deseada (por ejemplo, 2 o 3). `-nohess` todavía se usa para reducir el tiempo de ejecución. Durante esta etapa de las ejecuciones del modelo, debe intentar ajustar el modelo para resolver todos los patrones principales en los residuales. Esto puede incluir considerar y realizar cambios en la estructura del modelo.
 
 ## Tercer paso: ejecutar estimando todos los parámetros
 

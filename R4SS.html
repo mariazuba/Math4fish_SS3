@@ -11,7 +11,7 @@
 
 
 
-<title>Ejecutar modelos SS3</title>
+<title>R4SS.knit</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -46,6 +46,109 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -317,16 +420,22 @@ div.tocify {
   <a href="intro.html">Requisitos</a>
 </li>
 <li>
-  <a href="Datos.html">Archivos de Datos</a>
+  <a href="Datos.html">Archivos SS3</a>
 </li>
 <li>
-  <a href="R4SS.html">Cómo Ejecutar SS3</a>
+  <a href="R4SS.html">Ejecutar SS3</a>
 </li>
 <li>
   <a href="Visualizacion.html">Visualización</a>
 </li>
 <li>
-  <a href="SS3diags.html">Diagnóstico Avanzado</a>
+  <a href="retro.html">Retrospectivo</a>
+</li>
+<li>
+  <a href="residuos.html">Residuos</a>
+</li>
+<li>
+  <a href="SS3diags.html">Debugging</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -349,71 +458,175 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Ejecutar modelos SS3</h1>
 
 </div>
 
 
-<p>En esta sección seguiremos los pasos propuestos por el <strong>SS3
-Development Team</strong> para Desarrollar nuestro primer modelo Stock
-Synthesis (SS3) <a
-href="https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html"
-class="uri">https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html</a>.</p>
-<p>Los archivos del modelo (<strong>starter.ss, data.ss, forecast.ss,
-control.ss</strong>) y el ejecutable SS3 (<strong>ss.exe</strong>) deben
-estar en la misma carpeta. SS3 siempre se abre y lee los archivos en el
-mismo orden, escribiendo las salidas de debugging en
-<strong>echoinput.sso</strong> y advertencias en
+<div id="cómo-ejecutar-modelos-ss3" class="section level1">
+<h1>Cómo ejecutar modelos SS3</h1>
+<p>   </p>
+<p>Para comenzar guarde los archivos del modelo simple (<a
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>starter.ss</strong></a>,
+<a
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>data.ss</strong></a>,
+<a
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>forecast.ss</strong></a>,
+<a
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>control.ss</strong></a>)
+y el ejecutable SS3 (<a
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>ss.exe</strong></a>),
+en su directorio de trabajo, como se muestra a continuación.</p>
+<p>   </p>
+<p><img src="figuras/files_data.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>   </p>
+<p>Para ejecutar el modelo simple utilizaremos la función
+<code>run_SS_models</code> de la libreria r4ss . Debemos especificar el
+directorio de trabajo que contiene los archivos del modelo (dirvec =
+mod_path) y el nombre del ejecutable (model=exe_path) como se muestra a
+continuación.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r4ss)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mod_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>exe_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(mod_path,<span class="st">&quot;ss_win.exe&quot;</span>,<span class="at">sep=</span> <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec=</span>mod_path, <span class="at">model=</span>exe_path,<span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Al iniciar la ejecución, SS3 siempre lee los archivos
+<strong>starter.ss, data.ss</strong> y <strong>forecast.ss,
+control.ss</strong> en el mismo orden, escribiendo las salidas de
+debugging en <strong>echoinput.sso</strong> y advertencias en
 <strong>warnings.sso</strong> a medida que se lee.</p>
-<p>Luego, SS3 va a la sección de procedimiento donde ADMB realiza
-cambios de parámetros iterativos para minimizar la negative log
-likelihood.</p>
-<p>Cuando ADMB logra la convergencia, el control pasa a sd_phase para el
-cálculo de la varianza de los parámetros (a menos que se especifique la
-opción <code>-nohess</code>). Después de sd_phase, SS3 pasa a la sección
-de código de benchmark y forecast y luego al informe final. Los archivos
-de salida que contienen resultados normalmente se escriben en el
-directorio desde el que se ejecutó el modelo.</p>
-<p>Cuando se completa la ejecución, aparece SS3!!. La ejecución ha
-finalizado!!. Se recomienda revisar warnings.sso en busca de problemas y
-sugerencias, independientemente si la ejecución se completó
-correctamente o no. Si SS3 sale por error no verá el mensaje !! Run has
-completed !!.</p>
-<p>¿Qué hacer cuando SS3 no se ejecuta?.</p>
+<p>Si la salida no se ejecuta o NO SUPERA el mensaje
+<strong>Estimating…please wait…</strong>, entonces siga los siguientes
+pasos:</p>
 <ul>
 <li>Asegurese de que todos los archivos y directorios tengan el nombre
 correcto.</li>
-<li>Verifique que el archivo <strong>starter.ss</strong> haga referencia
-a los nombres correctos de los archivos de control y datos.</li>
+<li>Verifique que el archivo <strong>starter.ss</strong> tenga los
+nombres correctos de los archivos de <strong>control.ss</strong> y
+<strong>data.ss</strong>.</li>
 <li>Si SS3 comienza a leer archivos y luego falla, revise los archivos
-<strong>warnings.sso</strong> y <strong>echoinput.sso</strong>. El
-archivo <strong>warnings.sso</strong> revelarán posibles problemas con
-el modelo, mientras que <strong>echoinput.sso</strong> mostrará hasta
-donde pudo ejecutarse SS3. Trabaje hacia atrás desde la parte inferior
-de <strong>echoinput.sso</strong>, buscándo donde se detuvo SS3 y si las
-entradas se ingresaron correctamente o no.</li>
+<strong>warnings.sso</strong> y <strong>echoinput.sso</strong>. Mirar el
+último contenido escrito en <strong>echoinput.sso</strong> y compararlo
+con sus archivos de entrada puede proporcionar pistas sobre dónde (y
+posiblemente por qué) falló la ejecución.</li>
 </ul>
-<p>Muchos archivos de texto de salida se crean durante la ejecución de
-un modelo. Los archivos de salida más útiles se pueden dividir en :</p>
+<p>Si la salida SI SUPERA el mensaje <strong>Estimating…please
+wait…</strong> entonces la estructura de los datos de entrada de SS3 es
+correcta y por lo tanto, debería ver un resultado en la línea de comando
+similar a la que se muestra a continuación.</p>
+<p>   </p>
+<p><img src="figuras/run_simple_initial.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>   </p>
+<p>Luego, SS3 va a la sección de procedimiento donde ADMB realiza
+cambios iterativos de parámetros (iteration) para minimizar la función
+de verosimilitud (-log(L)), como se muestra a continuación.</p>
+<p>   </p>
+<p><img src="figuras/run_simple_iteration.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>   </p>
+<p>Cuando ADMB logra la convergencia, el control pasa a sdphase para el
+cálculo de la varianza de los parámetros (a menos que se especifique la
+opción <code>-nohess</code>). Después de sdphase, SS3 pasa a la sección
+de código de benchmark y forecast y luego al reporte final. Cuando se
+completa la ejecución de SS3, aparece <strong>!! Run has completed
+!!</strong>.</p>
+<p>Se recomienda revisar el archivo <strong>warnings.sso</strong> en
+busca de problemas y sugerencias, independientemente si la ejecución se
+completó correctamente o no, ya que incluye sugerencias para mejorar la
+especificación del modelo y advertencias sobre errores comunes de
+especificación del modelo.</p>
+<p>Si SS3 no fue ejecutado correctamente, no verá el mensaje <strong>!!
+Run has completed !!</strong>.</p>
+<p>   </p>
+<p><img src="figuras/run_simple.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>   </p>
+<p>Los archivos de salida que contienen resultados normalmente se
+escriben en el directorio de trabajo donde fue ejecutado el modelo SS3,
+como se muestra a continuación.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mod_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(mod_path)</span></code></pre></div>
+<pre><code>##  [1] &quot;admodel.cov&quot;            &quot;admodel.dep&quot;            &quot;admodel.hes&quot;           
+##  [4] &quot;CompReport.sso&quot;         &quot;control.ss&quot;             &quot;control.ss_new&quot;        
+##  [7] &quot;covar.sso&quot;              &quot;CumReport.sso&quot;          &quot;data.ss&quot;               
+## [10] &quot;data_echo.ss_new&quot;       &quot;derived_posteriors.sso&quot; &quot;echoinput.sso&quot;         
+## [13] &quot;fmin.log&quot;               &quot;Forecast-report.sso&quot;    &quot;forecast.ss&quot;           
+## [16] &quot;forecast.ss_new&quot;        &quot;ParmTrace.sso&quot;          &quot;posterior_obj_func.sso&quot;
+## [19] &quot;posterior_vectors.sso&quot;  &quot;posteriors.sso&quot;         &quot;rebuild.sso&quot;           
+## [22] &quot;Reference_Run&quot;          &quot;Report.sso&quot;             &quot;runnumber.ss&quot;          
+## [25] &quot;SIS_table.sso&quot;          &quot;ss.b01&quot;                 &quot;ss.b02&quot;                
+## [28] &quot;ss.b03&quot;                 &quot;ss.b04&quot;                 &quot;ss.bar&quot;                
+## [31] &quot;ss.cor&quot;                 &quot;ss.eva&quot;                 &quot;ss.p01&quot;                
+## [34] &quot;ss.p02&quot;                 &quot;ss.p03&quot;                 &quot;ss.p04&quot;                
+## [37] &quot;ss.par&quot;                 &quot;ss.r01&quot;                 &quot;ss.r02&quot;                
+## [40] &quot;ss.r03&quot;                 &quot;ss.r04&quot;                 &quot;ss.rep&quot;                
+## [43] &quot;ss.std&quot;                 &quot;ss_summary.sso&quot;         &quot;ss_win.exe&quot;            
+## [46] &quot;ss_win.log&quot;             &quot;starter.ss&quot;             &quot;starter.ss_new&quot;        
+## [49] &quot;warning.sso&quot;            &quot;wtatage.ss_new&quot;</code></pre>
+<p>   </p>
+<p>Muchos archivos de texto de salida se crean durante la ejecución del
+modelo. Los archivos de salida más útiles se pueden dividir en :</p>
 <ul>
 <li><strong>Archivos que contienen resultados</strong>. Estos archivos
-incluyen <strong>ss_summary.sso</strong> y <strong>report.sso</strong>
+incluyen <strong>ss_summary.sso</strong> y <strong>Report.sso</strong>
 que contienen los resultados del modelo resumidos de diferentes
 maneras.</li>
 <li><strong>.ss_new files</strong>. Estos archivos repiten los archivos
 de entrada SS3, pero incluyen comentarios estandarizados. Los valores
 deben ser los mismos que los archivos de entrada, excepto
-control.ss_new, que actualiza los valores iniciales a los valores
-estimados finales. Los archivos .ss_new pueden ser útiles para
-estandarizar los comentarios en los archivos de entrada y se pueden
-verificar para asegurarse de que SS3 interpretó las entradas como
-pretendía el usuario.</li>
+<strong>control.ss_new</strong>, que actualiza los valores iniciales a
+los valores estimados finales. Los archivos <strong>.ss_new</strong>
+pueden ser útiles para estandarizar los comentarios en los archivos de
+entrada y se pueden verificar para asegurarse de que SS3 interpretó las
+entradas como pretendía el usuario.</li>
 <li><strong>Archivos utilizados para debugging</strong>. Estos archivos
 incluyen <strong>warnings.sso</strong> y
 <strong>echoinput.sso</strong>.</li>
 </ul>
+<p>   </p>
+</div>
+<div id="cómo-modificar-modelos-ss3" class="section level1">
+<h1>Cómo modificar modelos SS3</h1>
+<p>Flujo de trabajo para modificar archivos de entrada y ejecutar
+modelos</p>
+<p>Demostraremos esto creando un nuevo modelo desde un modelo inicial
+utilizando la librería r4ss.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial model to modify</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mod_path <span class="ot">&lt;-</span><span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new directory to put a new, modified version of the model</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>new_mod_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple_new&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>Se utiliza la funcion <code>copy_SS_inputs</code> de la librería r4ss
+para copiar los archivos del directorio de trabajo del modelo inicial
+(dir.old=mod_path) al directorio de trabajo del nuevo modelo
+(dir.new=new_mod_path).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r4ss)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_SS_inputs</span>(<span class="at">dir.old =</span> mod_path, <span class="at">dir.new =</span> new_mod_path)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div id="read-in-stock-synthesis-files" class="section level2">
+<h2>Read in Stock Synthesis files</h2>
+<p>Stock Synthesis files can be read in as list objects in R using the
+<code>SS_read*()</code> functions.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readstarter</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, <span class="st">&quot;starter.ss&quot;</span>), </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note the data and control file names can vary, so are determined from the </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># starter file.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readdat</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>datfile),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in ctl file. Note that the data fileR object is needed so that SS_readctl</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># assumes the correct data structure</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ctl <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readctl</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>ctlfil),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">use_datlist =</span> <span class="cn">TRUE</span>, <span class="at">datlist =</span> dat)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readforecast</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, <span class="st">&quot;forecast.ss&quot;</span>),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># can also read in wtatage.ss for an empirical wt at age model using</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># r4ss::SS_readwtatage()</span></span></code></pre></div>
+</div>
+</div>
 <div id="cómo-crear-nuevos-modelos-ss3" class="section level1">
 <h1>Cómo crear nuevos modelos SS3</h1>
+<p>   </p>
 <p>Hay muchos flujos de trabajo potenciales para desarrollar un nuevo
 modelo SS3, pero una técnica común es comenzar con un modelo existente y
 cambiarlo por partes. La técnica básica es:</p>
@@ -427,7 +640,7 @@ para verificar que SS3 pueda leer correctamente sus entradas y que
 tengan sentido lógico (consejo: use options
 <code>-stopph 0 -nohess</code> para reducir el tiempo de ejecución con
 cada iteración de verificación de entradas al no estimar nada y no
-invertir la arpillera).</p></li>
+invertir la hessiana).</p></li>
 </ol>
 </div>
 <div id="sobre-la-especificación-del-modelo" class="section level1">
@@ -488,25 +701,6 @@ debido a que no hay estimación, ejecutar sin estimación es como incluir
 una fase negativa para todos los parámetros.</p>
 </div>
 </div>
-<div id="debugging-básicos" class="section level1">
-<h1>Debugging básicos</h1>
-<p>Las herramientas más útiles para depurar problemas de SS3 son los
-archivos de salida de SS3 <strong>echoinput.sso</strong> y
-<strong>warning.sso</strong>. A medida que se ejecuta SS3, vuelve a
-escribir en <strong>echoinput.sso</strong>. Cuando SS3 sale sin
-terminar, mirar el último contenido escrito en
-<strong>echoinput.sso</strong> y compararlo con sus archivos de entrada
-puede proporcionar pistas sobre dónde (y posiblemente por qué) falló la
-ejecución.</p>
-<p>Tenga en cuenta que SS3 lee las entradas en orden y las leerá
-incorrectamente si se proporciona el número incorrecto de entradas. Las
-advertencias generadas durante la ejecución se escriben en
-<strong>warning.sso</strong>. El archivo de <strong>warning.sso</strong>
-siempre debe examinarse al final de la ejecución, incluso si la
-ejecución fue exitosa, ya que incluye sugerencias para mejorar la
-especificación del modelo y advertencias sobre errores comunes de
-especificación del modelo.</p>
-</div>
 <div id="flujo-de-trabajo-propuesto-para-llegar-a-un-modelo-final"
 class="section level1">
 <h1>Flujo de trabajo propuesto para llegar a un modelo FINAL</h1>
@@ -539,11 +733,11 @@ class="section level2">
 <p>Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o
 3) para estimar algunos pero no todos los parámetros. Haga esto usando
 <code>-stopph x -nohess</code>, donde x debe ser la fase máxima deseada
-(por ejemplo, 2 o 3). -nohess todavía se usa para reducir el tiempo de
-ejecución. Durante esta etapa de las ejecuciones del modelo, debe
-intentar ajustar el modelo para resolver todos los patrones principales
-en los residuales. Esto puede incluir considerar y realizar cambios en
-la estructura del modelo.</p>
+(por ejemplo, 2 o 3). <code>-nohess</code> todavía se usa para reducir
+el tiempo de ejecución. Durante esta etapa de las ejecuciones del
+modelo, debe intentar ajustar el modelo para resolver todos los patrones
+principales en los residuales. Esto puede incluir considerar y realizar
+cambios en la estructura del modelo.</p>
 </div>
 <div id="tercer-paso-ejecutar-estimando-todos-los-parámetros"
 class="section level2">
