@@ -465,17 +465,18 @@ div.tocify {
 <div id="cómo-ejecutar-modelos-ss3" class="section level1">
 <h1>Cómo ejecutar modelos SS3</h1>
 <p>   </p>
-<p>Para comenzar guarde los archivos del modelo simple (<a
+<p>Para comenzar descargue los archivos del modelo simple (<a
 href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>starter.ss</strong></a>,
 <a
-href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>data.ss</strong></a>,
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss"><strong>data.ss</strong></a>,
 <a
-href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>forecast.ss</strong></a>,
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/forecast.ss"><strong>forecast.ss</strong></a>,
 <a
-href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>control.ss</strong></a>)
+href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/control.ss"><strong>control.ss</strong></a>)
 y el ejecutable SS3 (<a
-href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss"><strong>ss.exe</strong></a>),
-en su directorio de trabajo, como se muestra a continuación.</p>
+href="https://github.com/mariazuba/Math4fish_SS3/blob/master/model_files/simple/ss_win.exe"><strong>ss.exe</strong></a>,
+hacer clic en Download), y luego guardelos en su directorio de trabajo,
+como se muestra a continuación.</p>
 <p>   </p>
 <p><img src="figuras/files_data.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>   </p>
@@ -550,18 +551,18 @@ como se muestra a continuación.</p>
 ##  [7] &quot;covar.sso&quot;              &quot;CumReport.sso&quot;          &quot;data.ss&quot;               
 ## [10] &quot;data_echo.ss_new&quot;       &quot;derived_posteriors.sso&quot; &quot;echoinput.sso&quot;         
 ## [13] &quot;fmin.log&quot;               &quot;Forecast-report.sso&quot;    &quot;forecast.ss&quot;           
-## [16] &quot;forecast.ss_new&quot;        &quot;ParmTrace.sso&quot;          &quot;posterior_obj_func.sso&quot;
-## [19] &quot;posterior_vectors.sso&quot;  &quot;posteriors.sso&quot;         &quot;rebuild.sso&quot;           
-## [22] &quot;Reference_Run&quot;          &quot;Report.sso&quot;             &quot;runnumber.ss&quot;          
-## [25] &quot;SIS_table.sso&quot;          &quot;ss.b01&quot;                 &quot;ss.b02&quot;                
-## [28] &quot;ss.b03&quot;                 &quot;ss.b04&quot;                 &quot;ss.bar&quot;                
-## [31] &quot;ss.cor&quot;                 &quot;ss.eva&quot;                 &quot;ss.p01&quot;                
-## [34] &quot;ss.p02&quot;                 &quot;ss.p03&quot;                 &quot;ss.p04&quot;                
-## [37] &quot;ss.par&quot;                 &quot;ss.r01&quot;                 &quot;ss.r02&quot;                
-## [40] &quot;ss.r03&quot;                 &quot;ss.r04&quot;                 &quot;ss.rep&quot;                
-## [43] &quot;ss.std&quot;                 &quot;ss_summary.sso&quot;         &quot;ss_win.exe&quot;            
-## [46] &quot;ss_win.log&quot;             &quot;starter.ss&quot;             &quot;starter.ss_new&quot;        
-## [49] &quot;warning.sso&quot;            &quot;wtatage.ss_new&quot;</code></pre>
+## [16] &quot;forecast.ss_new&quot;        &quot;ParmTrace.sso&quot;          &quot;plots&quot;                 
+## [19] &quot;posterior_obj_func.sso&quot; &quot;posterior_vectors.sso&quot;  &quot;posteriors.sso&quot;        
+## [22] &quot;rebuild.sso&quot;            &quot;Reference_Run&quot;          &quot;Report.sso&quot;            
+## [25] &quot;runnumber.ss&quot;           &quot;SIS_table.sso&quot;          &quot;ss.b01&quot;                
+## [28] &quot;ss.b02&quot;                 &quot;ss.b03&quot;                 &quot;ss.b04&quot;                
+## [31] &quot;ss.bar&quot;                 &quot;ss.cor&quot;                 &quot;ss.eva&quot;                
+## [34] &quot;ss.p01&quot;                 &quot;ss.p02&quot;                 &quot;ss.p03&quot;                
+## [37] &quot;ss.p04&quot;                 &quot;ss.par&quot;                 &quot;ss.r01&quot;                
+## [40] &quot;ss.r02&quot;                 &quot;ss.r03&quot;                 &quot;ss.r04&quot;                
+## [43] &quot;ss.rep&quot;                 &quot;ss.std&quot;                 &quot;ss_summary.sso&quot;        
+## [46] &quot;ss_win.exe&quot;             &quot;ss_win.log&quot;             &quot;starter.ss&quot;            
+## [49] &quot;starter.ss_new&quot;         &quot;warning.sso&quot;            &quot;wtatage.ss_new&quot;</code></pre>
 <p>   </p>
 <p>Muchos archivos de texto de salida se crean durante la ejecución del
 modelo. Los archivos de salida más útiles se pueden dividir en :</p>
@@ -584,49 +585,8 @@ incluyen <strong>warnings.sso</strong> y
 </ul>
 <p>   </p>
 </div>
-<div id="cómo-modificar-modelos-ss3" class="section level1">
-<h1>Cómo modificar modelos SS3</h1>
-<p>Flujo de trabajo para modificar archivos de entrada y ejecutar
-modelos</p>
-<p>Demostraremos esto creando un nuevo modelo desde un modelo inicial
-utilizando la librería r4ss.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial model to modify</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mod_path <span class="ot">&lt;-</span><span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new directory to put a new, modified version of the model</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>new_mod_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple_new&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p>Se utiliza la funcion <code>copy_SS_inputs</code> de la librería r4ss
-para copiar los archivos del directorio de trabajo del modelo inicial
-(dir.old=mod_path) al directorio de trabajo del nuevo modelo
-(dir.new=new_mod_path).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r4ss)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_SS_inputs</span>(<span class="at">dir.old =</span> mod_path, <span class="at">dir.new =</span> new_mod_path)</span></code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
-<div id="read-in-stock-synthesis-files" class="section level2">
-<h2>Read in Stock Synthesis files</h2>
-<p>Stock Synthesis files can be read in as list objects in R using the
-<code>SS_read*()</code> functions.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readstarter</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, <span class="st">&quot;starter.ss&quot;</span>), </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note the data and control file names can vary, so are determined from the </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># starter file.</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readdat</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>datfile),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in ctl file. Note that the data fileR object is needed so that SS_readctl</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># assumes the correct data structure</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ctl <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readctl</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>ctlfil),</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">use_datlist =</span> <span class="cn">TRUE</span>, <span class="at">datlist =</span> dat)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readforecast</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, <span class="st">&quot;forecast.ss&quot;</span>),</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># can also read in wtatage.ss for an empirical wt at age model using</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># r4ss::SS_readwtatage()</span></span></code></pre></div>
-</div>
-</div>
 <div id="cómo-crear-nuevos-modelos-ss3" class="section level1">
 <h1>Cómo crear nuevos modelos SS3</h1>
-<p>   </p>
 <p>Hay muchos flujos de trabajo potenciales para desarrollar un nuevo
 modelo SS3, pero una técnica común es comenzar con un modelo existente y
 cambiarlo por partes. La técnica básica es:</p>
@@ -635,42 +595,228 @@ cambiarlo por partes. La técnica básica es:</p>
 modelos de ejemplo SS3 disponibles en el repositorio de ejemplos de
 usuario o quizás un modelo más similar en forma al modelo que planea
 crear).</p></li>
-<li><p>Edite partes del modelo e intente ejecutar a medida que avanza
+<li><p>Editar partes del modelo e intentar ejecutar a medida que avanza
 para verificar que SS3 pueda leer correctamente sus entradas y que
 tengan sentido lógico (consejo: use options
 <code>-stopph 0 -nohess</code> para reducir el tiempo de ejecución con
 cada iteración de verificación de entradas al no estimar nada y no
 invertir la hessiana).</p></li>
 </ol>
-</div>
-<div id="sobre-la-especificación-del-modelo" class="section level1">
-<h1>Sobre la especificación del modelo</h1>
-<p>SS3 tiene un rico conjunto de características. Algunas entradas
-requeridas están condicionadas a otras entradas, por lo que es
-importante tener en cuenta que cambiar una opción puede hacer que SS3
-espere una cantidad diferente de valores en los archivos de entrada que
-antes. La mayoría de las veces, estas entradas condicionales se leen
-justo después de la opción.</p>
-<p>El manual de usuario de SS3 se puede utilizar como guía para ayudarlo
-a editar su modelo. Las entradas condicionales se indican en el
-manual.</p>
+<p>A continuación mostramos el flujo de trabajo para modificar archivos
+de entrada y ejecutar modelos utilizando la <a
+href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">Guía
+de library r4ss</a> .</p>
+<p>Demostraremos esto creando un nuevo directorio para nuestro nuevo
+modelo (<code>new_mod_path</code>) y luego copiaremos los archivos del
+directorio que contiene el modelo inicial (<code>mod_path</code>) en el
+nuevo directorio, como se indica a continuación.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial model to modify</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mod_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new directory to put a new, modified version of the model</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>new_mod_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">getwd</span>(),<span class="st">&#39;/model_files/simple_new&#39;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>Se utiliza la funcion <code>copy_SS_inputs</code> de la librería r4ss
+para copiar los archivos del directorio de trabajo del modelo inicial
+(<code>dir.old=mod_path</code>) al directorio de trabajo del nuevo
+modelo (<code>dir.new=new_mod_path</code>).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r4ss)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_SS_inputs</span>(<span class="at">dir.old =</span> mod_path, <span class="at">dir.new =</span> new_mod_path)</span></code></pre></div>
+<p>Luego podemos leer los archivos copiados en nuestro nuevo directorio
+como objetos de lista en R usando las funciones
+<code>SS_read*()</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readstarter</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, <span class="st">&quot;starter.ss&quot;</span>), <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note the data and control file names can vary, so are determined from the </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># starter file.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readdat</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>datfile),<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in ctl file. Note that the data fileR object is needed so that SS_readctl</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># assumes the correct data structure</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>ctl <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readctl</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>ctlfil),<span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">use_datlist =</span> <span class="cn">TRUE</span>, <span class="at">datlist =</span> dat)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readforecast</span>(<span class="at">file =</span> <span class="fu">file.path</span>(new_mod_path, <span class="st">&quot;forecast.ss&quot;</span>),<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># can also read in wtatage.ss for an empirical wt at age model using</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># r4ss::SS_readwtatage()</span></span></code></pre></div>
+<p>A continuación investigamos el modelo, cada uno de los archivos de
+entrada se lee en R como una lista. Los componentes de la lista deben
+estar en el mismo orden en que aparecen en el archivo de texto. Use
+<code>names()</code> para ver todos los componentes de la lista:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(start) <span class="co"># see names of the list components of starter</span></span></code></pre></div>
+<pre class="scroll-200"><code>##  [1] &quot;sourcefile&quot;             &quot;type&quot;                   &quot;SSversion&quot;             
+##  [4] &quot;datfile&quot;                &quot;ctlfile&quot;                &quot;init_values_src&quot;       
+##  [7] &quot;run_display_detail&quot;     &quot;detailed_age_structure&quot; &quot;checkup&quot;               
+## [10] &quot;parmtrace&quot;              &quot;cumreport&quot;              &quot;prior_like&quot;            
+## [13] &quot;soft_bounds&quot;            &quot;N_bootstraps&quot;           &quot;last_estimation_phase&quot; 
+## [16] &quot;MCMCburn&quot;               &quot;MCMCthin&quot;               &quot;jitter_fraction&quot;       
+## [19] &quot;minyr_sdreport&quot;         &quot;maxyr_sdreport&quot;         &quot;N_STD_yrs&quot;             
+## [22] &quot;converge_criterion&quot;     &quot;retro_yr&quot;               &quot;min_age_summary_bio&quot;   
+## [25] &quot;depl_basis&quot;             &quot;depl_denom_frac&quot;        &quot;SPR_basis&quot;             
+## [28] &quot;F_report_units&quot;         &quot;F_age_range&quot;            &quot;F_report_basis&quot;        
+## [31] &quot;MCMC_output_detail&quot;     &quot;ALK_tolerance&quot;          &quot;final&quot;                 
+## [34] &quot;seed&quot;</code></pre>
+<p>También se puede hacer referencia a un elemento específico para ver
+los componentes. Por ejemplo, podemos mirar la sección de parámetros de
+mortalidad y crecimiento (MG_parms):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ctl<span class="sc">$</span>MG_parms</span></code></pre></div>
+<pre class="scroll-200"><code>##                               LO        HI        INIT       PRIOR PR_SD
+## NatM_p_1_Fem_GP_1          5e-02  0.150000  0.20000000  0.10000000   0.8
+## L_at_Amin_Fem_GP_1        -1e+01 45.000000 21.65350000 36.00000000  10.0
+## L_at_Amax_Fem_GP_1         4e+01 90.000000 71.64930000 70.00000000  10.0
+## VonBert_K_Fem_GP_1         5e-02  0.250000  0.14729700  0.15000000   0.8
+## CV_young_Fem_GP_1          5e-02  0.250000  0.10000000  0.10000000   0.8
+## CV_old_Fem_GP_1            5e-02  0.250000  0.10000000  0.10000000   0.8
+## Wtlen_1_Fem_GP_1          -3e+00  3.000000  0.00000244  0.00000244   0.8
+## Wtlen_2_Fem_GP_1          -3e+00  4.000000  3.34694000  3.34694000   0.8
+## Mat50%_Fem_GP_1            5e+01 60.000000 55.00000000 55.00000000   0.8
+## Mat_slope_Fem_GP_1        -3e+00  3.000000 -0.25000000 -0.25000000   0.8
+## Eggs/kg_inter_Fem_GP_1    -3e+00  3.000000  1.00000000  1.00000000   0.8
+## Eggs/kg_slope_wt_Fem_GP_1 -3e+00  3.000000  0.00000000  0.00000000   0.8
+## NatM_p_1_Mal_GP_1          5e-02  0.150000  0.10000000  0.10000000   0.8
+## L_at_Amin_Mal_GP_1         0e+00 45.000000  0.00000000 36.00000000  10.0
+## L_at_Amax_Mal_GP_1         4e+01 90.000000 69.53620000 70.00000000  10.0
+## VonBert_K_Mal_GP_1         5e-02  0.250000  0.16353300  0.15000000   0.8
+## CV_young_Mal_GP_1          5e-02  0.250000  0.10000000  0.10000000   0.8
+## CV_old_Mal_GP_1            5e-02  0.250000  0.10000000  0.10000000   0.8
+## Wtlen_1_Mal_GP_1          -3e+00  3.000000  0.00000244  0.00000244   0.8
+## Wtlen_2_Mal_GP_1          -3e+00  4.000000  3.34694000  3.34694000   0.8
+## RecrDist_GP_1              0e+00  0.000000  0.00000000  0.00000000   0.0
+## RecrDist_Area_1            0e+00  0.000000  0.00000000  0.00000000   0.0
+## RecrDist_month_1           0e+00  0.000000  0.00000000  0.00000000   0.0
+## CohortGrowDev              1e-01 10.000000  1.00000000  1.00000000   1.0
+## FracFemale_GP_1            1e-06  0.999999  0.50000000  0.50000000   0.5
+##                           PR_type PHASE env_var&amp;link dev_link dev_minyr
+## NatM_p_1_Fem_GP_1               0    -3            0        0         0
+## L_at_Amin_Fem_GP_1              6     2            0        0         0
+## L_at_Amax_Fem_GP_1              6     4            0        0         0
+## VonBert_K_Fem_GP_1              6     4            0        0         0
+## CV_young_Fem_GP_1               0    -3            0        0         0
+## CV_old_Fem_GP_1                 0    -3            0        0         0
+## Wtlen_1_Fem_GP_1                0    -3            0        0         0
+## Wtlen_2_Fem_GP_1                0    -3            0        0         0
+## Mat50%_Fem_GP_1                 0    -3            0        0         0
+## Mat_slope_Fem_GP_1              0    -3            0        0         0
+## Eggs/kg_inter_Fem_GP_1          0    -3            0        0         0
+## Eggs/kg_slope_wt_Fem_GP_1       0    -3            0        0         0
+## NatM_p_1_Mal_GP_1               0    -3            0        0         0
+## L_at_Amin_Mal_GP_1              0    -3            0        0         0
+## L_at_Amax_Mal_GP_1              6     4            0        0         0
+## VonBert_K_Mal_GP_1              6     4            0        0         0
+## CV_young_Mal_GP_1               0    -3            0        0         0
+## CV_old_Mal_GP_1                 0    -3            0        0         0
+## Wtlen_1_Mal_GP_1                0    -3            0        0         0
+## Wtlen_2_Mal_GP_1                0    -3            0        0         0
+## RecrDist_GP_1                   0    -4            0        0         0
+## RecrDist_Area_1                 0    -4            0        0         0
+## RecrDist_month_1                0    -4            0        0         0
+## CohortGrowDev                   0    -1            0        0         0
+## FracFemale_GP_1                 0   -99            0        0         0
+##                           dev_maxyr dev_PH Block Block_Fxn PType
+## NatM_p_1_Fem_GP_1                 0      0     0         0     1
+## L_at_Amin_Fem_GP_1                0      0     0         0     2
+## L_at_Amax_Fem_GP_1                0      0     0         0     2
+## VonBert_K_Fem_GP_1                0      0     0         0     2
+## CV_young_Fem_GP_1                 0      0     0         0     2
+## CV_old_Fem_GP_1                   0      0     0         0     2
+## Wtlen_1_Fem_GP_1                  0      0     0         0     3
+## Wtlen_2_Fem_GP_1                  0      0     0         0     3
+## Mat50%_Fem_GP_1                   0      0     0         0     4
+## Mat_slope_Fem_GP_1                0      0     0         0     4
+## Eggs/kg_inter_Fem_GP_1            0      0     0         0     5
+## Eggs/kg_slope_wt_Fem_GP_1         0      0     0         0     5
+## NatM_p_1_Mal_GP_1                 0      0     0         0     1
+## L_at_Amin_Mal_GP_1                0      0     0         0     2
+## L_at_Amax_Mal_GP_1                0      0     0         0     2
+## VonBert_K_Mal_GP_1                0      0     0         0     2
+## CV_young_Mal_GP_1                 0      0     0         0     2
+## CV_old_Mal_GP_1                   0      0     0         0     2
+## Wtlen_1_Mal_GP_1                  0      0     0         0     3
+## Wtlen_2_Mal_GP_1                  0      0     0         0     3
+## RecrDist_GP_1                     0      0     0         0     7
+## RecrDist_Area_1                   0      0     0         0     8
+## RecrDist_month_1                  0      0     0         0     9
+## CohortGrowDev                     0      0     0         0    11
+## FracFemale_GP_1                   0      0     0         0    14</code></pre>
+<p>   </p>
+<p>Puede realizar cambios estructurales básicos o grandes en su modelo
+en R. Por ejemplo, el valor inicial de M se puede cambiar:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the initial value</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ctl<span class="sc">$</span>MG_parms[<span class="st">&quot;NatM_p_1_Fem_GP_1&quot;</span>, <span class="st">&quot;INIT&quot;</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#change it to 0.2</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ctl<span class="sc">$</span>MG_parms[<span class="st">&quot;NatM_p_1_Fem_GP_1&quot;</span>, <span class="st">&quot;INIT&quot;</span>] <span class="ot">&lt;-</span> <span class="fl">0.2</span></span></code></pre></div>
+<p>Al realizar grandes cambios estructurales, es posible que sea
+necesario agregar elementos adicionales que antes eran NULL.</p>
+<p>Algunas entradas requeridas están especificadas en otras entradas,
+por lo que es importante tener en cuenta que cambiar una opción puede
+hacer que SS3 espere una cantidad diferente de valores en los archivos
+de entrada que antes. La mayoría de las veces, estas especificaciones se
+leen justo después de la opción.</p>
+<p>El <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html">manual
+de usuario SS3</a> se puede utilizar como guía editar su modelo. Las
+especificaciones se indican en el manual.</p>
+<p>Para averiguar los nombres en el objeto de la lista r4ss, puede ser
+necesario realizar cambios directamente en los archivos de entrada y
+luego leerlos nuevamente en R, o buscar en el código fuente los nombres
+de los elementos de la lista. Por ejemplo, el código fuente de
+<code>SS_readctl()</code> cuando se usa un archivo SS3.30 se encuentra
+en <a href="https://github.com/r4ss/r4ss/blob/main/R/SS_readctl_3.30.R"
+class="uri">https://github.com/r4ss/r4ss/blob/main/R/SS_readctl_3.30.R</a>.</p>
+<p>También se pueden modificar las especificaciones en otros archivos.
+Por ejemplo, la biomasa objetivo se puede modificar en el archivo
+<strong>forecast.ss</strong>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fore<span class="sc">$</span>Btarget</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.342</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fore<span class="sc">$</span>Btarget <span class="ot">&lt;-</span> <span class="fl">0.45</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fore<span class="sc">$</span>Btarget</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.45</span></span></code></pre></div>
+<p>Las funciones <code>SS_write*()</code> se pueden usar para escribir
+los objetos R de entrada de SS3 modificados en archivos de entrada:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_writestarter</span>(start, <span class="at">dir =</span> new_mod_path, <span class="at">overwrite =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## overwriting file: C:/MATH4FISH/Math4fish_SS3/model_files/simple_new/starter.ss</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; overwriting file: simple_new/starter.ss</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_writedat</span>(dat, <span class="at">outfile =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>datfile), </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">overwrite =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_writectl</span>(ctl, <span class="at">outfile =</span> <span class="fu">file.path</span>(new_mod_path, start<span class="sc">$</span>ctlfile),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">overwrite =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">SS_writeforecast</span>(fore, <span class="at">dir =</span> new_mod_path, <span class="at">file =</span> <span class="st">&quot;forecast.ss&quot;</span>, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">overwrite =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Si realiza cambios en los archivos del modelo de entrada que hacen
+que SS3 no pueda analizar el archivo, las funciones
+<code>SS_write*()</code> pueden generar un error (y, con suerte, brindar
+un mensaje informativo sobre el motivo). Sin embargo, es posible que se
+escriba un archivo de modelo de SS3 no válido, por lo que la verdadera
+prueba es si es posible o no ejecutar SS3 con los archivos de modelo
+modificados.</p>
+<p>Si necesita ayuda para solucionar problemas de las funciones
+<code>SS_read*()</code> o <code>SS_write*()</code> o desea informar un
+error, publique un problema en el repositorio r4ss.</p>
+<p>El modelo ahora se puede ejecutar con la función
+<code>run_SS_models</code> como se muestra a continuación:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec =</span> new_mod_path, <span class="at">model =</span> exe_path ,<span class="at">skipfinished =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>Si no está seguro de haber realizado la configuración correcta
 (p. ej., agregando el número correcto de líneas de parámetros para una
 configuración de capturabilidad elegida), intente ejecutar el modelo con
-<code>maxphase = 0</code> en el archivo de inicio y la opción ADMB
-<code>-nohess</code> (o para SS3 3.30. 16 y posteriores, ejecute el
-modelo con opciones de línea de comando <code>-stopph 0 -nohess</code>,
-no es necesario cambiar el archivo de inicio). Si se completa la
-ejecución del modelo, puede comparar el archivo
-<strong>control.ss_new</strong> y el primer conjunto de datos en
-<strong>data.ss_new</strong> con sus archivos de entrada de SS3 para
-asegurarse de que SS3 interpretó los valores según lo previsto. Si la
-ejecución finaliza antes de completarse, puede buscar en
-<strong>warning.sso</strong> y <strong>echoinput.sso</strong> para
+<code>maxphase = 0</code> en el archivo de <strong>start.ss</strong> y
+la opción ADMB <code>-nohess</code> (o para SS3 3.30. 16 y posteriores,
+ejecute el modelo con opciones de línea de comando
+<code>-stopph 0 -nohess</code>, no es necesario cambiar el archivo
+<strong>start.ss</strong>). Si se completa la ejecución del modelo,
+puede comparar el archivo <strong>control.ss_new</strong> y el primer
+conjunto de datos en <strong>data.ss_new</strong> con sus archivos de
+entrada de SS3 para asegurarse de que SS3 interpretó los valores según
+lo previsto. Si la ejecución finaliza antes de completarse, puede buscar
+en <strong>warning.sso</strong> y <strong>echoinput.sso</strong> para
 obtener pistas sobre el problema de su configuración.</p>
-</div>
-<div id="fases-de-estimación-de-parámetros" class="section level1">
-<h1>Fases de estimación de parámetros</h1>
+<div id="fases-de-estimación-de-parámetros" class="section level2">
+<h2>Fases de estimación de parámetros</h2>
 <p>Las fases se utilizan dentro de ADMB para decirle al programa en qué
 orden se deben estimar los parámetros. Para obtener más detalles sobre
 las fases en ADMB, consulte el <a
@@ -684,8 +830,8 @@ estimado. Los parámetros con una fase positiva más baja se estimarán
 antes que aquellos con una fase positiva más alta.</p></li>
 </ul>
 <div id="en-qué-fase-debería-poner-un-parámetro-estimado"
-class="section level4">
-<h4>¿En qué fase debería poner un parámetro estimado?</h4>
+class="section level3">
+<h3>¿En qué fase debería poner un parámetro estimado?</h3>
 <p>Si bien existe variabilidad entre los analistas y los modelos en la
 forma en que se utiliza la fase, en general, los parámetros con fases
 positivas bajas deben ser para valores que definen la escala de la
@@ -701,35 +847,40 @@ debido a que no hay estimación, ejecutar sin estimación es como incluir
 una fase negativa para todos los parámetros.</p>
 </div>
 </div>
-<div id="flujo-de-trabajo-propuesto-para-llegar-a-un-modelo-final"
-class="section level1">
-<h1>Flujo de trabajo propuesto para llegar a un modelo FINAL</h1>
-<p>¡Es importante recordar que llegar a un modelo lleva tiempo y muchas
-iteraciones! Debe planear hacer pequeñas revisiones, volver a ejecutar
-el modelo y ver cómo ha cambiado el modelo con cada pequeña revisión.
-Por lo general, se requieren muchas ejecuciones intermedias del modelo
-antes de llegar a un modelo final. Como mínimo, mantenga notas dentro de
-la carpeta de la ejecución o en otro lugar con respecto a los cambios
-específicos de la ejecución. El uso del control de versiones también
-podría ser útil para realizar un seguimiento de los cambios en el
-modelo. A continuación, proporcionamos algunas sugerencias sobre los
-pasos a seguir a medida que itera hacia su modelo “final”.</p>
-<div id="primer-paso-ejecutar-el-modelo-sin-estimación"
+<div id="flujo-de-trabajo-para-llegar-a-un-modelo-final"
 class="section level2">
-<h2>Primer paso: ejecutar el modelo sin estimación</h2>
+<h2>Flujo de trabajo para llegar a un modelo final</h2>
+<p>¡Es importante recordar que llegar a un modelo final lleva tiempo y
+muchas iteraciones! Es importante realizar pequeñas revisiones, volver a
+ejecutar el modelo y ver cómo ha cambiado el modelo con cada pequeña
+revisión. Por lo general, se requieren muchas ejecuciones intermedias
+del modelo antes de llegar a un modelo final.</p>
+<p>La creación de secuencias de comandos con funciones r4ss es una forma
+de desarrollar un flujo de trabajo reproducible y coherente de SS3. Sin
+embargo, hay muchas formas de ejecutar y modificar los modelos de SS3.
+Lo más importante es encontrar un flujo de trabajo que funcione y que
+los cambios que se realizan en un modelo puedan ser documentados. Como
+mínimo, mantener notas dentro de la carpeta de la ejecución o en otro
+lugar con respecto a los cambios específicos de la ejecución. El control
+de versiones (como git) es otra herramienta que puede ayudar a realizar
+un seguimiento de los cambios en los modelos.</p>
+<p>A continuación, se muestran algunas sugerencias sobre los pasos a
+seguir a medida que itera hacia su modelo “final”.</p>
+<div id="ejecutar-el-modelo-sin-estimación" class="section level3">
+<h3>1. Ejecutar el modelo sin estimación</h3>
 <p>Primero, verifique que SS3 lea los archivos de entrada según lo
-previsto. Utilice las opciones de línea de comando -stopph 0 -nohess
-para ejecutar el modelo sin estimación. Luego, examine los archivos de
-<strong>warning.sso</strong>, <strong>echoinput.sso</strong> y
-<strong>.ss_new files</strong> producidos para ver cómo SS3 interpretó
-sus archivos de entrada y si fue como pretendía.</p>
+previsto. Utilice las opciones de línea de comando
+<code>-stopph 0 -nohess</code> para ejecutar el modelo sin estimación.
+Luego, examine los archivos de <strong>warning.sso</strong>,
+<strong>echoinput.sso</strong> y <strong>.ss_new files</strong>
+producidos para ver cómo SS3 interpretó sus archivos de entrada y si fue
+como pretendía.</p>
 <p>Una vez que haya verificado que SS3 está leyendo su entrada
 correctamente, también puede considerar ajustar los parámetros de
 selectividad, crecimiento y reclutamiento.</p>
 </div>
-<div id="segundo-paso-ejecutar-estimando-algunos-parámetros"
-class="section level2">
-<h2>Segundo paso: ejecutar estimando algunos parámetros</h2>
+<div id="ejecutar-estimando-algunos-parámetros" class="section level3">
+<h3>2. Ejecutar estimando algunos parámetros</h3>
 <p>Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o
 3) para estimar algunos pero no todos los parámetros. Haga esto usando
 <code>-stopph x -nohess</code>, donde x debe ser la fase máxima deseada
@@ -739,9 +890,9 @@ modelo, debe intentar ajustar el modelo para resolver todos los patrones
 principales en los residuales. Esto puede incluir considerar y realizar
 cambios en la estructura del modelo.</p>
 </div>
-<div id="tercer-paso-ejecutar-estimando-todos-los-parámetros"
-class="section level2">
-<h2>Tercer paso: ejecutar estimando todos los parámetros</h2>
+<div id="ejecutar-estimando-todos-los-parámetros"
+class="section level3">
+<h3>3. Ejecutar estimando todos los parámetros</h3>
 <p>Una vez que se hayan resuelto todos los patrones principales en los
 residuos, intente estimar todos los parámetros en el modelo. Cambie la
 fase máxima para incluir todas las fases de su modelo (es decir, igual o
@@ -786,6 +937,7 @@ listo para las ejecuciones finales.</p>
 }
 
 </style>
+</div>
 </div>
 </div>
 

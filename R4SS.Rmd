@@ -9,8 +9,8 @@ title: ""
 &nbsp;
 &nbsp;
 
-Para comenzar guarde los archivos del modelo simple ([**starter.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss), [**data.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss), [**forecast.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss),
-[**control.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss)) y el ejecutable SS3 ([**ss.exe**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss)), en su directorio de trabajo, como se muestra a continuación. 
+Para comenzar descargue los archivos del modelo simple ([**starter.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss), [**data.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss), [**forecast.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/forecast.ss),
+[**control.ss**](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/control.ss)) y el ejecutable SS3 ([**ss.exe**](https://github.com/mariazuba/Math4fish_SS3/blob/master/model_files/simple/ss_win.exe), hacer clic en Download), y luego guardelos en su directorio de trabajo, como se muestra a continuación. 
 
 
 
@@ -120,27 +120,35 @@ Muchos archivos de texto de salida se crean durante la ejecución del modelo. Lo
 &nbsp;
 &nbsp;
 
-# Cómo modificar  modelos SS3
+# Cómo crear nuevos modelos SS3
 
-Flujo de trabajo para modificar archivos de entrada y ejecutar modelos 
 
-Demostraremos esto creando un nuevo modelo desde un modelo inicial utilizando la librería r4ss.
+Hay muchos flujos de trabajo potenciales para desarrollar un nuevo modelo SS3, pero una técnica común es comenzar con un modelo existente y cambiarlo por partes. La técnica básica es:
+
+1. Encuentre un modelo de trabajo existente (quizás uno de los modelos de ejemplo SS3 disponibles en el repositorio de ejemplos de usuario o quizás un modelo más similar en forma al modelo que planea crear).
+
+2. Editar partes del modelo e intentar ejecutar a medida que avanza para verificar que SS3 pueda leer correctamente sus entradas y que tengan sentido lógico (consejo: use options  `-stopph 0 -nohess` para reducir el tiempo de ejecución con cada iteración de verificación de entradas al no estimar nada y no invertir la hessiana).
+
+
+
+ A continuación mostramos el flujo de trabajo para modificar archivos de entrada y ejecutar modelos utilizando la [Guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) .
+
+Demostraremos esto creando un nuevo directorio para nuestro nuevo modelo (`new_mod_path`) y luego copiaremos los archivos del directorio que contiene el modelo inicial (`mod_path`) en el nuevo directorio, como se indica a continuación.
 
 ```{r message=F,warning=F}
 
 # initial model to modify
-mod_path <-paste(getwd(),'/model_files/simple',sep="")
+mod_path <- paste(getwd(),'/model_files/simple',sep="")
 
 # create a new directory to put a new, modified version of the model
 new_mod_path <- paste(getwd(),'/model_files/simple_new',sep="")
-
 ```
 
 
-Se utiliza la funcion `copy_SS_inputs` de la librería r4ss para copiar los archivos del directorio de trabajo del modelo inicial (dir.old=mod_path) al directorio de trabajo del nuevo modelo (dir.new=new_mod_path).
+Se utiliza la funcion `copy_SS_inputs` de la librería r4ss para copiar los archivos del directorio de trabajo del modelo inicial (`dir.old=mod_path`) al directorio de trabajo del nuevo modelo (`dir.new=new_mod_path`).
 
 
-```{r message=F,warning=F}
+```{r message=F,warning=F,include=T,results='hide'}
 
 library(r4ss)
 
@@ -149,52 +157,131 @@ copy_SS_inputs(dir.old = mod_path, dir.new = new_mod_path)
 ```
 
 
-## Read in Stock Synthesis files
-
-Stock Synthesis files can be read in as list objects in R using the `SS_read*()` functions.
+Luego podemos leer los archivos copiados en nuestro nuevo directorio como objetos de lista en R usando las funciones `SS_read*()`.
 
 
 ```{r message=F,warning=F}
-start <- r4ss::SS_readstarter(file = file.path(new_mod_path, "starter.ss"), 
-                              verbose = FALSE)
+
+start <- r4ss::SS_readstarter(file = file.path(new_mod_path, "starter.ss"), verbose = FALSE)
+
 # note the data and control file names can vary, so are determined from the 
 # starter file.
-dat <- r4ss::SS_readdat(file = file.path(new_mod_path, start$datfile),
-                        verbose = FALSE)
+
+dat <- r4ss::SS_readdat(file = file.path(new_mod_path, start$datfile),verbose = FALSE)
+
 # Read in ctl file. Note that the data fileR object is needed so that SS_readctl
 # assumes the correct data structure
-ctl <- r4ss::SS_readctl(file = file.path(new_mod_path, start$ctlfil),
-                        verbose = FALSE,
+
+ctl <- r4ss::SS_readctl(file = file.path(new_mod_path, start$ctlfil),verbose = FALSE,
                         use_datlist = TRUE, datlist = dat)
-fore <- r4ss::SS_readforecast(file = file.path(new_mod_path, "forecast.ss"),
-                              verbose = FALSE)
+
+fore <- r4ss::SS_readforecast(file = file.path(new_mod_path, "forecast.ss"),verbose = FALSE)
+
 # can also read in wtatage.ss for an empirical wt at age model using
 # r4ss::SS_readwtatage()
+
 ```
 
-# Cómo crear nuevos modelos SS3
+
+A continuación investigamos el modelo, cada uno de los archivos de entrada se lee en R como una lista. Los componentes de la lista deben estar en el mismo orden en que aparecen en el archivo de texto. Use `names()` para ver todos los componentes de la lista:
+
+```{r message=F,warning=F,class.output="scroll-200"}
+
+names(start) # see names of the list components of starter
+
+```
+
+También se puede hacer referencia a un elemento específico para ver los componentes. Por ejemplo, podemos mirar la sección de parámetros de mortalidad y crecimiento (MG_parms):
+
+
+```{r message=F,warning=F,class.output="scroll-200"}
+
+ctl$MG_parms
+
+```
+
 
 &nbsp;
 &nbsp;
 
-Hay muchos flujos de trabajo potenciales para desarrollar un nuevo modelo SS3, pero una técnica común es comenzar con un modelo existente y cambiarlo por partes. La técnica básica es:
-
-1. Encuentre un modelo de trabajo existente (quizás uno de los modelos de ejemplo SS3 disponibles en el repositorio de ejemplos de usuario o quizás un modelo más similar en forma al modelo que planea crear).
-
-2. Edite partes del modelo e intente ejecutar a medida que avanza para verificar que SS3 pueda leer correctamente sus entradas y que tengan sentido lógico (consejo: use options  `-stopph 0 -nohess` para reducir el tiempo de ejecución con cada iteración de verificación de entradas al no estimar nada y no invertir la hessiana).
+Puede realizar cambios estructurales básicos o grandes en su modelo en R. Por ejemplo, el valor inicial de M se puede cambiar:
 
 
+```{r message=F,warning=F,eval=F}
 
-# Sobre la especificación del modelo
+# view the initial value
+ctl$MG_parms["NatM_p_1_Fem_GP_1", "INIT"]
+#> [1] 0.1
+
+#change it to 0.2
+ctl$MG_parms["NatM_p_1_Fem_GP_1", "INIT"] <- 0.2
+
+```
 
 
-SS3 tiene un rico conjunto de características. Algunas entradas requeridas están condicionadas a otras entradas, por lo que es importante tener en cuenta que cambiar una opción puede hacer que SS3 espere una cantidad diferente de valores en los archivos de entrada que antes. La mayoría de las veces, estas entradas condicionales se leen justo después de la opción.
+Al realizar grandes cambios estructurales, es posible que sea necesario agregar elementos adicionales que antes eran NULL. 
 
-El manual de usuario de SS3 se puede utilizar como guía para ayudarlo a editar su modelo. Las entradas condicionales se indican en el manual.
+Algunas entradas requeridas están especificadas en otras entradas, por lo que es importante tener en cuenta que cambiar una opción puede hacer que SS3 espere una cantidad diferente de valores en los archivos de entrada que antes. La mayoría de las veces, estas  especificaciones se leen justo después de la opción.
 
-Si no está seguro de haber realizado la configuración correcta (p. ej., agregando el número correcto de líneas de parámetros para una configuración de capturabilidad elegida), intente ejecutar el modelo con `maxphase = 0` en el archivo de inicio y la opción ADMB `-nohess` (o para SS3 3.30. 16 y posteriores, ejecute el modelo con opciones de línea de comando `-stopph 0 -nohess`, no es necesario cambiar el archivo de inicio). Si se completa la ejecución del modelo, puede comparar el archivo **control.ss_new** y el primer conjunto de datos en **data.ss_new** con sus archivos de entrada de SS3 para asegurarse de que SS3 interpretó los valores según lo previsto. Si la ejecución finaliza antes de completarse, puede buscar en **warning.sso** y **echoinput.sso** para obtener pistas sobre el problema de su configuración.
+El [manual de usuario SS3](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html) se puede utilizar como guía editar su modelo. Las especificaciones se indican en el manual.
 
-# Fases de estimación de parámetros
+Para averiguar los nombres en el objeto de la lista r4ss, puede ser necesario realizar cambios directamente en los archivos de entrada y luego leerlos nuevamente en R, o buscar en el código fuente los nombres de los elementos de la lista. Por ejemplo, el código fuente de `SS_readctl()` cuando se usa un archivo SS3.30 se encuentra en https://github.com/r4ss/r4ss/blob/main/R/SS_readctl_3.30.R.
+
+
+También se pueden modificar las especificaciones en otros archivos. Por ejemplo, la biomasa objetivo se puede modificar en el archivo **forecast.ss**.
+
+```{r echo=T,message=F,warning=F,eval=F }
+fore$Btarget
+#> [1] 0.342
+fore$Btarget <- 0.45
+fore$Btarget
+#> [1] 0.45
+
+```
+
+
+
+Las funciones `SS_write*()` se pueden usar para escribir los objetos R de entrada de SS3 modificados en archivos de entrada:
+
+```{r message=F,warning=F}
+
+r4ss::SS_writestarter(start, dir = new_mod_path, overwrite = TRUE, 
+                      verbose = FALSE)
+#> overwriting file: simple_new/starter.ss
+r4ss::SS_writedat(dat, outfile = file.path(new_mod_path, start$datfile), 
+                  overwrite = TRUE, verbose = FALSE)
+r4ss::SS_writectl(ctl, outfile = file.path(new_mod_path, start$ctlfile),
+                  overwrite = TRUE, verbose = FALSE)
+r4ss::SS_writeforecast(fore, dir = new_mod_path, file = "forecast.ss", 
+                       overwrite = TRUE, verbose = FALSE)
+
+```
+
+
+Si realiza cambios en los archivos del modelo de entrada que hacen que SS3 no pueda analizar el archivo, las funciones `SS_write*()` pueden generar un error (y, con suerte, brindar un mensaje informativo sobre el motivo). Sin embargo, es posible que se escriba un archivo de modelo de SS3 no válido, por lo que la verdadera prueba es si es posible o no ejecutar SS3 con los archivos de modelo modificados.
+
+Si necesita ayuda para solucionar problemas de las funciones `SS_read*()` o `SS_write*()` o desea informar un error, publique un problema en el repositorio r4ss.
+
+
+El modelo ahora se puede ejecutar con la función `run_SS_models` como se muestra a continuación:
+
+
+```{r message=F,warning=F,eval=F}
+
+r4ss::run_SS_models(dirvec = new_mod_path, model = exe_path ,skipfinished = FALSE)
+
+```
+
+
+Si no está seguro de haber realizado la configuración correcta (p. ej., agregando el número correcto de líneas de parámetros para una configuración de capturabilidad elegida), intente ejecutar el modelo con `maxphase = 0` en el archivo de **start.ss** y la opción ADMB `-nohess` (o para SS3 3.30. 16 y posteriores, ejecute el modelo con opciones de línea de comando `-stopph 0 -nohess`, no es necesario cambiar el archivo **start.ss**). Si se completa la ejecución del modelo, puede comparar el archivo **control.ss_new** y el primer conjunto de datos en **data.ss_new** con sus archivos de entrada de SS3 para asegurarse de que SS3 interpretó los valores según lo previsto. Si la ejecución finaliza antes de completarse, puede buscar en **warning.sso** y **echoinput.sso** para obtener pistas sobre el problema de su configuración.
+
+
+
+
+
+
+
+## Fases de estimación de parámetros
 
 Las fases se utilizan dentro de ADMB para decirle al programa en qué orden se deben estimar los parámetros. Para obtener más detalles sobre las fases en ADMB, consulte el [manual de usuario de ADMB](http://www.admb-project.org/docs/manuals/). 
 
@@ -202,7 +289,9 @@ Las fases se utilizan dentro de ADMB para decirle al programa en qué orden se d
 
 * Una **fase positiva** indica que el parámetro será estimado. Los parámetros con una fase positiva más baja se estimarán antes que aquellos con una fase positiva más alta.
 
-#### ¿En qué fase debería poner un parámetro estimado? 
+
+### ¿En qué fase debería poner un parámetro estimado? 
+
 
 Si bien existe variabilidad entre los analistas y los modelos en la forma en que se utiliza la fase, en general, los parámetros con fases positivas bajas deben ser para valores que definen la escala de la población (es decir, R0, mortalidad natural, steepness, selectividad). 
 
@@ -212,21 +301,25 @@ Cuando se ejecuta un modelo sin estimar nada, las fases se ignoran; debido a que
 
 
 
-# Flujo de trabajo propuesto para llegar a un modelo FINAL
+## Flujo de trabajo para llegar a un modelo final
 
-¡Es importante recordar que llegar a un modelo lleva tiempo y muchas iteraciones! Debe planear hacer pequeñas revisiones, volver a ejecutar el modelo y ver cómo ha cambiado el modelo con cada pequeña revisión. Por lo general, se requieren muchas ejecuciones intermedias del modelo antes de llegar a un modelo final. Como mínimo, mantenga notas dentro de la carpeta de la ejecución o en otro lugar con respecto a los cambios específicos de la ejecución. El uso del control de versiones también podría ser útil para realizar un seguimiento de los cambios en el modelo. A continuación, proporcionamos algunas sugerencias sobre los pasos a seguir a medida que itera hacia su modelo "final".
+¡Es importante recordar que llegar a un modelo final lleva tiempo y muchas iteraciones! Es importante realizar pequeñas revisiones, volver a ejecutar el modelo y ver cómo ha cambiado el modelo con cada pequeña revisión. Por lo general, se requieren muchas ejecuciones intermedias del modelo antes de llegar a un modelo final. 
 
-## Primer paso: ejecutar el modelo sin estimación
+La creación de secuencias de comandos con funciones r4ss es una forma de desarrollar un flujo de trabajo reproducible y coherente  de SS3. Sin embargo, hay muchas formas de ejecutar y modificar los modelos de SS3. Lo más importante es encontrar un flujo de trabajo que funcione  y que los cambios que se realizan en un modelo puedan ser documentados. Como mínimo, mantener notas dentro de la carpeta de la ejecución o en otro lugar con respecto a los cambios específicos de la ejecución. El control de versiones (como git) es otra herramienta que puede ayudar a realizar un seguimiento de los cambios en los modelos. 
 
-Primero, verifique que SS3 lea los archivos de entrada según lo previsto. Utilice las opciones de línea de comando -stopph 0 -nohess para ejecutar el modelo sin estimación. Luego, examine los archivos de **warning.sso**, **echoinput.sso** y **.ss_new files** producidos para ver cómo SS3 interpretó sus archivos de entrada y si fue como pretendía.
+A continuación, se muestran algunas sugerencias sobre los pasos a seguir a medida que itera hacia su modelo "final".
+
+### 1. Ejecutar el modelo sin estimación
+
+Primero, verifique que SS3 lea los archivos de entrada según lo previsto. Utilice las opciones de línea de comando `-stopph 0 -nohess` para ejecutar el modelo sin estimación. Luego, examine los archivos de **warning.sso**, **echoinput.sso** y **.ss_new files** producidos para ver cómo SS3 interpretó sus archivos de entrada y si fue como pretendía.
 
 Una vez que haya verificado que SS3 está leyendo su entrada correctamente, también puede considerar ajustar los parámetros de selectividad, crecimiento y reclutamiento.
 
-## Segundo paso: ejecutar estimando algunos parámetros
+### 2. Ejecutar estimando algunos parámetros
 
 Intente cambiar la fase máxima para que sea mayor que 0 (quizás 2 o 3) para estimar algunos pero no todos los parámetros. Haga esto usando `-stopph x -nohess`, donde x debe ser la fase máxima deseada (por ejemplo, 2 o 3). `-nohess` todavía se usa para reducir el tiempo de ejecución. Durante esta etapa de las ejecuciones del modelo, debe intentar ajustar el modelo para resolver todos los patrones principales en los residuales. Esto puede incluir considerar y realizar cambios en la estructura del modelo.
 
-## Tercer paso: ejecutar estimando todos los parámetros
+### 3. Ejecutar estimando todos los parámetros
 
 Una vez que se hayan resuelto todos los patrones principales en los residuos, intente estimar todos los parámetros en el modelo. Cambie la fase máxima para incluir todas las fases de su modelo (es decir, igual o superior a la fase más alta especificada en su modelo). Querrá hacer varias ejecuciones para diferentes propósitos de refinamiento del modelo en este momento:
 
