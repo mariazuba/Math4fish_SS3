@@ -159,12 +159,12 @@ check.retro = r4ss::SSsummarize(retro.phk)
 ```
 
 
-```{r}
-sspar(mfrow = c(1, 2), plot.cex = 0.8)
+```{r  message=F,warning=F,eval=T, fig.align='center',fig.width=6.5,fig.height=6.5,fig.cap="Retrospectivo"}
+sspar(mfrow = c(2, 1), plot.cex = 0.8)
 
-SSplotRetro(check.retro, add = T, forecast = T, legend = F, verbose = F, xmin = 2000)
-SSplotRetro(check.retro, add = T, subplots = "F", ylim = c(0, 3.5), forecast = T,
-legendloc = "topleft", legendcex = 0.8, verbose = F, xmin = 2000)
+SSplotRetro(check.retro, add = T, forecast = T, legend = F, verbose = F, xmin = 1970)
+SSplotRetro(check.retro, add = T, subplots = "F", ylim = c(0, 0.5), forecast = T,
+legendloc = "topleft", legendcex = 0.8, verbose = F, xmin = 1970)
 
 ```
 

@@ -542,18 +542,23 @@ retrospectiva de cinco años:</p>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(retro.phk, <span class="at">file =</span> <span class="fu">file.path</span>(model.run, <span class="st">&quot;retro.phk.rdata&quot;</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>check.retro <span class="ot">=</span> r4ss<span class="sc">::</span><span class="fu">SSsummarize</span>(retro.phk)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">forecast =</span> T, <span class="at">legend =</span> F, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">forecast =</span> T, <span class="at">legend =</span> F, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">1970</span>)</span></code></pre></div>
 <pre><code>##   type     peel        Rho ForecastRho
 ## 1  SSB     2000 -0.1748538  -0.1995846
 ## 2  SSB     1999 -0.2421615  -0.2807866
 ## 3  SSB     1998 -0.1099116  -0.1307483
 ## 4  SSB     1997 -0.1422888  -0.1626162
 ## 5  SSB Combined -0.1673039  -0.1934340</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">subplots =</span> <span class="st">&quot;F&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">3.5</span>), <span class="at">forecast =</span> T,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">legendloc =</span> <span class="st">&quot;topleft&quot;</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">2000</span>)</span></code></pre></div>
-<p><img src="retro_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotRetro</span>(check.retro, <span class="at">add =</span> T, <span class="at">subplots =</span> <span class="st">&quot;F&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>), <span class="at">forecast =</span> T,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">legendloc =</span> <span class="st">&quot;topleft&quot;</span>, <span class="at">legendcex =</span> <span class="fl">0.8</span>, <span class="at">verbose =</span> F, <span class="at">xmin =</span> <span class="dv">1970</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="retro_files/figure-html/unnamed-chunk-10-1.png" alt="Retrospectivo" width="624" />
+<p class="caption">
+Retrospectivo
+</p>
+</div>
 <pre><code>##   type     peel       Rho ForecastRho
 ## 1    F     2000 0.2155570   0.2473714
 ## 2    F     1999 0.3501891   0.4198235
