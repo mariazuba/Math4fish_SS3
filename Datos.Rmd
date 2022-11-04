@@ -1,12 +1,8 @@
 ---
-title: "Archivos del modelo"
+title: ""
 ---
 
 &nbsp; &nbsp;
-
-
-
-SS3 usa archivos de entrada de texto y produce archivos de salida de texto. En esta sección se describen los archivos de entrada de SS3 así como las herramientas que se pueden usar con estos archivos. Vea como se relacionana en la **Figura 1**.
 
 
 # Archivos requeridos
@@ -89,7 +85,7 @@ Los archivos de datos se pueden leer como objetos de lista en R usando las funci
 SS3 comienza leyendo el archivo starter.ss, el cual contiene los nombres de los archivos de datos y control, además de otros controles de ejecución. Los nombres de los archivos de control.ss y data.ss deben coincidir con los nombres especificados en el archivo starter.ss. En esta sección se especifican los ajustes a los parámetros iniciales, summary y convergencia del modelo.  [Consulte la Guía de usuario de SS3: Sección 5 "Starter File"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#starter-file).
 
 
-Podemos ver el contenido del archivo  usando la función "SS_readstarter" de r4ss. En este link puedes [Descargar archivo starter](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss) y guardarlo en tu directorio de trabajo.
+Podemos ver el contenido del archivo  usando la función `SS_readstarter` de r4ss. En este link puedes [Descargar archivo starter](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss) y guardarlo en tu directorio de trabajo.
 
 
 ```{r echo=T, message=F,warning=F}
@@ -110,7 +106,7 @@ kbl(DT_start[,1],booktabs=T,position="h!",caption="Contenido de archivo starter"
 
 A continuación se describe como ingresar las especificaciones del modelo, definición de flotas/campañas y los datos de capturas, índices, descarte, composiciones de tallas y edades, entre otros.
 
-Podemos leer el archivo  usando la función "SS_readdat" de r4ss y ver los componentes de la lista con la función names(). En este link puedes [Descargar archivo data](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss) y guardarlo en tu directorio de trabajo.
+Podemos leer el archivo  usando la función `SS_readdat` de r4ss y ver los componentes de la lista con la función `names()`. En este link puedes [Descargar archivo data](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss) y guardarlo en tu directorio de trabajo.
 
 
 ```{r message=F,warning=F,class.output="scroll-200"}
@@ -446,7 +442,7 @@ En este archivo se pueden especificar los puntos biológicos de referencia, los 
 
 A continuación se muestra el archivo crudo que puedes encontrar al [Descarga archivo forecast](https://mariazuba.github.io/Math4fish_SS3/model_files/simple/forecast.ss). Cada línea corresponde a una especificación comentada con simbolo #.
 
-Para revisar las líneas que se están leyendo de nuestro código podemos utilizar la función SS_readforecast de la librería r4ss y de esta forma visualizar los datos que nos interesan.
+Para revisar las líneas que se están leyendo de nuestro código podemos utilizar la función `SS_readforecast` de la librería r4ss y de esta forma visualizar los datos que nos interesan.
 
 ```{r echo=T, message=F,warning=F}
 

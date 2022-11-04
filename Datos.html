@@ -11,7 +11,7 @@
 
 
 
-<title>Archivos del modelo</title>
+<title>Datos.knit</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -460,16 +460,11 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Archivos del modelo</h1>
 
 </div>
 
 
 <p>   </p>
-<p>SS3 usa archivos de entrada de texto y produce archivos de salida de
-texto. En esta sección se describen los archivos de entrada de SS3 así
-como las herramientas que se pueden usar con estos archivos. Vea como se
-relacionana en la <strong>Figura 1</strong>.</p>
 <div id="archivos-requeridos" class="section level1">
 <h1>Archivos requeridos</h1>
 <style type="text/css">
@@ -530,7 +525,7 @@ summary y convergencia del modelo. <a
 href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#starter-file">Consulte
 la Guía de usuario de SS3: Sección 5 “Starter File”</a>.</p>
 <p>Podemos ver el contenido del archivo usando la función
-“SS_readstarter” de r4ss. En este link puedes <a
+<code>SS_readstarter</code> de r4ss. En este link puedes <a
 href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/starter.ss">Descargar
 archivo starter</a> y guardarlo en tu directorio de trabajo.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>start    <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readstarter</span>(<span class="at">file=</span><span class="fu">file.path</span>(mod_path,<span class="st">&quot;starter.ss&quot;</span>),<span class="at">verbose =</span> <span class="cn">FALSE</span>) </span>
@@ -837,9 +832,9 @@ seed
 <p>A continuación se describe como ingresar las especificaciones del
 modelo, definición de flotas/campañas y los datos de capturas, índices,
 descarte, composiciones de tallas y edades, entre otros.</p>
-<p>Podemos leer el archivo usando la función “SS_readdat” de r4ss y ver
-los componentes de la lista con la función names(). En este link puedes
-<a
+<p>Podemos leer el archivo usando la función <code>SS_readdat</code> de
+r4ss y ver los componentes de la lista con la función
+<code>names()</code>. En este link puedes <a
 href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/data.ss">Descargar
 archivo data</a> y guardarlo en tu directorio de trabajo.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lee archivo data.ss</span></span>
@@ -12583,8 +12578,8 @@ href="https://mariazuba.github.io/Math4fish_SS3/model_files/simple/forecast.ss">
 archivo forecast</a>. Cada línea corresponde a una especificación
 comentada con simbolo #.</p>
 <p>Para revisar las líneas que se están leyendo de nuestro código
-podemos utilizar la función SS_readforecast de la librería r4ss y de
-esta forma visualizar los datos que nos interesan.</p>
+podemos utilizar la función <code>SS_readforecast</code> de la librería
+r4ss y de esta forma visualizar los datos que nos interesan.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lee el archivo forecast</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">&lt;-</span> r4ss<span class="sc">::</span><span class="fu">SS_readforecast</span>(<span class="at">file =</span> <span class="fu">file.path</span>(mod_path, <span class="st">&quot;forecast.ss&quot;</span>),</span>
