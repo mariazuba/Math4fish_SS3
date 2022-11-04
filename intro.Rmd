@@ -26,7 +26,7 @@ title: ""
 &nbsp;
 &nbsp;
 
-Stock Synthesis (SS3) es un marco de modelado estadístico de la dinámica de la población pesquera integrado en AD Model Builder. Esta Guía introduce a los usuarios a ejecutar SS3. Se asume cierta experiencia con modelos de dinámica de población y una comprensión básica de cómo usar la línea de comando.
+Esta Guía introduce a los usuarios a ejecutar SS3. Se asume cierta experiencia con modelos de dinámica de población y una comprensión básica de cómo usar líneas de comando.
 
 
 
