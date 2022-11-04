@@ -33,8 +33,6 @@ En esta guía se describen los formatos de los archivos de datos necesarios para
 
 Los principales beneficios de trabajar con la plataforma de modelación Stock Synthesis son múltiples. Por un lado, conlleva una mejora de la utilización de datos disponibles, comunicación de resultados así como una mejor eficiencia en el aprendizaje y la educación en la comunidad de evaluación pesquera al ser un modelo genérico de amplio uso en el mundo. Su uso reduce el tiempo requerido para la implementación rápida (por ejemplo, en talleres de revisión) de modelos alternativos de variada complejidad y diferentes supuestos. 
 
-La ventaja de tener modelos implementados en SS3 es la posibilidad de rápidamente implementar modelos alternativos que luego pudieran considerarse como punto de partida para su eventual codificación en el código o lenguaje elegido, lo cual conlleva un tiempo más sustancial.
-
 Stock Synthesis también tiene asociados paquetes de procesamiento y presentación de gráficas para los resultados de los modelos, como también la manipulación y edición de los archivos de entrada de datos utilizando la librería [**r4ss**](https://github.com/r4ss/r4ss) y puedes ejecutar diagnósticos avanzados utilizando la  librería  [**ss3diags**](https://github.com/jabbamodel/ss3diags), los cuales aplicaremos en esta guía.
 
 Existen otras librarías complementarias para realizar estudios de simulación utilizando la librería [**ss3sim**](https://github.com/ss3sim/ss3sim), y para la aplicación de algoritmos de evaluación de estrategias de gestión mediante la libraría [**SSMSE**](https://github.com/nmfs-fish-tools/SSMSE).  
