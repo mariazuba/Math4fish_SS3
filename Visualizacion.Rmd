@@ -3,11 +3,25 @@ title: ""
 ---
 
 
+```{css,echo=FALSE}
+
+
+.scroll-300{
+            max-height: 300px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
 
 ## Visualización de resultados  
 
+&nbsp;
+&nbsp;
 
-La visualización es útil a medida que desarrolla iterativamente su modelo y para la presentación de los resultados finales del modelo. La salida de un modelo SS3 se puede leer en **r4ss**. La [Guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) tiene más información sobre cómo usar el paquete de R **r4ss**.
+La visualización es útil a medida que desarrolla iterativamente su modelo y para la presentación de los resultados finales del modelo. La salida de un modelo SS3 se puede leer en **r4ss**. 
+
+Las dos funciones más importantes son `SS_output` y `SS_plots`, la primera para leer la salida de un modelo de Stock Synthesis y la segunda para hacer un gran conjunto de gráficos que ilustran esa salida.
+
 
 ```{r echo=F, message=F,warning=F}
 
@@ -37,19 +51,27 @@ r4ss::run_SS_models(dirvec=mod_path, model=exe_path,skipfinished=FALSE)
 
 ```
 
-```{r echo=F, message=F,warning=F,include=F, eval=T}
+```{r echo=T, message=F,warning=F,include=T, eval=T,class.output="scroll-300"}
 
 replist <- SS_output(dir=mod_path,verbose=TRUE,printstats=TRUE)
 
-# SS_plots(replist)
+```
+
+&nbsp;
+&nbsp;
+
+Por defecto, `SS_plots()` crea archivos PNG y HTML en un nuevo subdirectorio de gráficos en la misma ubicación de los archivos del modelo. Los archivos HTML (**extracto de ejemplo a continuación**) facilitan la exploración de las figuras png. La pestaña de **home** debería abrirse en un navegador automáticamente después de que `SS_plots()` cree todos los archivos PNG y HTML.
+
+
+```{r echo=T, message=F,warning=F,include=T, eval=F}
+
+SS_plots(replist)
 
 ```
 
-```{r}
 
 
 
-```
 
 ### Datos
 

@@ -464,19 +464,245 @@ div.tocify {
 </div>
 
 
+<style type="text/css">
+
+
+.scroll-300{
+            max-height: 300px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+</style>
 <div id="visualización-de-resultados" class="section level2">
 <h2>Visualización de resultados</h2>
+<p>   </p>
 <p>La visualización es útil a medida que desarrolla iterativamente su
 modelo y para la presentación de los resultados finales del modelo. La
-salida de un modelo SS3 se puede leer en <strong>r4ss</strong>. La <a
-href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">Guía
-de library r4ss</a> tiene más información sobre cómo usar el paquete de
-R <strong>r4ss</strong>.</p>
+salida de un modelo SS3 se puede leer en <strong>r4ss</strong>.</p>
+<p>Las dos funciones más importantes son <code>SS_output</code> y
+<code>SS_plots</code>, la primera para leer la salida de un modelo de
+Stock Synthesis y la segunda para hacer un gran conjunto de gráficos que
+ilustran esa salida.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>replist <span class="ot">&lt;-</span> <span class="fu">SS_output</span>(<span class="at">dir=</span>mod_path,<span class="at">verbose=</span><span class="cn">TRUE</span>,<span class="at">printstats=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre class="scroll-300"><code>##                        TempFile                            Size 
+## &quot;size of file gradfil1.tmp = 0&quot; &quot;size of file gradfil2.tmp = 0&quot; 
+##                            &lt;NA&gt;                            &lt;NA&gt; 
+## &quot;size of file varssave.tmp = 0&quot;  &quot;size of file cmpdiff.tmp = 0&quot; 
+## $SS_version
+## [1] &quot;3.30.19.00-prerel;_safe;_compile_date:_Feb 25 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3&quot;
+## 
+## $SS_versionshort
+## [1] &quot;3.30&quot;
+## 
+## $SS_versionNumeric
+## [1] 3.3
+## 
+## $StartTime
+## [1] &quot;StartTime: Thu Nov 03 15:39:21 2022&quot;
+## 
+## $RunTime
+## [1] &quot;0 hours, 0 minutes, 47 seconds.&quot;
+## 
+## $Files_used
+## [1] &quot;Data_File: data.ss Control_File: control.ss&quot;
+## 
+## $Nwarnings
+## [1] 2
+## 
+## $warnings
+## [1] &quot;1 NOTE:  Max data length bin: 90  &lt; max pop len bins: 94; so will accumulate larger pop len bins&quot;                                                                                                                                                         
+## [2] &quot;2 NOTE: This model has just one settlement event. Changing to recr_dist_method 4 and removing the recruitment distribution parameters at the end of the MG parms section (below growth parameters) will produce identical results and simplify the model.&quot;
+## [3] &quot;N warnings: 2&quot;                                                                                                                                                                                                                                            
+## 
+## $likelihoods_used
+##                                     values lambdas
+## TOTAL                1306.5199999999999818      NA
+## Catch                   0.0000000000358566      NA
+## Equil_catch             0.0000000000000000      NA
+## Survey                 -3.9836000000000000      NA
+## Length_comp           651.0080000000000382      NA
+## Age_comp              586.6100000000000136      NA
+## Size_at_age            79.2249999999999943      NA
+## Recruitment            -7.3970200000000004       1
+## InitEQ_Regime           0.0000000000000000       1
+## Forecast_Recruitment    0.0000000000000000       1
+## Parm_priors             1.0560200000000000       1
+## Parm_softbounds         0.0012046000000000      NA
+## Parm_devs               0.0000000000000000       1
+## Crash_Pen               0.0000000000000000       1
+## 
+## $likelihoods_laplace
+##                                        values lambdas
+## NoBias_corr_Recruitment(info_only)   -7.39702       1
+## Laplace_obj_fun(info_only)         1306.52000      NA
+## 
+## $likelihoods_by_fleet
+##                Label          ALL     FISHERY   SURVEY1  SURVEY2
+## 175     Catch_lambda           NA 1.00000e+00   1.00000  1.00000
+## 176       Catch_like  3.58566e-11 3.58566e-11   0.00000  0.00000
+## 177  Init_equ_lambda           NA 1.00000e+00   1.00000  1.00000
+## 178    Init_equ_like  0.00000e+00 0.00000e+00   0.00000  0.00000
+## 179      Surv_lambda           NA 0.00000e+00   1.00000  1.00000
+## 180        Surv_like -3.98360e+00 0.00000e+00  -6.17325  2.18966
+## 181       Surv_N_use           NA 0.00000e+00   9.00000 12.00000
+## 182      Surv_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 183    Length_lambda           NA 1.00000e+00   1.00000  0.00000
+## 184      Length_like  6.51008e+02 5.12840e+02 138.16800  0.00000
+## 185     Length_N_use           NA 3.10000e+01   9.00000  0.00000
+## 186    Length_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 187       Age_lambda           NA 1.00000e+00   1.00000  0.00000
+## 188         Age_like  5.86610e+02 4.56078e+02 130.53200  0.00000
+## 189        Age_N_use           NA 3.10000e+01   9.00000  0.00000
+## 190       Age_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 191 Sizeatage_lambda           NA 1.00000e+00   1.00000  0.00000
+## 192   sizeatage_like  7.92250e+01 3.79917e+01  41.23330  0.00000
+## 193  sizeatage_N_use           NA 2.00000e+00   2.00000  0.00000
+## 194 sizeatage_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 
+## $N_estimated_parameters
+## [1] 54
+## 
+## $table_of_phases
+## 
+## -99  -4  -3  -1   1   2   3   4   5 
+##   8   6  15   1   3  34   2   5  10 
+## 
+## $estimated_non_dev_parameters
+##                                Value Phase    Min   Max      Init Status
+## L_at_Amin_Fem_GP_1         21.653500     2 -10.00 45.00 21.653500     OK
+## L_at_Amax_Fem_GP_1         71.649300     4  40.00 90.00 71.649300     OK
+## VonBert_K_Fem_GP_1          0.147297     4   0.05  0.25  0.147297     OK
+## L_at_Amax_Mal_GP_1         69.536200     4  40.00 90.00 69.536200     OK
+## VonBert_K_Mal_GP_1          0.163533     4   0.05  0.25  0.163533     OK
+## SR_LN(R0)                   8.815050     1   3.00 31.00  8.815050     OK
+## SR_BH_steep                 0.614248     4   0.20  1.00  0.614248     OK
+## LnQ_base_SURVEY1(2)         0.516018     1  -7.00  5.00  0.516018     OK
+## LnQ_base_SURVEY2(3)        -6.628100     1  -7.00  5.00 -6.628100     OK
+## Size_inflection_FISHERY(1) 53.641100     2  19.00 80.00 53.641100     OK
+## Size_95%width_FISHERY(1)   18.923200     3   0.01 60.00 18.923200     OK
+## Size_inflection_SURVEY1(2) 36.653000     2  19.00 70.00 36.653000     OK
+## Size_95%width_SURVEY1(2)    6.591790     3   0.01 60.00  6.591790     OK
+##                            Parm_StDev           Gradient  Pr_type Prior Pr_SD
+## L_at_Amin_Fem_GP_1         0.47553800 -0.000000006602230   Normal 36.00 10.00
+## L_at_Amax_Fem_GP_1         0.30971500  0.000000004790130   Normal 70.00 10.00
+## VonBert_K_Fem_GP_1         0.00367698  0.000000001262230   Normal  0.15  0.80
+## L_at_Amax_Mal_GP_1         0.29215500  0.000000003785840   Normal 70.00 10.00
+## VonBert_K_Mal_GP_1         0.00408873  0.000000001451320   Normal  0.15  0.80
+## SR_LN(R0)                  0.02735980  0.000000198226000 No_prior    NA    NA
+## SR_BH_steep                0.06666850  0.000000000608619 Sym_Beta  0.70  0.05
+## LnQ_base_SURVEY1(2)        0.11928700  0.000000003314450 No_prior    NA    NA
+## LnQ_base_SURVEY2(3)        0.27062100  0.000000002566190 No_prior    NA    NA
+## Size_inflection_FISHERY(1) 0.73275900  0.000000003999300 Sym_Beta 50.00  0.01
+## Size_95%width_FISHERY(1)   0.74960900 -0.000000000977806 Sym_Beta 15.00  0.01
+## Size_inflection_SURVEY1(2) 0.47456300 -0.000000002846570 Sym_Beta 30.00  0.01
+## Size_95%width_SURVEY1(2)   0.72946100  0.000000003003690 Sym_Beta 10.00  0.01
+##                                  Pr_Like Afterbound
+## L_at_Amin_Fem_GP_1         1.02911000000         OK
+## L_at_Amax_Fem_GP_1         0.01360150000         OK
+## VonBert_K_Fem_GP_1         0.00000570604         OK
+## L_at_Amax_Mal_GP_1         0.00107534000         OK
+## VonBert_K_Mal_GP_1         0.00014308200         OK
+## SR_LN(R0)                             NA         OK
+## SR_BH_steep                0.00003845290         OK
+## LnQ_base_SURVEY1(2)                   NA         OK
+## LnQ_base_SURVEY2(3)                   NA         OK
+## Size_inflection_FISHERY(1) 0.00018599500         OK
+## Size_95%width_FISHERY(1)   0.00146751000         OK
+## Size_inflection_SURVEY1(2) 0.00099473600         OK
+## Size_95%width_SURVEY1(2)   0.00939774000         OK
+## 
+## $log_det_hessian
+## [1] 160.707
+## 
+## $maximum_gradient_component
+## [1] 1.98226e-07
+## 
+## $parameters_with_highest_gradients
+##                       Value     Gradient
+## SR_LN(R0)          8.815050  1.98226e-07
+## Main_RecrDev_2000  0.171606 -1.68372e-08
+## Main_RecrDev_1999 -0.656469  1.63859e-08
+## Main_RecrDev_1995 -0.605267 -1.31937e-08
+## Main_RecrDev_1992 -0.273424 -8.87628e-09
+## 
+## $Length_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp mean_Nsamp_in
+## 1404      4     1           1.04775 # 31   31       125       125           125
+## 1405      4     2           1.17464 #  9    9       125       125           125
+##      mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN Curr_Var_Adj
+## 1404            125            NA       NA   135.688      130.968            1
+## 1405            125            NA       NA   152.822      146.830            1
+##      Fleet_name
+## 1404    FISHERY
+## 1405    SURVEY1
+## 
+## $Age_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+## 1452      5     1           1.01608 #        31   31        75        75
+## 1453      5     2           1.07146 #         9    9        75        75
+##      mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN
+## 1452            75             75            NA       NA   82.1190      76.2062
+## 1453            75             75            NA       NA   89.4682      80.3594
+##      Curr_Var_Adj Fleet_name
+## 1452            1    FISHERY
+## 1453            1    SURVEY1
+## 
+## $SBzero
+## [1] 49909.7
+## 
+## $current_depletion
+## [1] 0.1129147
+## 
+## $last_years_SPR
+## [1] 0.563176
+## 
+## $SPRratioLabel
+## [1] &quot;1-SPR&quot;
+## 
+## $sigma_R_in
+## [1] 0.6
+## 
+## $sigma_R_info
+##            period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+## 1            Main     31   0.450029   0.2025261 0.3228373      0.1096451
+## 2      Early+Main     31   0.450029   0.2025261 0.3228373      0.1096451
+## 3 Early+Main+Late     31   0.450029   0.2025261 0.3228373      0.1096451
+##   sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+## 1              0.5587228               0.7500483             0.9312047
+## 2              0.5587228               0.7500483             0.9312047
+## 3              0.5587228               0.7500483             0.9312047
+##   alternative_sigma_R
+## 1           0.5587228
+## 2           0.5587228
+## 3           0.5587228
+## 
+## $rmse_table
+##     ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+## 1  main 31 0.442711         0.544424            1
+## 2 early  0 0.000000         0.000000            0
+## 
+## $cormessage1
+## [1] Range of abs(parameter correlations) is 3.93617e-05 to 0.775995
+## 
+## $cormessage2
+## [1] No correlations above threshold (cormax=0.95)
+## 
+## $cormessage7
+## [1] No uncorrelated parameters below threshold (cormin=0.01)</code></pre>
+<p>   </p>
+<p>Por defecto, <code>SS_plots()</code> crea archivos PNG y HTML en un
+nuevo subdirectorio de gráficos en la misma ubicación de los archivos
+del modelo. Los archivos HTML (<strong>extracto de ejemplo a
+continuación</strong>) facilitan la exploración de las figuras png. La
+pestaña de <strong>home</strong> debería abrirse en un navegador
+automáticamente después de que <code>SS_plots()</code> cree todos los
+archivos PNG y HTML.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SS_plots</span>(replist)</span></code></pre></div>
 <div id="datos" class="section level3">
 <h3>Datos</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotData</span>(replist, <span class="at">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotData</span>(replist, <span class="at">subplot =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="Visualizacion_files/figure-html/unnamed-chunk-5-1.png" alt="Datos de entrada al modelo" width="624" />
+<img src="Visualizacion_files/figure-html/unnamed-chunk-6-1.png" alt="Datos de entrada al modelo" width="624" />
 <p class="caption">
 Datos de entrada al modelo
 </p>
@@ -486,16 +712,16 @@ Datos de entrada al modelo
 <h3>Biología</h3>
 <p>Estos gráficos corresponden a las salidas de curva de crecimiento,
 peso medios, madurez y desove.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>))</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>parbio1<span class="ot">&lt;-</span>replist<span class="sc">$</span>estimated_non_dev_parameters</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(parbio1, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Estimated non dev parameters&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotBiology</span>(replist, <span class="at">subplot =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">11</span>))</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>parbio1<span class="ot">&lt;-</span>replist<span class="sc">$</span>estimated_non_dev_parameters</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(parbio1, <span class="at">booktabs =</span> T,<span class="at">position=</span><span class="st">&quot;h!&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Estimated non dev parameters&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="st">&quot;striped&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span>,<span class="at">font_size=</span><span class="dv">12</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width=</span><span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
 <div
 style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1126,55 +1352,55 @@ OK
 <p>La distribución de talla a la edad o la edad observada a al edad real
 se representa como un histograma. Los valores son de las secciones de
 Report.sso llamadas AGE_LENGTH-KEY y AGE_AGE_KEY.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotAgeMatrix</span>(replist)</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-8-1.png" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotAgeMatrix</span>(replist)</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-9-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selectividad" class="section level3">
 <h3>Selectividad</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-9-1.png" width="528" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-10-1.png" width="528" style="display: block; margin: auto;" /><img src="Visualizacion_files/figure-html/unnamed-chunk-10-2.png" width="528" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-10-1.png" width="528" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSelex</span>(replist,<span class="at">subplot =</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-11-1.png" width="528" style="display: block; margin: auto;" /><img src="Visualizacion_files/figure-html/unnamed-chunk-11-2.png" width="528" style="display: block; margin: auto;" /></p>
 </div>
 <div id="series-de-tiempo" class="section level3">
 <h3>Series de tiempo</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">3</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">4</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">6</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">7</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">9</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">10</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">11</span>)</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-11-1.png" width="816" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">1</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">3</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">4</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">6</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">7</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">9</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">10</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotTimeseries</span>(replist,<span class="at">subplot =</span><span class="dv">11</span>)</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-12-1.png" width="816" style="display: block; margin: auto;" /></p>
 </div>
 <div id="capturas" class="section level3">
 <h3>Capturas</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotCatch</span>(replist, <span class="at">subplots =</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">9</span>, <span class="dv">10</span>))</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /><img src="Visualizacion_files/figure-html/unnamed-chunk-12-2.png" width="624" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotCatch</span>(replist, <span class="at">subplots =</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">9</span>, <span class="dv">10</span>))</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-13-1.png" width="624" style="display: block; margin: auto;" /><img src="Visualizacion_files/figure-html/unnamed-chunk-13-2.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
 <div id="índices" class="section level3">
 <h3>Índices</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotIndices</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotIndices</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">2</span>,<span class="dv">7</span>))</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-14-1.png" width="816" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ajustes-y-residuales" class="section level3">
 <h3>Ajustes y residuales</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">24</span>))</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /><img src="Visualizacion_files/figure-html/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-15-1.png" width="672" /><img src="Visualizacion_files/figure-html/unnamed-chunk-15-2.png" width="672" /><img src="Visualizacion_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">24</span>))</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /><img src="Visualizacion_files/figure-html/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComps</span>(replist, <span class="at">subplots =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="Visualizacion_files/figure-html/unnamed-chunk-16-2.png" width="672" /><img src="Visualizacion_files/figure-html/unnamed-chunk-16-3.png" width="672" /></p>
 </div>
 <div id="relación-stock-recluta" class="section level3">
 <h3>Relación stock-recluta</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSpawnrecruit</span>(replist,<span class="at">subplot =</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">legend =</span> T)</span></code></pre></div>
-<p><img src="Visualizacion_files/figure-html/unnamed-chunk-16-1.png" width="816" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sspar</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">plot.cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotSpawnrecruit</span>(replist,<span class="at">subplot =</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>,<span class="at">legend =</span> T)</span></code></pre></div>
+<p><img src="Visualizacion_files/figure-html/unnamed-chunk-17-1.png" width="816" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 
