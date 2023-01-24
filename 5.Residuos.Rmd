@@ -1,0 +1,248 @@
+---
+title: "Análisis de Residuos"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE)
+```
+
+
+# Instalar librerías
+
+```{r eval=FALSE}
+devtools::install_github("jabbamodel/ss3diags")
+install.packages('r4ss')
+install.packages('here')
+
+```
+
+
+# Cargar librerías
+
+```{r}
+library(here)
+library(r4ss)
+library(ss3diags)
+```
+
+# Crear directorios
+
+Identificamos el directorio donde se encuentra el modelo base 
+
+```{r}
+dirname.model.run <- here("modelos_SS3","simple")
+dir(dirname.model.run)
+```
+
+Creamos un nuevo directorio para el ejercicio de Análisis de `Residuos`
+
+```{r}
+
+dirname.residuos <- here("Ejercicios","5.Residuos")
+dir.create(path=dirname.residuos, showWarnings = TRUE, recursive = TRUE)
+
+```
+
+Creamos un subdirectorio llamado `plots_residuos`
+
+```{r}
+
+plotdir=paste0(dirname.residuos, "/plots_residuos")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+
+```
+
+Creamos un subdirectorio llamado `simple`
+
+```{r}
+
+reference.dir <- paste0(dirname.residuos,'/simple') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+
+dir(reference.dir)
+
+```
+
+Copiamos el resultado del modelo base completo en este directorio
+
+```{r}
+
+file.copy(Sys.glob(paste(dirname.model.run, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   reference.dir)
+
+```
+
+Ejecutamos  SS3
+```{r}
+r4ss::run_SS_models(dirvec = reference.dir, 
+                    model = "ss_win.exe" ,
+                    skipfinished = FALSE)
+
+
+```
+
+
+Leemos la salida del modelo base con función `SS_output()`
+
+```{r class.output="scroll-200"}
+
+replist <- SS_output(dir=reference.dir,covar=T)
+
+```
+
+
+# 7. Diagnóstico residual con función `SSplotRuntest()`
+
+Grafica los residuos y límites 3xsigma para índices, tallas y edades y genera una tabla de prueba de diagnóstico.
+
+Estas Figuras corresponden a un test de ajustes de los índices y composiciones de tallas. 
+
+El sombreado verde indica que no hay evidencia (p = 0,05) y el sombreado rojo evidencia (p < 0,05) para rechazar la hipótesis de una serie temporal de residuos distribuida aleatoriamente, respectivamente.
+
+El área sombreada (verde/roja) abarca tres desviaciones estándar residuales a ambos lados de cero.
+
+Los puntos rojos fuera del sombreado violan el “límite de tres sigma” para esa serie.
+
+
+
+`subplots`='cpue' opcional para datos de índice,
+          'len' para datos de composición por tallas,
+          'size' para datos de composición por tallas  generalizados,
+          'age' para datos de composición por edades o
+          'con' para datos condicionales de edad por tallas
+          
+          
+          
+### Residuos de índices
+  
+```{r}
+r4ss::sspar(mfrow = c(1,2))
+SSplotRunstest(replist, 
+               subplots = "cpue", 
+               add = TRUE,
+               legendcex = 0.8, 
+               verbose = F,
+               plotdir = plotdir)
+
+```
+
+
+### Residuos de edad
+
+```{r}
+r4ss::sspar(mfrow = c(1,2))
+SSplotRunstest(replist, 
+               subplots = "age", 
+               add = TRUE,
+               legendcex = 0.8, 
+               verbose = F,
+               plotdir = plotdir)
+```
+
+### Residuos de tallas
+
+```{r}
+r4ss::sspar(mfrow = c(1,2))
+SSplotRunstest(replist, 
+               subplots = "len", 
+               add = TRUE,
+               legendcex = 0.8, 
+               verbose = F,
+               plotdir = plotdir)
+```
+
+# 8. Función para Tabla de diagnóstico `SSrunstest()`
+
+Tenga en cuenta que si no desea plotear los residuos, utilice la función `ss3diags::SSrunstest()`.
+
+```{r}
+test_indices<-SSrunstest(replist,quants = "cpue",verbose=F)
+test_len<-SSrunstest(replist,quants = "len",verbose=F)
+test_age<-SSrunstest(replist,quants = "age",verbose=F)
+
+rbind(test_indices,test_len,test_age)
+
+```
+
+# 9. Boxplot residuales con loess `SSplotJABBAres()`
+
+Ejecuta el gráfico de prueba y el gráfico de residuos conjuntos para ajustes a los índices, donde las líneas verticales con puntos muestran los residuos y las líneas negras sólidas muestran loess más suave en todos los residuos. 
+
+Los boxplot indican la mediana y cuantiles en los casos en que los residuos de los índices múltiples estén disponibles para un año determinado.
+
+Los errores cuadráticos medios (RMSE) se incluyen en la esquina superior derecha de cada gráfico.
+
+Esta función genera plots de residuales para todos los índices como boxplot (codificado por colores por flota) con un loess que muestra  tendencias sistemáticas a lo largo del tiempo. 
+ 
+Esta función es del paquete JABBA.
+
+
+
+
+### Boxplot residuos índices 
+```{r}
+SSplotJABBAres(replist, 
+               subplots = "cpue", 
+               add = TRUE,
+               legendcex = 0.8,  
+               verbose = F,
+               plotdir = plotdir)
+```
+
+
+### Boxplot residuos tallas
+```{r}
+SSplotJABBAres(replist, 
+               subplots = "len", 
+               add = TRUE, 
+               verbose = F,
+               legendcex = 0.8,
+               plotdir = plotdir)
+```
+
+
+### Boxplot residuos edad
+```{r}
+SSplotJABBAres(replist, 
+               subplots = "age", 
+               add = TRUE, 
+               verbose = F,
+               legendcex = 0.8,
+               plotdir = plotdir)
+```
+

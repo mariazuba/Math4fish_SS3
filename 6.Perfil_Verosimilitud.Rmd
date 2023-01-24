@@ -1,0 +1,286 @@
+---
+title: "Perfil de verosimilitud"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200")
+```
+
+ Código original extraído desde  https://github.com/jabbamodel/ss3diags
+https://github.com/jabbamodel/ss3diags/blob/master/Cookbook/Likelihood_profile_R0_example.R
+
+
+# Instalar librerías
+
+```{r eval=FALSE}
+devtools::install_github("jabbamodel/ss3diags")
+install.packages('r4ss')
+install.packages('here')
+
+```
+
+
+# Cargar librerías
+
+```{r}
+library(here)
+library(r4ss)
+library(ss3diags)
+library(doParallel) # facilita la ejecución paralela en R
+detectCores()
+registerDoParallel(8)
+
+```
+
+
+# 1. Identificar el directorio donde se encuentra el modelo base
+
+```{r}
+dirname.model.run <- here("modelos_SS3","simple")
+```
+
+
+
+# 2. Crear un nuevo directorio para el `Perfil_Verosimilitud`  
+
+```{r}
+dirname.R0.profile <- here("Ejercicios","6.Perfil_Verosimilitud")
+dir.create(path=dirname.R0.profile, showWarnings = TRUE, recursive = TRUE)
+```
+
+# 3. Crear un subdirectorio llamado `plots_Verosimilitud` 
+
+```{r}
+plotdir=paste0(dirname.R0.profile, "/plots_Verosimilitud")
+dir.create(path=plotdir, showWarnings = TRUE, recursive = TRUE)
+```
+
+# 4. Crear un subdirectorio llamado `simple`
+
+```{r}
+reference.dir <- paste0(dirname.R0.profile,'/simple') 
+dir.create(path=reference.dir, showWarnings = TRUE, recursive = TRUE)
+```
+
+# 5. Copiar el resultado del modelo base completo en este directorio 
+
+```{r}
+file.copy(Sys.glob(paste(dirname.model.run, "*.*", sep="/"),
+                   dirmark = FALSE),
+                    reference.dir)
+```
+
+# Ejecutar SS3
+```{r}
+r4ss::run_SS_models(dirvec = reference.dir, 
+                    model = "ss_win.exe" ,
+                    skipfinished = FALSE)
+```
+
+
+
+
+# 6. Leer la salida del modelo base `SS_output()`
+
+```{r}
+Base <- SS_output(dir=reference.dir,covar=T)
+```
+
+# 7. Copiar los archivos necesarios de `simple` al directorio `Perfil_Verosimilitud` con la función `copy_SS_inputs()`
+
+```{r}
+copy_SS_inputs(dir.old = reference.dir, 
+               dir.new =  dirname.R0.profile,
+               copy_exe = TRUE,
+               verbose = FALSE)
+```
+
+# 8. Leer los archivos del modelo `SS_read()`
+
+```{r}
+
+inputs <- r4ss::SS_read(dir = dirname.R0.profile)
+
+```
+
+# 9. Editar el archivo `control.ss` la fase de estimación recdev 
+
+```{r}
+
+inputs$ctl$recdev_phase <- 1
+
+```
+
+# 10. Editar el archivo starter para leer los valores de inicio 
+
+```{r}
+inputs$start$init_values_src <- 0
+```
+
+# 11. Vector de valores para el perfil 
+```{r}
+R0.vec <- seq(7,11,0.6)  
+Nprof.R0 <- length(R0.vec)
+```
+
+# 12. Cambiar el nombre del archivo control en el archivo `starter.ss`
+
+```{r}
+inputs$start$ctlfile <- "control_modified.ss" 
+```
+
+# 13. Incluir prior_like para parámetros no estimados 
+```{r}
+inputs$start$prior_like <- 1                                 
+```
+
+# 14. Escribir los modelos modificados `SS_write()`
+```{r}
+r4ss::SS_write(inputs, dir = dirname.R0.profile, overwrite = TRUE)
+```
+
+# 15. Ejecutar la función `SS_profile()` 
+```{r eval=T}
+#?SS_profile()
+profile <- SS_profile(dir=dirname.R0.profile, # directory
+                      model="ss_win",
+                      masterctlfile="control.ss",
+                      newctlfile="control_modified.ss",
+                      string="SR_LN(R0)",
+                      profilevec=R0.vec)
+```
+
+# 16. Leer los archivos de salida `SSgetoutput()` 
+# (con nombres como Report1.sso, Report2.sso, etc.)
+
+```{r}
+
+prof.R0.models <- SSgetoutput(dirvec=dirname.R0.profile, 
+                              keyvec=1:Nprof.R0, 
+                              getcovar = FALSE) 
+```
+
+# 17. Resumir las salidas con la función `SSsummarize()`  
+
+```{r}
+
+prof.R0.summary <- SSsummarize(prof.R0.models)
+
+```
+
+# 18. Identificar los componentes de Verosimilitud 
+
+```{r}
+mainlike_components         <- c('TOTAL',"Survey", 'Length_comp',"Age_comp",'Size_at_age','Recruitment') 
+mainlike_components_labels  <- c('Total likelihood','Index likelihood','Length likelihood',"Age likelihood",'Size_at_age likelihood','Recruitment likelihood') 
+```
+
+# 19. Funciones para generar plots de perfil de verosimilitud 
+
+### `SSplotProfile()` 
+
+```{r}
+#png(file.path(plotdir,"R0_profile_plot.png"),width=7,height=4.5,res=300,units='in')
+par(mar=c(5,4,1,1))
+
+SSplotProfile(prof.R0.summary,           # summary object
+              profile.string = "R0",     # substring of profile parameter
+              profile.label=expression(log(italic(R)[0])), ymax=150,minfraction = 0.001,
+              pheight=4.5, 
+              print=FALSE, 
+              plotdir=plotdir, 
+              components = mainlike_components, 
+              component.labels = mainlike_components_labels,
+              add_cutoff = TRUE,
+              cutoff_prob = 0.95)
+
+Baseval <- round(Base$parameters$Value[grep("R0",Base$parameters$Label)],2)
+Baselab <- paste(Baseval,sep="")
+axis(1,at=Baseval,label=Baselab)
+abline(v = Baseval, lty=2)
+#dev.off()
+
+```
+
+### `SSplotComparisons()` 
+
+# Comparación de series de tiempo
+
+```{r}
+labs <- paste("SR_Ln(R0) = ",R0.vec)
+labs[which(round(R0.vec,2)==Baseval)] <- paste("SR_Ln(R0) = ",Baseval,"(Base model)")
+
+SSplotComparisons(prof.R0.summary,
+                  legendlabels=labs,
+                  pheight=4.5,png=TRUE,
+                  plotdir=plotdir,
+                  legendloc='bottomleft')
+
+```
+
+### `PinerPlot()` 
+#### R0_profile_plot_Length_like 
+
+```{r}
+#png(file.path(plotdir,"R0_profile_plot_Length_like.png"),width=7,height=4.5,res=300,units='in')
+par(mar=c(5,4,1,1))
+PinerPlot(prof.R0.summary, 
+          profile.string = "R0", 
+          component = "Length_like",
+          main = "Changes in length-composition likelihoods by fleet",
+          add_cutoff = TRUE,
+          cutoff_prob = 0.95)
+Baseval <- round(Base$parameters$Value[grep("SR_LN",Base$parameters$Label)],2)
+Baselab <- paste(Baseval,sep="")
+axis(1,at=Baseval,label=Baselab)
+abline(v = Baseval, lty=2)
+#dev.off()
+```
+
+#### R0_profile_plot_Survey_like
+```{r}
+#png(file.path(plotdir,"R0_profile_plot_Survey_like.png"),width=7,height=4.5,res=300,units='in')
+par(mar=c(5,4,1,1))
+PinerPlot(prof.R0.summary, profile.string = "R0", component = "Surv_like",main = "Changes in Index likelihoods by fleet",
+          add_cutoff = TRUE,
+          cutoff_prob = 0.95, legendloc="topleft")
+Baseval <- round(Base$parameters$Value[grep("SR_LN",Base$parameters$Label)],2)
+Baselab <- paste(Baseval,sep="")
+axis(1,at=Baseval,label=Baselab)
+abline(v = Baseval, lty=2)
+#dev.off()
+```
+

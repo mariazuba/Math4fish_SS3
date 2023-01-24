@@ -1,0 +1,1110 @@
+---
+title: "FORMATO DE ARCHIVOS DE ENTRADA"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=F,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+
+# Descripción general del modelo “simple”
+
+Utilizaremos la versión más simple de los modelos de ejemplo de Stock Synthesis “Simple”. Se recomienda descargar los archivos del modelo para verlos durante el tutorial. Ejecutaremos el modelo y graficaremos los resultados usando el paquete de R `r4ss`.
+
+Es un modelo de evaluación estructurado por edad de 2 sexos para una sola población en 1 área que comienza en 1971 y finaliza en 2001. La máxima edad en el modelo es de 40 años. Incluye 1 pesquería y 2 campañas. La campaña 1 es una campaña independiente de la pesquería, mientras que la campaña 2 es dirigida hacia peces de edad 0.
+
+
+
+&nbsp; &nbsp;
+
+
+## Datos de la pesquería y campañas
+
+
+&nbsp; &nbsp;
+
+- La pesquería no descarta y por lo tanto retiene todo el pescado que captura. 
+
+- Se asume selectividad logística basada en tallas para la pesquería y para la campaña 1. 
+
+- Se asume selectividad total sólo para peces de edad 0 (es decir, la prospección no captura ningún pez mayor de 0 años) para la campaña 2. 
+- La capturabilidad se estima para ambas campañas. 
+
+- Para ajustar la calidad de los datos, se especifica una desviación estándar adicional (CV). 
+
+- No se asume ningún sesgo de error asignación de edad y se asume que la asignación de edad es muy preciso.
+
+
+&nbsp; &nbsp;
+
+## Supuestos 
+
+
+&nbsp; &nbsp;
+
+### Mortalidad natural, crecimiento, madurez y proporción sexual
+
+- Se asume que todos los parámetros son los mismos a lo largo del tiempo. 
+
+- La mortalidad natural se especifica en 0,1.
+
+- Se utiliza una curva de crecimiento de von Bertalanfy con K estimado. 
+
+- Se supone que la madurez a la talla es logística con algunos valores de parámetros específicos. 
+
+- Se asume que la proporción sexual es de 50-50 hembras y machos.
+
+
+&nbsp; &nbsp;
+
+### Relación stock-recluta
+
+- Se asume una relación stock-recluta de beverton-holt, con valores de steepness y R0 estimados.
+
+
+&nbsp; &nbsp;
+
+### Reclutamiento
+
+- Se asume desviaciones de reclutamiento y sesgo.
+
+
+&nbsp; &nbsp;
+
+### Mortalidad por pesca
+
+- Se utiliza un enfoque híbrido, lo que significa que los F son parámetros estimados, pero están restringidos usando la aproximación de Pope.
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+
+# Revisión de los archivos de entrada
+
+
+&nbsp; &nbsp;
+
+## `Starter.ss` y `Forecast.ss`
+
+- SS3 comienza leyendo el archivo `starter.ss`, el cual contiene los nombres de los archivos de datos y control, además de otros controles de ejecución. 
+
+- Los nombres de los archivos de `control.ss` y `data.ss` deben coincidir con los nombres especificados en el archivo `starter.ss`.
+
+- En esta sección se especifican los ajustes a los parámetros iniciales, summary y convergencia del modelo.  [Consulte la Guía de usuario de SS3: Sección 5 "Starter File"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#starter-file).
+
+- En el archivo `Forecast.ss` se puede especificar los puntos biológicos de referencia, los años de proyección y reglas de control, entre otras especificaciones. [Consulte la Guía de usuario de SS3: Sección 6 "Forecast File"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#forecast-file).
+
+- En este tutorial veremos archivos genéricos de `starter` y `forecast`. No es necesario modificarlos  específicamente para este ejemplo. Sin embargo, se debe verificar que los nombres de los archivos de datos  y control que se enumeran en la parte superior del archivo de inicio estén correctos:
+
+```{r}
+
+#_user_info_available_at:https://vlab.ncep.noaa.gov/group/stock-synthesis
+#C starter comment here 
+data.ss 
+control.ss  
+0 # 0=use init values in control file; 1=use ss.par
+0 # run display detail (0,1,2)
+
+
+```
+
+En el caso de este ejemplo, `data.ss` es el nombre del archivo de datos, mientras que `control.ss` es el nombre del archivo control.
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+## `Data.ss`
+Aquí es donde se especifican las entradas de datos.
+
+
+&nbsp; &nbsp;
+
+### Información general del modelo
+
+En la parte superior se especifica información general del modelo: los años del modelo, número de temporadas, número de sexos, edad máxima, número de áreas, número de flotas  
+
+[Consulte la Guía de usuario de SS3: Sección 7.5 "Model Dimensions"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#model-dimensions).
+
+
+&nbsp; &nbsp;
+
+```{r}
+#Stock Synthesis (SS) is a work of the U.S. Government and is not subject to  
+#copyright protection in the United States.
+#Foreign copyrights may apply. See copyright.txt for more information.
+1971 #_StartYr
+2001 #_EndYr
+1 #_Nseas
+12 #_months/season
+2 #_Nsubseasons (even number, minimum is 2)
+1 #_spawn_month
+2 #_Ngenders: 1, 2, -1  (use -1 for 1 sex setup with SSB multiplied by 
+#female_frac parameter)
+40 #_Nages=accumulator age, first age is always age 0
+1 #_Nareas
+3 #_Nfleets (including surveys)
+
+```
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Tipos de flota
+
+
+&nbsp; &nbsp;
+
+A continuación, se especifican los tipos de flota.  Como tenemos una pesquería y 2 campañas (3 flotas en total), habrá tres líneas. 
+
+[Consulte la Guía de usuario de SS3: Sección 7.6 "Fleet Definitions"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fleet-definitions).
+
+&nbsp; &nbsp;
+
+
+```{r eval=FALSE}
+#_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore 
+#_sample_timing: -1 for fishing fleet to use season-long catch-at-age for 
+#observations, or 1 to use observation month;  (always 1 for surveys)
+#_fleet_area:  area the fleet/survey operates in 
+#_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)
+#_catch_mult: 0=no; 1=yes
+#_rows are fleets
+#_fleet_type fishery_timing area catch_units need_catch_mult fleetname
+ 1 -1 1 1 0 FISHERY  # 1
+ 3 1 1 2 0 SURVEY1  # 2
+ 3 1 1 2 0 SURVEY2  # 3
+```
+
+
+&nbsp; &nbsp;
+
+- Se especifica el tipo de flota (`fleet_type`), donde la pesquería tiene tipo 1 (porque es una flota de captura) y las campañas tienen tipo 3. 
+
+- Se especifican las unidades para cada flota (lo que se denomina `catch_units` en el encabezado), aunque para las campañas son ignorados. 
+
+- La pesquería tiene `catch_units` =1, lo que significa que está en unidades de biomasa y no en números. 
+
+- Los nombres de las flotas se especifican al final de cada línea (antes del comentario). 
+
+Por ejemplo, en este caso, la pesquería se ha denominado `FISHERY`, mientras que la primera campaña `SURVEY1`.
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Captura
+
+&nbsp; &nbsp;
+
+A continuación, se especifica la captura. 
+
+[Consulte la Guía de usuario de SS3: Sección 7.9 "Catch"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catch).
+
+
+&nbsp; &nbsp;
+
+```{r eval=FALSE}
+#_Catch data: yr, seas, fleet, catch, catch_se
+#_catch_se:  standard error of log(catch)
+#_NOTE:  catch data is ignored for survey fleets
+-999 1 1 0 0.01
+1971 1 1 0 0.01
+1972 1 1 200 0.01
+1973 1 1 1000 0.01
+...
+...
+...
+2000 1 1 3000 0.01
+2001 1 1 3000 0.01
+-9999 0 0 0 0
+```
+
+
+&nbsp; &nbsp;
+
+- La primera línea del fragmento de código anterior muestra los encabezados de columna para los datos de captura. 
+
+- Tenga en cuenta que toda la captura proviene de la pesquería. La línea `-999 1 1 0 0.01` especifica la captura  de equilibrio para los años anteriores al inicio del modelo; en este caso, no hay captura de equilibrio porque la columna de captura es 0.
+
+- Para terminar esta sección de datos de captura, se necesita la línea `-9999 0 0 0 0`. Esto le dice a SS que puede dejar de leer datos de captura.
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Índices de abundancia 
+ 
+&nbsp; &nbsp;
+
+Luego viene la especificación de los índices de abundancia.  Primero está la configuración para todas las flotas. 
+
+[Consulte la Guía de usuario de SS3: Sección 7.10 "Indices"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#indices).
+
+&nbsp; &nbsp;
+
+
+```{r eval=FALSE}
+#_CPUE_and_surveyabundance_observations
+#_Units:  0=numbers; 1=biomass; 2=F; >=30 for special types
+#_Errtype:  -1=normal; 0=lognormal; >0=T
+#_SD_Report: 0=no sdreport; 1=enable sdreport
+#_Fleet Units Errtype SD_Report
+1 1 0 0 # FISHERY
+2 1 0 1 # SURVEY1
+3 0 0 0 # SURVEY2
+```
+
+
+&nbsp; &nbsp;
+
+- Los encabezados de las columnas de esta sección están directamente encima de los números. Tenga en cuenta que aquí se definen todas las flotas (es decir, cada flota necesita una línea), incluida la pesquería, y se enumeran en el mismo orden que cuando se especificaron los tipos de flota.
+
+- Lo más importante en esta sección es que se especifican las unidades y el tipo de error que se utilizará al leer los índices de abundancia. 
+
+- En este caso, la pesquería y la campaña 1 tienen unidades de biomasa, mientras que la campaña 2 es en números. Se asume un error logarítmico normal para las 3 flotas.
+
+- Inmediatamente después de su encabezado, se incluyen los datos de índices de abundancia:
+
+&nbsp; &nbsp;
+
+
+```{r eval = FALSE}
+#_yr month fleet obs stderr
+1977 7 2 339689 0.3 #_ SURVEY1
+1980 7 2 193353 0.3 #_ SURVEY1
+1983 7 2 151984 0.3 #_ SURVEY1
+...
+...
+...
+2000 7 3 5.97125 0.7 #_ SURVEY2
+2001 7 3 1.69379 0.7 #_ SURVEY2
+-9999 1 1 1 1 # terminator for survey observations 
+
+```
+
+
+&nbsp; &nbsp;
+
+- Al igual que los datos de captura, se necesita una línea para decirle a SS cuándo dejar de leer los índices.
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Descartes y tallas medias
+
+
+&nbsp; &nbsp;
+
+A continuación, se podrían especificar los datos de descartes y tallas media, pero son 0 en este ejemplo. 
+
+[Consulte la Guía de usuario de SS3: Sección 7.11 "Discard"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#discard).
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+0 #_N_fleets_with_discard
+...
+...
+...
+0 #_use meanbodysize_data (0/1)
+```
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Composición de tallas
+
+
+&nbsp; &nbsp;
+
+La siguiente sección configura los intervalos de talla (`length bin`) de la población. 
+
+Esto debe especificarse ya sea que se utilicen o no datos de composiciones de tallas (aunque podría generar los intervalos de longitud de la población a partir de los intervalos de datos de composiciones de tallas). 
+
+[Consulte la Guía de usuario de SS3: Sección 7.14 "Length Composition Data Structure"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#length-composition-data-structure).
+
+
+&nbsp; &nbsp;
+
+
+```{r eval = FALSE}
+# set up population length bin structure (note - irrelevant if not using size 
+#data and using empirical wtatage
+2 # length bin method: 1=use databins; 2=generate from binwidth,min,max below; 
+#3=read vector
+2 # binwidth for population size comp 
+10 # minimum size in the population (lower edge of first bin and size at age 0.00) 
+94 # maximum size in the population (lower edge of last bin) 
+1 # use length composition data (0/1)
+
+```
+
+
+&nbsp; &nbsp;
+
+Después de los intervalos de tallas de la población está la especificación para la composición de tallas (asumiendo 1 línea por flota):
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize
+0 1e-007 0 0 0 0 1 #_fleet:1_FISHERY
+0 1e-007 0 0 0 0 1 #_fleet:2_SURVEY1
+0 1e-007 0 0 0 0 1 #_fleet:3_SURVEY2
+
+```
+
+
+&nbsp; &nbsp;
+
+La especificación del vector de tallas:
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+25 #_N_LengthBins; then enter lower edge of each length bin
+ 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 62 64 68 72 76 80 90
+```
+
+
+&nbsp; &nbsp;
+
+Y luego los datos de composición de tallas:
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#_yr month fleet sex part Nsamp datavector(female-male)
+ 1971 7 1 3 0 125 0 0 0 0 0 0 0 0 0 4 1 1 2 4 1 5 6 2 3 11 8 4 5 0 0 0 0 0 0 0 
+0 0 0 1 0 1 3 0 3 4 2 4 5 9 17 8 3 8 0 0
+ 1972 7 1 3 0 125 0 0 0 0 0 0 0 0 0 3 0 1 2 1 1 6 2 7 4 10 10 4 5 3 0 0 0 0 0 0 
+0 0 0 1 3 2 4 1 3 1 4 4 7 3 8 11 4 10 0 0
+ 1973 7 1 3 0 125 0 0 0 0 0 0 0 0 0 0 0 0 7 3 4 5 6 3 10 12 6 10 9 0 0 0 0 0 0 
+0 0 0 0 0 0 0 3 0 1 3 0 7 2 6 7 8 5 5 3 0
+ 1974 7 1 3 0 125 0 0 0 0 0 0 0 0 0 2 2 0 1 1 1 4 5 3 8 8 10 4 7 0 0 0 0 0 0 0 
+0 0 1 2 0 4 0 0 1 5 6 6 4 6 15 11 5 0 3 0
+ ...
+ ...
+ ...
+ 1998 7 2 3 0 125 0 0 0 3 1 1 2 3 4 6 4 6 5 3 1 2 1 1 1 5 2 2 0 0 0 0 0 0 0 10 
+5 4 2 3 7 2 1 4 4 5 3 2 3 1 8 6 2 0 0 0
+ 2001 7 2 3 0 125 0 0 0 0 0 2 3 5 7 5 9 2 9 5 4 4 1 1 2 2 8 0 0 0 0 0 0 0 0 2 1
+4 6 5 6 4 3 4 4 5 1 3 2 1 3 2 0 0 0 0
+-9999 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+```
+
+
+&nbsp; &nbsp;
+
+En este modelo de 2 sexos, los datos de composición de tallas se introducen para las hembras, con 1 número por intervalo de tallas especificado previamente, seguido de los datos de composición de tallas para los machos, también con 1 número por intervalo de tallas.
+
+
+&nbsp; &nbsp;
+
+
+### Composiciones de edad
+
+
+&nbsp; &nbsp;
+
+A continuación se presentan los datos de composición por edad. En primer lugar, se establecen las categorías de edad y las definiciones de error de edad.
+
+[Consulte la Guía de usuario de SS3: Sección 7.16 "Age Composition Option"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#age-composition-option).
+
+
+&nbsp; &nbsp;
+
+
+```{r eval = FALSE}
+17 #_N_age_bins
+ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 20 25
+1 #_N_ageerror_definitions
+ 0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5 10.5 11.5 12.5 13.5 14.5 15.5 16.5 
+ 17.5 18.5 19.5 20.5 21.5 22.5 23.5 24.5 25.5 26.5 27.5 28.5 29.5 30.5 31.5 
+ 32.5 33.5 34.5 35.5 36.5 37.5 38.5 39.5 40.5
+ 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001
+ 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001
+ 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001
+ 0.001 0.001
+```
+
+
+&nbsp; &nbsp;
+
+Para los intervalos de edad, SS lee el número (17 en este caso) y luego espera ese número de entradas para los intervalos de edad (los 17 valores debajo). 
+
+A continuación, SS lee las definiciones de errores de edad. En este caso, solo hay 1 definición, por lo que SS espera 2 vectores, cada uno de los cuales contiene el número máximo de edades +1 valores (41 valores por vector en este caso). La primera línea define el sesgo (`bias`)  del error de la asignación de la edad, mientras que el Segundo vector define la desviación estándar (`standard deviation`) .
+
+Este ejemplo no tiene  error de asignación de edad y tiene una precisión muy alta (desviación estandar baja), por lo que está cerca de asumir que no hay error en la  asignación de edad.
+
+Luego vienen las líneas de configuración de composición de edad.
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize
+0 1e-007 1 0 0 0 1 #_fleet:1_FISHERY
+0 1e-007 1 0 0 0 1 #_fleet:2_SURVEY1
+0 1e-007 1 0 0 0 1 #_fleet:3_SURVEY2
+1 #_Lbin_method_for_Age_Data: 1=poplenbins; 2=datalenbins; 3=lengths
+```
+
+
+&nbsp; &nbsp;
+
+Que incluye el método `length bin` para las edades. Finalmente, se ingresan los datos de composiciones de edades:
+
+```{r eval = FALSE}
+#_yr month fleet sex part ageerr Lbin_lo Lbin_hi Nsamp datavector(female-male)
+ 1971 7 1 3 0 1 -1 -1 75 0 0 0 0 3 1 1 4 2 1 0 1 2 2 13 2 3 0 0 4 2 1 1 2 1 2 2
+1 2 1 2 6 5 8
+ 1972 7 1 3 0 1 -1 -1 75 2 1 1 1 0 3 1 2 2 5 3 1 2 2 9 8 3 0 0 1 2 3 1 3 0 5 1 
+3 0 2 1 2 3 2
+ 1973 7 1 3 0 1 -1 -1 75 0 0 1 0 1 1 2 3 3 1 1 5 2 2 7 4 3 0 0 0 4 1 3 5 1 2 3
+1 3 2 0 5 3 6
+ ...
+ ...
+ ...
+ 1998 7 2 3 0 1 -1 -1 75 9 4 4 3 1 1 1 1 3 3 1 2 1 7 0 0 0 0 6 5 3 5 1 3 3 2 3 
+2 0 1 0 0 0 0
+ 2001 7 2 3 0 1 -1 -1 75 4 0 4 11 5 3 4 2 2 0 0 0 0 0 2 0 0 0 2 4 7 11 5 2 0 2
+2 2 0 0 0 1 0 0
+-9999 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0
+
+```
+
+
+&nbsp; &nbsp;
+
+Una nota importante aquí es que el uso de `Lbin_lo` y `Lbin_hi` =-1 selecciona el contenedor de longitud completo como si se usara para las edades. 
+
+Similar a los datos de composición de tallas, SS asume valor 1 para hembras  en cada categoría de datos, seguido de valores para machos en cada categoría de datos (en este caso, hay 34 valores en el vector de datos).
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+### Opciones adicionales
+
+
+&nbsp; &nbsp;
+
+SS tiene algunas opciones adicionales que no hemos usado aquí y, por lo tanto, se establecen en 0:
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+0 #_Use_MeanSize-at-Age_obs (0/1)
+#
+0 #_N_environ_variables
+#Yr Variable Value
+#
+0 # N sizefreq methods to read 
+#
+0 # do tags (0/1)
+#
+0 #    morphcomp data(0/1) 
+#  Nobs, Nmorphs, mincomp
+#  yr, seas, type, partition, Nsamp, datavector_by_Nmorphs
+#
+0  #  Do dataread for selectivity priors(0/1)
+
+```
+
+
+&nbsp; &nbsp;
+
+Y finalmente, el archivo de datos debe terminar en `999` para decirle a SS que deje de leer.
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+999
+```
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+
+## `Control.ss`
+
+
+&nbsp; &nbsp;
+
+### Peso empírico
+
+&nbsp; &nbsp;
+
+
+El archivo `control.ss` contiene las especificaciones de los valores de los parámetros del modelo (tanto valores fijos como valores estimados).
+
+La primera opción a tener en cuenta es una línea para leer el peso empírico en el archivo de edad:
+
+[Consulte la Guía de usuario de SS3: Sección 8.4.1. " Weight-at-Age"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#weight-at-age).
+
+
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+0  # 0 means do not read wtatage.ss; 1 means read and use wtatage.ss and also read 
+#and use growth parameters
+```
+
+
+&nbsp; &nbsp;
+
+En este caso, no se usa, por lo que se establece en 0. 
+
+Si se usara el peso empírico por edad, SS ignoraría todas las entradas relacionadas con el crecimiento, la madurez y la fecundidad que se especifican más adelante en el archivo de control (aunque todavía espera entradas).
+
+
+&nbsp; &nbsp;
+
+### Crecimiento y platoons
+
+
+&nbsp; &nbsp;
+
+Luego están las opciones para el número de patrones de crecimiento y platoons. Estos se establecen en 1 porque asumimos que toda la población tiene el mismo patrón de crecimiento y no hay platoons dentro de los patrones de crecimiento.
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+1  #_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used 
+#interchangeably in SS)
+1 #_N_platoons_Within_GrowthPattern 
+```
+
+
+&nbsp; &nbsp;
+
+- Luego se especifica la distribución del reclutamiento. 
+
+- Suponemos que para esta población solo hay 1 patrón de crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que podemos usar la opción 4. 
+
+- Esta es la más simple, porque no requiere líneas completas de parámetros más adelante en el archivo control.
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#
+4 # recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; 
+#3=each Settle entity; 4=none (only when N_GP*Nsettle*pop==1)
+1 # not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area
+1 #  number of recruitment settlement assignments 
+0 # unused option
+#GPattern month  area  age (for each settlement assignment)
+ 1 1 1 0
+#
+```
+
+
+&nbsp; &nbsp;
+
+Tenga en cuenta que también usamos 1 asignación de asentamiento (settlement) y especificamos que los peces se establecieron en enero a la edad 0. 
+
+Esto podría modificarse si los peces se establecieron a una edad o momento diferente.
+
+
+&nbsp; &nbsp;
+
+### Bloques
+
+
+&nbsp; &nbsp;
+
+No estamos usando bloques de tiempo, pero hay algunos especificados en el modelo.
+
+[Consulte la Guía de usuario de SS3: Sección 8.4.4. "Time Blocks"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#time-blocks).
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+1 #_Nblock_Patterns
+1 #_blocks_per_pattern 
+# begin and end years of blocks
+1970 1970
+```
+
+
+&nbsp; &nbsp;
+
+Tenga en cuenta que cualquier bloque puede especificarse y no usarse (los bloques se especifican aquí, pero no se usan hasta que se especifica dentro de una línea de parámetro), por lo que podría haber cualquier cantidad de bloques especificados aquí.
+
+
+&nbsp; &nbsp;
+
+### Parámetros variables en el tiempo
+
+
+&nbsp; &nbsp;
+
+Así mismo, no se utilizan parámetros variables en el tiempo, por lo que no es importante lo que se especifica en los parámetros de control variables en el tiempo.
+
+
+
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+# controls for all timevary parameters 
+1 #_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base 
+#parm bounds; 3=no bound check)
+#
+# AUTOGEN
+0 0 0 0 0 # autogen: 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, 
+# 5th for selex where: 0 = autogen all time-varying parms; 
+#1 = read each time-varying parm line; 
+#2 = read then autogen if parm min==-12345
+```
+
+
+&nbsp; &nbsp;
+
+### Parámetros biológicos
+
+
+&nbsp; &nbsp;
+
+[Consulte la Guía de usuario de SS3: Sección 8.5 "Biology"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#biology).
+
+
+&nbsp; &nbsp;
+
+#### Mortalidad natural y crecimiento 
+
+
+&nbsp; &nbsp;
+
+La opción 0 se usa para la mortalidad natural porque solo se asume 1 valor. 
+
+El modelo de crecimiento 1 se usa para especificar un modelo de crecimiento de von Bertalanffy, seguido de líneas que especifican detalles sobre el crecimiento.
+
+
+&nbsp; &nbsp;
+
+``` {r eval = FALSE}
+0 #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_
+#4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph
+#
+1 # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K_incr; 
+#4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation
+0 #_Age(post-settlement)_for_L1;linear growth below this
+25 #_Growth_Age_for_L2 (999 to use as Linf)
+-999 #_exponential decay for growth above maxage (value should approx initial Z; 
+#-999 replicates 3.24; -998 to not allow growth above maxage)
+0  #_placeholder for future growth feature
+#
+0 #_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)
+0 #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)
+#
+```
+
+
+&nbsp; &nbsp;
+
+#### Madurez y fecundidad
+
+Luego, las líneas de configuración por madurez, fecundidad y otras opciones especializadas:
+
+
+&nbsp; &nbsp;
+
+
+``` {r eval = FALSE}
+1 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by 
+#growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
+1 #_First_Mature_Age
+1 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L;
+#(5)eggs=a+b*W
+0 #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female 
+#age-specific fxn
+1 #_parameter_offset_approach (1=none, 2= M, G, CV_G as offset from female-GP1, 
+#3=like SS2 V1.x)
+```
+
+
+&nbsp; &nbsp;
+
+- Las líneas de parámetros resultantes de la mortalidad natural, el crecimiento y la madurez (esta sección a veces se denomina parámetros MG) se especifican a continuación. 
+
+- El número de líneas de parámetros depende de las opciones seleccionadas en las líneas de especificación. 
+
+- Los parámetros también deben especificarse en un orden particular, con los parámetros de las hembras antes que los de machos en un modelo de 2 sexos.
+
+
+&nbsp; &nbsp;
+
+
+```{r eval = FALSE}
+#_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr 
+#dev_PH Block Block_Fxn
+# Sex: 1  BioPattern: 1  NatMort
+ 0.05 0.15 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # NatM_p_1_Fem_GP_1
+# Sex: 1  BioPattern: 1  Growth
+ -10 45 21.6535 36 10 6 2 0 0 0 0 0 0 0 # L_at_Amin_Fem_GP_1
+ 40 90 71.6493 70 10 6 4 0 0 0 0 0 0 0 # L_at_Amax_Fem_GP_1
+ 0.05 0.25 0.147297 0.15 0.8 6 4 0 0 0 0 0 0 0 # VonBert_K_Fem_GP_1
+ 0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_young_Fem_GP_1
+ 0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_old_Fem_GP_1
+# Sex: 1  BioPattern: 1  WtLen
+ -3 3 2.44e-006 2.44e-006 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
+ -3 4 3.34694 3.34694 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
+# Sex: 1  BioPattern: 1  Maturity&Fecundity
+ 50 60 55 55 0.8 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
+ -3 3 -0.25 -0.25 0.8 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
+ -3 3 1 1 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_inter_Fem_GP_1
+ -3 3 0 0 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_slope_wt_Fem_GP_1
+# Sex: 2  BioPattern: 1  NatMort
+ 0.05 0.15 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # NatM_p_1_Mal_GP_1
+# Sex: 2  BioPattern: 1  Growth
+ 1 45 0 36 10 0 -3 0 0 0 0 0 0 0 # L_at_Amin_Mal_GP_1
+ 40 90 69.5362 70 10 6 4 0 0 0 0 0 0 0 # L_at_Amax_Mal_GP_1
+ 0.05 0.25 0.163533 0.15 0.8 6 4 0 0 0 0 0 0 0 # VonBert_K_Mal_GP_1
+ 0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_young_Mal_GP_1
+ 0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_old_Mal_GP_1
+# Sex: 2  BioPattern: 1  WtLen
+ -3 3 2.44e-006 2.44e-006 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Mal_GP_1
+ -3 4 3.34694 3.34694 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Mal_GP_1
+# Hermaphroditism
+#  Recruitment Distribution  
+#  Cohort growth dev base
+ 0.1 10 1 1 1 0 -1 0 0 0 0 0 0 0 # CohortGrowDev
+#  Movement
+#  Age Error from parameters
+#  catch multiplier
+#  fraction female, by GP
+ 1e-006 0.999999 0.5 0.5 0.5 0 -99 0 0 0 0 0 0 0 # FracFemale_GP_1
+
+```
+
+
+&nbsp; &nbsp;
+
+Tenga en cuenta que la primera línea en el bloque de entrada SS anterior muestra los encabezados de columna. 
+
+Todas las secciones con líneas de parámetros largas dentro del archivo de control tienen estos mismo encabezados. 
+
+- Hay muchas especificaciones en estas largas líneas de parámetros, pero algunas de particular importancia son:
+
+- Todo lo que tenga fase negativa (séptimo valor en una línea larga de parámetros) no se estima y se establece en el valor inicial (tercer valor en la línea), mientras que las fases positivas sí se estiman.
+- La mortalidad natural tanto para machos como para hembras se especifican en 0,1.
+- Se estiman los tres parámetros de la curva de crecimiento de von Bertalanffy.
+
+A continuación se presentan algunas opciones no utilizadas, porque no hay estacionalidad en los parámetros biológicos:
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#_no timevary MG parameters
+#
+#_seasonal_effects_on_biology_parms
+ 0 0 0 0 0 0 0 0 0 0 #_femwtlen1,femwtlen2,mat1,mat2,fec1,fec2,Malewtlen1,malewtlen2,L1,K
+#_ LO HI INIT PRIOR PR_SD PR_type PHASE
+#_Cond -2 2 0 0 -1 99 -2 #_placeholder when no seasonal MG parameters
+```
+
+
+&nbsp; &nbsp;
+
+### Relación stock-recluta
+
+
+&nbsp; &nbsp;
+
+A continuación, se especifican la configuración de la relación stock-recluta y las líneas de parámetros SR. Para configurar las líneas, se especifica una curva SR de Beverton-Holt.
+
+
+[Consulte la Guía de usuario de SS3: Sección 8.6 "Spawner-Recruitment"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#spawner-recruitment).
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+3 #_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm
+0  # 0/1 to use steepness in initial equ recruitment calculation
+0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
+```
+
+
+&nbsp; &nbsp;
+
+Lo que afecta al número de líneas de parámetros SR que siguen: 
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
+             3            31       8.81505          10.3            10             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
+           0.2             1      0.614248           0.7          0.05             1          4          0          0          0          0          0          0          0 # SR_BH_steep
+             0             2           0.6           0.8           0.8             0         -4          0          0          0          0          0          0          0 # SR_sigmaR
+            -5             5             0             0             1             0         -4          0          0          0          0          0          0          0 # SR_regime
+             0             0             0             0             0             0        -99          0          0          0          0          0          0          0 # SR_autocorr
+```
+
+
+&nbsp; &nbsp;
+
+### Desvíos de reclutamiento
+
+
+&nbsp; &nbsp;
+
+Las opciones de desviación de reclutamiento se especifican después de los parámetros de SR. Primero están las opciones de desviaciones estándar de reclutamiento:
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
+1971 # first year of main recr_devs; early devs can preceed this era
+2001 # last year of main recr_devs; forecast devs start in following year
+2 #_recdev phase 
+```
+
+
+&nbsp; &nbsp;
+
+Estos definen las principales desviaciones de reclutamientos, que en este caso duran desde el primer año del modelo hasta el último año. También se leen opciones avanzadas:
+
+
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+1     # (0/1) to read 13 advanced options
+ 0    #_recdev_early_start (0=none; neg value makes relative to recdev_start)
+ -4   #_recdev_early_phase
+ 0    #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
+ 1    #_lambda for Fcast_recr_like occurring before endyr+1
+ 1900 #_last_yr_nobias_adj_in_MPD; begin of ramp
+ 1900 #_first_yr_fullbias_adj_in_MPD; begin of plateau
+ 2001 #_last_yr_fullbias_adj_in_MPD
+ 2002 #_end_yr_for_ramp_in_MPD (can be in forecast to shape ramp, but SS sets bias_adj to 0.0 for fcast yrs)
+ 1    #_max_bias_adj_in_MPD (-1 to override ramp and set biasadj=1.0 for all estimated recdevs)
+ 0    #_period of cycles in recruitment (N parms read below)
+ -5   #min rec_dev
+ 5    #max rec_dev
+ 0    #_read_recdevs
+      #_end of advanced SR options
+```
+
+
+&nbsp; &nbsp;
+
+
+Las opciones avanzadas permiten al usuario sesgar el ajuste de las desviaciones de reclutamiento. Hay más información sobre el ajuste del sesgo en el manual del usuario de SS, pero la idea general es tener en cuenta el hecho de que las desviaciones de reclutamiento anteriores y posteriores probablemente tengan menos información que las del medio. 
+
+La rampa de ajuste de sesgo tiene esto en cuenta y, por lo general, se "ajusta" observando la rampa de sesgo en los resultados del modelo después de ejecutarlo, volviendo a especificar la rampa de sesgo según sea necesario y volviendo a ejecutar el modelo.
+
+
+&nbsp; &nbsp;
+
+### Mortalidad por pesca
+
+&nbsp; &nbsp;
+
+
+ [Consulte la Guía de usuario de SS3: Sección 8.7 "Fishing Mortality Method"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fishing-mortality-method).
+ 
+ 
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#Fishing Mortality info 
+0.3 # F ballpark
+-2001 # F ballpark year (neg value to disable)
+3 # F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)
+2.95 # max F or harvest rate, depends on F_Method
+# no additional F input needed for Fmethod 1
+# if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read
+# if Fmethod=3; read N iterations for tuning for Fmethod 3
+4  # N iterations for tuning F in hybrid method (recommend 3 to 7)
+```
+
+
+&nbsp; &nbsp;
+
+No hay configuraciones especiales particulares para la información de mortalidad por pesca para este modelo, pero tenga en cuenta que se utiliza el método F híbrido recomendado.
+
+
+&nbsp; &nbsp;
+
+
+### Capturabilidad
+
+&nbsp; &nbsp;
+
+[Consulte la Guía de usuario de SS3: Sección 8.8 "Catchability"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catchability).
+ 
+ 
+&nbsp; &nbsp;
+
+```{r eval = FALSE}
+#_Q_setup for fleets with cpue or survey data
+#_1:  fleet number
+#_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)
+#_3:  extra input for link, i.e. mirror fleet# or dev index number
+#_4:  0/1 to select extra sd parameter
+#_5:  0/1 for biasadj or not
+#_6:  0/1 to float
+#_   fleet      link link_info  extra_se   biasadj     float  #  fleetname
+         2         1         0         1         0         0  #  SURVEY1
+         3         1         0         0         0         0  #  SURVEY2
+-9999 0 0 0 0 0
+#
+#_Q_parms(if_any);Qunits_are_ln(q)
+#_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name
+   -7 5   0.516018 0    1 0  1 0 0 0 0 0 0 0  #  LnQ_base_SURVEY1(2)
+    0 0.5 0        0.05 1 0 -4 0 0 0 0 0 0 0  #  Q_extraSD_SURVEY1(2)
+   -7 5   -6.6281  0    1 0  1 0 0 0 0 0 0 0  #  LnQ_base_SURVEY2(3)
+```
+
+
+&nbsp; &nbsp;
+
+Debido a que la pesquería no se usa como un índice de abundancia, no requiere ninguna línea o parámetro de configuración de capturabilidad. 
+
+
+Tenga en cuenta que los parámetros de capturabilidad a escala logarítmica (LNQ) se estiman para las campañas.
+
+
+Además, para la flota 2 en las líneas de configuración, se especificó que se usara un error estándar adicional, por lo que hay un valor fijo `extraSD` especificado como una línea de parámetro.
+
+
+&nbsp; &nbsp;
+
+### Selectividad
+
+
+&nbsp; &nbsp;
+
+En esta sección se especifican las líneas de selectividad a la talla y edad. [Consulte la Guía de usuario de SS3: Sección 8.9 "Selectivity and Discard"](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#selectivity-and-discard).
+
+&nbsp; &nbsp;
+
+
+```{r eval = FALSE}
+#_size_selex_patterns
+...
+...
+...
+#_Pattern Discard Male Special
+ 1 0 0 0 # 1 FISHERY
+ 1 0 0 0 # 2 SURVEY1
+ 0 0 0 0 # 3 SURVEY2
+ #
+#_age_selex_patterns
+ ...
+ ...
+ ...
+ #_Pattern Discard Male Special
+ 11 0 0 0 # 1 FISHERY
+ 11 0 0 0 # 2 SURVEY1
+ 11 0 0 0 # 3 SURVEY2
+```
+
+
+&nbsp; &nbsp;
+
+Se debe especificar un patrón tanto para la selectividad por talla como para la selectividad a la edad para cada flota; sin embargo, el uso de los patrones 0 y 1 para la selectividad a la talla permite al usuario especificar que la selectividad sea la misma en todas las tallas (dentro del rango especificado, si se usa el patrón 1). 
+
+Aquí, el patrón de selectividad por edad 11 (logística) se utiliza para todas las flotas. Las líneas de configuración de selectividad van seguidas de las líneas de parámetros de selectividad.
+
+&nbsp; &nbsp;
+
+
+```{r eval = FALSE}
+#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
+# 1   FISHERY LenSelex
+            19            80       53.6411            50          0.01             1          2          0          0          0          0          0          0          0  #  Size_inflection_FISHERY(1)
+          0.01            60       18.9232            15          0.01             1          3          0          0          0          0          0          0          0  #  Size_95%width_FISHERY(1)
+# 2   SURVEY1 LenSelex
+            19            70        36.653            30          0.01             1          2          0          0          0          0          0          0          0  #  Size_inflection_SURVEY1(2)
+          0.01            60       6.59179            10          0.01             1          3          0          0          0          0          0          0          0  #  Size_95%width_SURVEY1(2)
+# 3   SURVEY2 LenSelex
+# 1   FISHERY AgeSelex
+             0            40             0             5            99             0         -1          0          0          0          0          0          0          0  #  minage@sel=1_FISHERY(1)
+             0            40            40             6            99             0         -1          0          0          0          0          0          0          0  #  maxage@sel=1_FISHERY(1)
+# 2   SURVEY1 AgeSelex
+             0            40             0             5            99             0         -1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0         -1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+# 3   SURVEY2 AgeSelex
+             0            40             0             5            99             0         -1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY2(3)
+             0            40             0             6            99             0         -1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY2(3)
+#_no timevary selex parameters
+#
+```
+
+
+&nbsp; &nbsp;
+
+Estas líneas de parámetros se especifican en orden, con las líneas de selectividad de tamaño (o longitud) especificadas antes de las líneas de selectividad de edad y las flotas en el mismo orden que en las líneas de configuración.
+
+Además, el patrón de selectividad utilizado determina la cantidad de parámetros necesarios para especificar el tamaño o la selectividad por edad de cada flota.
+

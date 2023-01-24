@@ -2,20 +2,29 @@ name: "Math4fish_SS3"
 navbar:
   title: "Inicio"
   left:
-    - text: "Requisitos"
-      href: intro.html
-    - text: "Archivos SS3"
-      href: Datos.html
-    - text: "Ejecutar SS3"
-      href: R4SS.html
-    - text: "Visualización"
-      href: Visualizacion.html
-    - text: "Retrospectivo"
-      href: retro.html 
+    - text: "Datos"
+      href: 0.FormatoArchivos.html
+    - text: "Ejecutar"
+      href: 1.EjecutarSS3.html
+    - text: "Visualizar"
+      href: 2.Visualizacion.html
+    - text: "CompararModelos"
+      href: 3.Comparacion_de_modelos.html
+    - text: "CrearModelos"
+      href: 4.Crear_nuevos_modelosSS3.html
     - text: "Residuos"
-      href: residuos.html
-    - text: "Debugging"
-      href: SS3diags.html
+      href: 5.Residuos.html
+    - text: "Verosimilitud"
+      href: 6.Perfil_Verosimilitud.html
+    - text: "Retrospectivo"
+      href: 7.Retrospectivo.html
+    - text: "Hindcast"
+      href: 8.Hindcast.html
+    - text: "Jitter"
+      href: 9.Jitter_test.html
+    - text: "Tune"
+      href: 10.Tune_comps.html      
+      
 output_dir: "."
 output: 
   html_document:

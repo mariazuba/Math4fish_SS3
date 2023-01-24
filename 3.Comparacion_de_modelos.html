@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Comparación de modelo</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="0.FormatoArchivos.html">Datos</a>
+</li>
+<li>
+  <a href="1.EjecutarSS3.html">Ejecutar</a>
+</li>
+<li>
+  <a href="2.Visualizacion.html">Visualizar</a>
+</li>
+<li>
+  <a href="3.Comparacion_de_modelos.html">CompararModelos</a>
+</li>
+<li>
+  <a href="4.Crear_nuevos_modelosSS3.html">CrearModelos</a>
+</li>
+<li>
+  <a href="5.Residuos.html">Residuos</a>
+</li>
+<li>
+  <a href="6.Perfil_Verosimilitud.html">Verosimilitud</a>
+</li>
+<li>
+  <a href="7.Retrospectivo.html">Retrospectivo</a>
+</li>
+<li>
+  <a href="8.Hindcast.html">Hindcast</a>
+</li>
+<li>
+  <a href="9.Jitter_test.html">Jitter</a>
+</li>
+<li>
+  <a href="10.Tune_comps.html">Tune</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="upper-right-logo"> </div>
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Comparación de modelo</h1>
+<h4 class="date">Última actualización: enero, 24, 2023</h4>
+
+</div>
+
+
+<style type="text/css">
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+</style>
+<style type="text/css">
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+</style>
+<div id="comparación-de-modelos" class="section level1">
+<h1>Comparación de modelos</h1>
+<p>Instalar librerías</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;r4ss&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;here&#39;</span>)</span></code></pre></div>
+<div id="directorios-de-trabajo" class="section level2">
+<h2>Directorios de trabajo</h2>
+<p>Cargar librería <code>here()</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>()</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;C:/Users/maria/Nextcloud/WorkshopSS3&quot;</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="fu">here</span>())</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;Bibliografía&quot;      &quot;Ejecutables_SS3&quot;   &quot;Ejercicios&quot;       
+## [4] &quot;modelos_SS3&quot;       &quot;Presentaciones&quot;    &quot;Script_R&quot;         
+## [7] &quot;Script_Rmd&quot;        &quot;Tutoriales_SS3&quot;    &quot;WorkshopSS3.Rproj&quot;</code></pre>
+<p>Luego, identificar el directorio donde están los archivos del
+modelo</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="fu">here</span>(<span class="st">&quot;modelos_SS3&quot;</span>))</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;empirical_wtatage_and_age_selex&quot; &quot;reiniciar.bat&quot;                  
+## [3] &quot;selex_age_example&quot;               &quot;selex_length_example&quot;           
+## [5] &quot;simple&quot;                          &quot;simple_long&quot;                    
+## [7] &quot;simple_long_wtatage&quot;             &quot;simple_with_discard&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dir1 <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;modelos_SS3&quot;</span>,<span class="st">&quot;simple&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dir2 <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;modelos_SS3&quot;</span>,<span class="st">&quot;simple_long&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dir3 <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;modelos_SS3&quot;</span>,<span class="st">&quot;simple_long_wtatage&quot;</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>dir4 <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;modelos_SS3&quot;</span>,<span class="st">&quot;simple_with_discard&quot;</span>)</span></code></pre></div>
+<p>Revisamos que esten todos los archivos de entrada</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dir1)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;control.ss&quot;    &quot;data.ss&quot;       &quot;forecast.ss&quot;   &quot;reiniciar.bat&quot;
+## [5] &quot;ss_win.exe&quot;    &quot;starter.ss&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dir2)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;control.ss&quot;       &quot;data.ss&quot;          &quot;data_boot_001.ss&quot; &quot;data_expval.ss&quot;  
+## [5] &quot;forecast.ss&quot;      &quot;reiniciar.bat&quot;    &quot;ss_win.exe&quot;       &quot;starter.ss&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dir3)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;control.ss&quot;       &quot;data.ss&quot;          &quot;data_boot_001.ss&quot; &quot;data_expval.ss&quot;  
+## [5] &quot;forecast.ss&quot;      &quot;reiniciar.bat&quot;    &quot;ss_win.exe&quot;       &quot;starter.ss&quot;      
+## [9] &quot;wtatage.ss&quot;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dir4)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;control.ss&quot;    &quot;data.ss&quot;       &quot;forecast.ss&quot;   &quot;reiniciar.bat&quot;
+## [5] &quot;ss_win.exe&quot;    &quot;starter.ss&quot;</code></pre>
+<p>Creamos un nuevo directorio en la carpeta <code>Ejercicios</code>
+para ejecutar los ejemplos</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dirname.compara <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;Ejercicios&quot;</span>,<span class="st">&quot;3_Comparacion_de_modelos&quot;</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dirname.compara, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>dirname.compara</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;C:/Users/maria/Nextcloud/WorkshopSS3/Ejercicios/3_Comparacion_de_modelos&quot;</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dirname.compara)</span></code></pre></div>
+<pre class="scroll-200"><code>## character(0)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dir_1 <span class="ot">&lt;-</span><span class="fu">paste</span>(dirname.compara,<span class="st">&quot;/mod1&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>dir_2 <span class="ot">&lt;-</span><span class="fu">paste</span>(dirname.compara,<span class="st">&quot;/mod2&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>dir_3 <span class="ot">&lt;-</span><span class="fu">paste</span>(dirname.compara,<span class="st">&quot;/mod3&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dir_4 <span class="ot">&lt;-</span><span class="fu">paste</span>(dirname.compara,<span class="st">&quot;/mod4&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dir_1, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dir_2, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dir_3, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>dir_4, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dirname.compara)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] &quot;mod1&quot; &quot;mod2&quot; &quot;mod3&quot; &quot;mod4&quot;</code></pre>
+<p>Copiamos los archivos del directorio donde están los archivos del
+modelo SS3 en la carpeta donde ejecutaremos el ejercicio</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">Sys.glob</span>(<span class="fu">paste</span>(dir1, <span class="st">&quot;*.*&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>),</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dirmark =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                   dir_1)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">Sys.glob</span>(<span class="fu">paste</span>(dir2, <span class="st">&quot;*.*&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dirmark =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                   dir_2)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">Sys.glob</span>(<span class="fu">paste</span>(dir3, <span class="st">&quot;*.*&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>),</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dirmark =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   dir_3)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="fu">Sys.glob</span>(<span class="fu">paste</span>(dir4, <span class="st">&quot;*.*&quot;</span>, <span class="at">sep=</span><span class="st">&quot;/&quot;</span>),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dirmark =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                   dir_4)</span></code></pre></div>
+<pre class="scroll-200"><code>## [1] TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<p>Luego, identificamos el directorio donde está el archivo ejecutable
+(<code>ss.exe</code>)</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>exe_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">&quot;Ejecutables_SS3&quot;</span>,<span class="st">&quot;3.30.19_release&quot;</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ss_exe <span class="ot">&lt;-</span> <span class="fu">paste</span>(exe_path,<span class="st">&quot;ss_win.exe&quot;</span>,<span class="at">sep=</span> <span class="st">&quot;/&quot;</span>)</span></code></pre></div>
+<p>Cargamos la librería <code>r4ss</code></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r4ss)</span></code></pre></div>
+</div>
+<div id="ejecutamos-el-modelo-ss3" class="section level2">
+<h2>Ejecutamos el modelo SS3</h2>
+<p>Ejecutamos el modelo con la función <code>run_SS_models()</code></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec=</span>dir_1,<span class="at">model=</span>ss_exe,<span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="scroll-200"><code>##                                                                             dir
+## 1 C:/Users/maria/Nextcloud/WorkshopSS3/Ejercicios/3_Comparacion_de_modelos/mod1
+##     results
+## 1 ran model</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec=</span>dir_2,<span class="at">model=</span>ss_exe,<span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="scroll-200"><code>##                                                                             dir
+## 1 C:/Users/maria/Nextcloud/WorkshopSS3/Ejercicios/3_Comparacion_de_modelos/mod2
+##     results
+## 1 ran model</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec=</span>dir_3,<span class="at">model=</span>ss_exe,<span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="scroll-200"><code>##                                                                             dir
+## 1 C:/Users/maria/Nextcloud/WorkshopSS3/Ejercicios/3_Comparacion_de_modelos/mod3
+##     results
+## 1 ran model</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>r4ss<span class="sc">::</span><span class="fu">run_SS_models</span>(<span class="at">dirvec=</span>dir_4,<span class="at">model=</span>ss_exe,<span class="at">skipfinished=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="scroll-200"><code>##                                                                             dir
+## 1 C:/Users/maria/Nextcloud/WorkshopSS3/Ejercicios/3_Comparacion_de_modelos/mod4
+##     results
+## 1 ran model</code></pre>
+<p>Leemos las salidas de los modelos</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">SS_output</span>(<span class="at">dir =</span> dir_1)</span></code></pre></div>
+<pre class="scroll-200"><code>##                        TempFile                            Size 
+## &quot;size of file gradfil1.tmp = 0&quot; &quot;size of file gradfil2.tmp = 0&quot; 
+##                            &lt;NA&gt;                            &lt;NA&gt; 
+## &quot;size of file varssave.tmp = 0&quot;  &quot;size of file cmpdiff.tmp = 0&quot; 
+## $SS_version
+## [1] &quot;3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3&quot;
+## 
+## $SS_versionshort
+## [1] &quot;3.30&quot;
+## 
+## $SS_versionNumeric
+## [1] 3.3
+## 
+## $StartTime
+## [1] &quot;StartTime: Tue Jan 24 23:38:08 2023&quot;
+## 
+## $RunTime
+## [1] &quot;0 hours, 0 minutes, 59 seconds.&quot;
+## 
+## $Files_used
+## [1] &quot;Data_File: data.ss Control_File: control.ss&quot;
+## 
+## $Nwarnings
+## [1] 2
+## 
+## $warnings
+## [1] &quot;1 NOTE:  Max data length bin: 90  &lt; max pop len bins: 94; so will accumulate larger pop len bins&quot;                                                                                                                                                         
+## [2] &quot;2 NOTE: This model has just one settlement event. Changing to recr_dist_method 4 and removing the recruitment distribution parameters at the end of the MG parms section (below growth parameters) will produce identical results and simplify the model.&quot;
+## [3] &quot;N warnings: 2&quot;                                                                                                                                                                                                                                            
+## 
+## $likelihoods_used
+##                            values lambdas
+## TOTAL                 1.30652e+03      NA
+## Catch                 3.58566e-11      NA
+## Equil_catch           0.00000e+00      NA
+## Survey               -3.98360e+00      NA
+## Length_comp           6.51008e+02      NA
+## Age_comp              5.86610e+02      NA
+## Size_at_age           7.92250e+01      NA
+## Recruitment          -7.39702e+00       1
+## InitEQ_Regime         1.54502e-30       1
+## Forecast_Recruitment  0.00000e+00       1
+## Parm_priors           1.05602e+00       1
+## Parm_softbounds       1.20460e-03      NA
+## Parm_devs             0.00000e+00       1
+## Crash_Pen             0.00000e+00       1
+## 
+## $likelihoods_laplace
+##                                        values lambdas
+## NoBias_corr_Recruitment(info_only)   -7.39702       1
+## Laplace_obj_fun(info_only)         1306.52000      NA
+## 
+## $likelihoods_by_fleet
+##                Label          ALL     FISHERY   SURVEY1  SURVEY2
+## 175     Catch_lambda           NA 1.00000e+00   1.00000  1.00000
+## 176       Catch_like  3.58566e-11 3.58566e-11   0.00000  0.00000
+## 177  Init_equ_lambda           NA 1.00000e+00   1.00000  1.00000
+## 178    Init_equ_like  0.00000e+00 0.00000e+00   0.00000  0.00000
+## 179      Surv_lambda           NA 0.00000e+00   1.00000  1.00000
+## 180        Surv_like -3.98360e+00 0.00000e+00  -6.17325  2.18966
+## 181       Surv_N_use           NA 0.00000e+00   9.00000 12.00000
+## 182      Surv_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 183    Length_lambda           NA 1.00000e+00   1.00000  0.00000
+## 184      Length_like  6.51008e+02 5.12840e+02 138.16800  0.00000
+## 185     Length_N_use           NA 3.10000e+01   9.00000  0.00000
+## 186    Length_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 187       Age_lambda           NA 1.00000e+00   1.00000  0.00000
+## 188         Age_like  5.86610e+02 4.56078e+02 130.53200  0.00000
+## 189        Age_N_use           NA 3.10000e+01   9.00000  0.00000
+## 190       Age_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 191 Sizeatage_lambda           NA 1.00000e+00   1.00000  0.00000
+## 192   sizeatage_like  7.92250e+01 3.79917e+01  41.23330  0.00000
+## 193  sizeatage_N_use           NA 2.00000e+00   2.00000  0.00000
+## 194 sizeatage_N_skip           NA 0.00000e+00   0.00000  0.00000
+## 
+## $N_estimated_parameters
+## [1] 54
+## 
+## $table_of_phases
+## 
+## -99  -4  -3  -1   1   2   3   4   5 
+##   8   6  15   1   3  34   2   5  10 
+## 
+## $estimated_non_dev_parameters
+##                                Value Phase    Min   Max      Init Status
+## L_at_Amin_Fem_GP_1         21.653500     2 -10.00 45.00 21.653500     OK
+## L_at_Amax_Fem_GP_1         71.649300     4  40.00 90.00 71.649300     OK
+## VonBert_K_Fem_GP_1          0.147297     4   0.05  0.25  0.147297     OK
+## L_at_Amax_Mal_GP_1         69.536200     4  40.00 90.00 69.536200     OK
+## VonBert_K_Mal_GP_1          0.163533     4   0.05  0.25  0.163533     OK
+## SR_LN(R0)                   8.815050     1   3.00 31.00  8.815050     OK
+## SR_BH_steep                 0.614248     4   0.20  1.00  0.614248     OK
+## LnQ_base_SURVEY1(2)         0.516018     1  -7.00  5.00  0.516018     OK
+## LnQ_base_SURVEY2(3)        -6.628100     1  -7.00  5.00 -6.628100     OK
+## Size_inflection_FISHERY(1) 53.641100     2  19.00 80.00 53.641100     OK
+## Size_95%width_FISHERY(1)   18.923200     3   0.01 60.00 18.923200     OK
+## Size_inflection_SURVEY1(2) 36.653000     2  19.00 70.00 36.653000     OK
+## Size_95%width_SURVEY1(2)    6.591790     3   0.01 60.00  6.591790     OK
+##                            Parm_StDev           Gradient  Pr_type Prior Pr_SD
+## L_at_Amin_Fem_GP_1         0.47553800 -0.000000006155530   Normal 36.00 10.00
+## L_at_Amax_Fem_GP_1         0.30971500  0.000000004333790   Normal 70.00 10.00
+## VonBert_K_Fem_GP_1         0.00367698  0.000000001062830   Normal  0.15  0.80
+## L_at_Amax_Mal_GP_1         0.29215500  0.000000003548870   Normal 70.00 10.00
+## VonBert_K_Mal_GP_1         0.00408873  0.000000001320920   Normal  0.15  0.80
+## SR_LN(R0)                  0.02735980  0.000000182256000 No_prior    NA    NA
+## SR_BH_steep                0.06666850  0.000000000603095 Sym_Beta  0.70  0.05
+## LnQ_base_SURVEY1(2)        0.11928700  0.000000003048970 No_prior    NA    NA
+## LnQ_base_SURVEY2(3)        0.27062100  0.000000002304880 No_prior    NA    NA
+## Size_inflection_FISHERY(1) 0.73275900  0.000000003636940 Sym_Beta 50.00  0.01
+## Size_95%width_FISHERY(1)   0.74960900 -0.000000000888661 Sym_Beta 15.00  0.01
+## Size_inflection_SURVEY1(2) 0.47456300 -0.000000002706290 Sym_Beta 30.00  0.01
+## Size_95%width_SURVEY1(2)   0.72946100  0.000000002729210 Sym_Beta 10.00  0.01
+##                                  Pr_Like Afterbound
+## L_at_Amin_Fem_GP_1         1.02911000000         OK
+## L_at_Amax_Fem_GP_1         0.01360150000         OK
+## VonBert_K_Fem_GP_1         0.00000570604         OK
+## L_at_Amax_Mal_GP_1         0.00107534000         OK
+## VonBert_K_Mal_GP_1         0.00014308200         OK
+## SR_LN(R0)                             NA         OK
+## SR_BH_steep                0.00003845290         OK
+## LnQ_base_SURVEY1(2)                   NA         OK
+## LnQ_base_SURVEY2(3)                   NA         OK
+## Size_inflection_FISHERY(1) 0.00018599500         OK
+## Size_95%width_FISHERY(1)   0.00146751000         OK
+## Size_inflection_SURVEY1(2) 0.00099473600         OK
+## Size_95%width_SURVEY1(2)   0.00939774000         OK
+## 
+## $log_det_hessian
+## [1] 160.707
+## 
+## $maximum_gradient_component
+## [1] 1.82256e-07
+## 
+## $parameters_with_highest_gradients
+##                       Value     Gradient
+## SR_LN(R0)          8.815050  1.82256e-07
+## Main_RecrDev_2000  0.171606 -1.48530e-08
+## Main_RecrDev_1999 -0.656469  1.42714e-08
+## Main_RecrDev_1995 -0.605267 -1.16054e-08
+## Main_RecrDev_1992 -0.273424 -7.97458e-09
+## 
+## $Length_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp mean_Nsamp_in
+## 1404      4     1           1.04775 # 31   31       125       125           125
+## 1405      4     2           1.17464 #  9    9       125       125           125
+##      mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN Curr_Var_Adj
+## 1404            125            NA       NA   135.688      130.968            1
+## 1405            125            NA       NA   152.822      146.830            1
+##      Fleet_name
+## 1404    FISHERY
+## 1405    SURVEY1
+## 
+## $Age_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+## 1452      5     1           1.01608 #        31   31        75        75
+## 1453      5     2           1.07146 #         9    9        75        75
+##      mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN
+## 1452            75             75            NA       NA   82.1190      76.2062
+## 1453            75             75            NA       NA   89.4682      80.3594
+##      Curr_Var_Adj Fleet_name
+## 1452            1    FISHERY
+## 1453            1    SURVEY1
+## 
+## $SBzero
+## [1] 49909.7
+## 
+## $current_depletion
+## [1] 0.1129147
+## 
+## $last_years_SPR
+## [1] 0.563176
+## 
+## $SPRratioLabel
+## [1] &quot;1-SPR&quot;
+## 
+## $sigma_R_in
+## [1] 0.6
+## 
+## $sigma_R_info
+##            period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+## 1            Main     31   0.450029   0.2025261 0.3228373      0.1096451
+## 2      Early+Main     31   0.450029   0.2025261 0.3228373      0.1096451
+## 3 Early+Main+Late     31   0.450029   0.2025261 0.3228373      0.1096451
+##   sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+## 1              0.5587228               0.7500483             0.9312047
+## 2              0.5587228               0.7500483             0.9312047
+## 3              0.5587228               0.7500483             0.9312047
+##   alternative_sigma_R
+## 1           0.5587228
+## 2           0.5587228
+## 3           0.5587228
+## 
+## $rmse_table
+##     ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+## 1  main 31 0.442711         0.544424            1
+## 2 early  0 0.000000         0.000000            0
+## 
+## $cormessage1
+## [1] Range of abs(parameter correlations) is 3.93612e-05 to 0.775995
+## 
+## $cormessage2
+## [1] No correlations above threshold (cormax=0.95)
+## 
+## $cormessage7
+## [1] No uncorrelated parameters below threshold (cormin=0.01)</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">SS_output</span>(<span class="at">dir =</span> dir_2)</span></code></pre></div>
+<pre class="scroll-200"><code>##                        TempFile                            Size 
+## &quot;size of file gradfil1.tmp = 0&quot; &quot;size of file gradfil2.tmp = 0&quot; 
+##                            &lt;NA&gt;                            &lt;NA&gt; 
+## &quot;size of file varssave.tmp = 0&quot;  &quot;size of file cmpdiff.tmp = 0&quot; 
+## $SS_version
+## [1] &quot;3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3&quot;
+## 
+## $SS_versionshort
+## [1] &quot;3.30&quot;
+## 
+## $SS_versionNumeric
+## [1] 3.3
+## 
+## $StartTime
+## [1] &quot;StartTime: Tue Jan 24 23:39:09 2023&quot;
+## 
+## $RunTime
+## [1] &quot;0 hours, 1 minutes, 59 seconds.&quot;
+## 
+## $Files_used
+## [1] &quot;Data_File: data.ss Control_File: control.ss&quot;
+## 
+## $Nwarnings
+## [1] 1
+## 
+## $warnings
+## [1] &quot;1 NOTE:  Max data length bin: 90  &lt; max pop len bins: 94; so will accumulate larger pop len bins&quot;
+## [2] &quot;N warnings: 1&quot;                                                                                   
+## 
+## $likelihoods_used
+##                                     values lambdas
+## TOTAL                2293.9299999999998363      NA
+## Catch                   0.0000000000259972      NA
+## Equil_catch             0.0000000000000000      NA
+## Survey                 -8.1776499999999999      NA
+## Length_comp          1229.8599999999999000      NA
+## Age_comp             1000.8700000000000045      NA
+## Size_at_age            79.8550000000000040      NA
+## Recruitment            -9.8815700000000000       1
+## InitEQ_Regime           0.0000000000000000       1
+## Forecast_Recruitment    0.4129490000000000       1
+## Parm_priors             0.9924930000000000       1
+## Parm_softbounds         0.0010683000000000      NA
+## Parm_devs               0.0000000000000000       1
+## Crash_Pen               0.0000000000000000       1
+## 
+## $likelihoods_laplace
+##                                       values lambdas
+## NoBias_corr_Recruitment(info_only)  -15.4619       1
+## Laplace_obj_fun(info_only)         2288.3500      NA
+## 
+## $likelihoods_by_fleet
+##                Label          ALL     FISHERY  SURVEY1  SURVEY2
+## 181     Catch_lambda           NA 1.00000e+00   1.0000  1.00000
+## 182       Catch_like  2.59972e-11 2.59972e-11   0.0000  0.00000
+## 183  Init_equ_lambda           NA 1.00000e+00   1.0000  1.00000
+## 184    Init_equ_like  0.00000e+00 0.00000e+00   0.0000  0.00000
+## 185      Surv_lambda           NA 0.00000e+00   1.0000  1.00000
+## 186        Surv_like -8.17765e+00 0.00000e+00 -12.5067  4.32904
+## 187       Surv_N_use           NA 0.00000e+00  16.0000 32.00000
+## 188      Surv_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 189    Length_lambda           NA 1.00000e+00   1.0000  0.00000
+## 190      Length_like  1.22986e+03 9.52559e+02 277.3040  0.00000
+## 191     Length_N_use           NA 5.10000e+01  16.0000  0.00000
+## 192    Length_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 193       Age_lambda           NA 1.00000e+00   1.0000  0.00000
+## 194         Age_like  1.00087e+03 7.74904e+02 225.9620  0.00000
+## 195        Age_N_use           NA 5.10000e+01  16.0000  0.00000
+## 196       Age_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 197 Sizeatage_lambda           NA 1.00000e+00   1.0000  0.00000
+## 198   sizeatage_like  7.98550e+01 3.82251e+01  41.6299  0.00000
+## 199  sizeatage_N_use           NA 2.00000e+00   2.0000  0.00000
+## 200 sizeatage_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 
+## $N_estimated_parameters
+## [1] 74
+## 
+## $table_of_phases
+## 
+## -99  -4  -3  -1   1   2   3   4   5 
+##   8   3  15   1   3  52   2   5  12 
+## 
+## $estimated_non_dev_parameters
+##                                Value Phase    Min   Max      Init Status
+## L_at_Amin_Fem_GP_1         22.082700     2 -10.00 45.00 22.082700     OK
+## L_at_Amax_Fem_GP_1         71.476800     4  40.00 90.00 71.476800     OK
+## VonBert_K_Fem_GP_1          0.145934     4   0.05  0.25  0.145934     OK
+## L_at_Amax_Mal_GP_1         69.505700     4  40.00 90.00 69.505700     OK
+## VonBert_K_Mal_GP_1          0.162099     4   0.05  0.25  0.162099     OK
+## SR_LN(R0)                   8.829310     1   3.00 31.00  8.829310     OK
+## SR_BH_steep                 0.659731     4   0.20  1.00  0.659731     OK
+## LnQ_base_SURVEY1(2)         0.450131     1  -7.00  5.00  0.450131     OK
+## LnQ_base_SURVEY2(3)        -6.516070     1  -7.00  5.00 -6.516070     OK
+## Size_inflection_FISHERY(1) 53.726500     2  19.00 80.00 53.726500     OK
+## Size_95%width_FISHERY(1)   19.283500     3   0.01 60.00 19.283500     OK
+## Size_inflection_SURVEY1(2) 37.115500     2  19.00 70.00 37.115500     OK
+## Size_95%width_SURVEY1(2)    7.526440     3   0.01 60.00  7.526440     OK
+##                            Parm_StDev         Gradient  Pr_type Prior Pr_SD
+## L_at_Amin_Fem_GP_1         0.41645900  0.0000001644170   Normal 36.00 10.00
+## L_at_Amax_Fem_GP_1         0.28713400 -0.0000024902200   Normal 70.00 10.00
+## VonBert_K_Fem_GP_1         0.00336994  0.0000016817400   Normal  0.15  0.80
+## L_at_Amax_Mal_GP_1         0.26950400 -0.0000011180100   Normal 70.00 10.00
+## VonBert_K_Mal_GP_1         0.00373379  0.0000016927800   Normal  0.15  0.80
+## SR_LN(R0)                  0.02638810 -0.0000099491500 No_prior    NA    NA
+## SR_BH_steep                0.03994960  0.0000054527000 Sym_Beta  0.70  0.05
+## LnQ_base_SURVEY1(2)        0.09339580 -0.0000005118830 No_prior    NA    NA
+## LnQ_base_SURVEY2(3)        0.15535200  0.0000018269600 No_prior    NA    NA
+## Size_inflection_FISHERY(1) 0.60362800 -0.0000066753900 Sym_Beta 50.00  0.01
+## Size_95%width_FISHERY(1)   0.56158700  0.0000036586600 Sym_Beta 15.00  0.01
+## Size_inflection_SURVEY1(2) 0.37728800 -0.0000010039300 Sym_Beta 30.00  0.01
+## Size_95%width_SURVEY1(2)   0.61024700  0.0000000944327 Sym_Beta 10.00  0.01
+##                                 Pr_Like Afterbound
+## L_at_Amin_Fem_GP_1         0.9684540000         OK
+## L_at_Amax_Fem_GP_1         0.0109047000         OK
+## VonBert_K_Fem_GP_1         0.0000129181         OK
+## L_at_Amax_Mal_GP_1         0.0012215000         OK
+## VonBert_K_Mal_GP_1         0.0001143660         OK
+## SR_LN(R0)                            NA         OK
+## SR_BH_steep                0.0011019900         OK
+## LnQ_base_SURVEY1(2)                  NA         OK
+## LnQ_base_SURVEY2(3)                  NA         OK
+## Size_inflection_FISHERY(1) 0.0001938250         OK
+## Size_95%width_FISHERY(1)   0.0013668900         OK
+## Size_inflection_SURVEY1(2) 0.0008757950         OK
+## Size_95%width_SURVEY1(2)   0.0082464500         OK
+## 
+## $log_det_hessian
+## [1] 231.468
+## 
+## $maximum_gradient_component
+## [1] 9.94915e-06
+## 
+## $parameters_with_highest_gradients
+##                                 Value     Gradient
+## SR_LN(R0)                   8.8293100 -9.94915e-06
+## Main_RecrDev_1986           0.5031900 -9.42550e-06
+## Size_inflection_FISHERY(1) 53.7265000 -6.67539e-06
+## Main_RecrDev_1971           0.0543202 -6.09768e-06
+## Main_RecrDev_1988           0.0471795  5.97781e-06
+## 
+## $Length_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp mean_Nsamp_in
+## 1848      4     1          0.994307 # 51   51       125       125           125
+## 1849      4     2          1.095700 # 16   16       125       125           125
+##      mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN Curr_Var_Adj
+## 1848            125            NA       NA   131.266      124.288            1
+## 1849            125            NA       NA   142.984      136.962            1
+##      Fleet_name
+## 1848    FISHERY
+## 1849    SURVEY1
+## 
+## $Age_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+## 1923      5     1           1.03045 #        51   51        75        75
+## 1924      5     2           1.08544 #        16   16        75        75
+##      mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN
+## 1923            75             75            NA       NA   82.6436      77.2838
+## 1924            75             75            NA       NA   92.0434      81.4078
+##      Curr_Var_Adj Fleet_name
+## 1923            1    FISHERY
+## 1924            1    SURVEY1
+## 
+## $SBzero
+## [1] 50049.8
+## 
+## $current_depletion
+## [1] 0.255006
+## 
+## $last_years_SPR
+## [1] 0.489194
+## 
+## $SPRratioLabel
+## [1] &quot;1-SPR&quot;
+## 
+## $sigma_R_in
+## [1] 0.6
+## 
+## $sigma_R_info
+##            period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+## 1            Main     49  0.3788522   0.1435290 0.2901031     0.08834737
+## 2      Early+Main     49  0.3788522   0.1435290 0.2901031     0.08834737
+## 3 Early+Main+Late     51  0.3788514   0.1435284 0.2947996     0.09147874
+##   sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+## 1              0.4815354               0.6314203             0.8025590
+## 2              0.4815354               0.6314203             0.8025590
+## 3              0.4847753               0.6314190             0.8079589
+##   alternative_sigma_R
+## 1           0.4815354
+## 2           0.4815354
+## 3           0.4847753
+## 
+## $rmse_table
+##     ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+## 1  main 49 0.374967         0.390555     0.760734
+## 2 early  0 0.000000         0.000000     0.000000
+## 
+## $cormessage1
+## [1] Range of abs(parameter correlations) is 1.66546e-05 to 0.789517
+## 
+## $cormessage2
+## [1] No correlations above threshold (cormax=0.95)
+## 
+## $cormessage7
+## [1] No uncorrelated parameters below threshold (cormin=0.01)</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">SS_output</span>(<span class="at">dir =</span> dir_3)</span></code></pre></div>
+<pre class="scroll-200"><code>##                        TempFile                            Size 
+## &quot;size of file gradfil1.tmp = 0&quot; &quot;size of file gradfil2.tmp = 0&quot; 
+##                            &lt;NA&gt;                            &lt;NA&gt; 
+## &quot;size of file varssave.tmp = 0&quot;  &quot;size of file cmpdiff.tmp = 0&quot; 
+## $SS_version
+## [1] &quot;3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3&quot;
+## 
+## $SS_versionshort
+## [1] &quot;3.30&quot;
+## 
+## $SS_versionNumeric
+## [1] 3.3
+## 
+## $StartTime
+## [1] &quot;StartTime: Tue Jan 24 23:41:10 2023&quot;
+## 
+## $RunTime
+## [1] &quot;0 hours, 1 minutes, 43 seconds.&quot;
+## 
+## $Files_used
+## [1] &quot;Data_File: data.ss Control_File: control.ss&quot;
+## 
+## $Nwarnings
+## [1] 2
+## 
+## $warnings
+## [1] &quot;1 NOTE:  Max data length bin: 90  &lt; max pop len bins: 94; so will accumulate larger pop len bins&quot;
+## [2] &quot;2 Final gradient: 0.000380403 is larger than final_conv: 0.0001&quot;                                 
+## [3] &quot;N warnings: 2&quot;                                                                                   
+## 
+## $likelihoods_used
+##                            values lambdas
+## TOTAL                 2.35120e+03      NA
+## Catch                 6.86910e-12      NA
+## Equil_catch           0.00000e+00      NA
+## Survey               -7.81883e+00      NA
+## Length_comp           1.24510e+03      NA
+## Age_comp              1.01788e+03      NA
+## Size_at_age           1.05363e+02      NA
+## Recruitment          -1.02496e+01       1
+## InitEQ_Regime         1.54502e-30       1
+## Forecast_Recruitment  2.73248e-01       1
+## Parm_priors           6.41784e-01       1
+## Parm_softbounds       4.13656e-03      NA
+## Parm_devs             0.00000e+00       1
+## Crash_Pen             0.00000e+00       1
+## 
+## $likelihoods_laplace
+##                                       values lambdas
+## NoBias_corr_Recruitment(info_only)  -15.8299       1
+## Laplace_obj_fun(info_only)         2345.6200      NA
+## 
+## $likelihoods_by_fleet
+##                Label          ALL     FISHERY  SURVEY1  SURVEY2
+## 181     Catch_lambda           NA 1.00000e+00   1.0000  1.00000
+## 182       Catch_like  6.86910e-12 6.86910e-12   0.0000  0.00000
+## 183  Init_equ_lambda           NA 1.00000e+00   1.0000  1.00000
+## 184    Init_equ_like  0.00000e+00 0.00000e+00   0.0000  0.00000
+## 185      Surv_lambda           NA 0.00000e+00   1.0000  1.00000
+## 186        Surv_like -7.81883e+00 0.00000e+00 -12.3522  4.53334
+## 187       Surv_N_use           NA 0.00000e+00  16.0000 32.00000
+## 188      Surv_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 189    Length_lambda           NA 1.00000e+00   1.0000  0.00000
+## 190      Length_like  1.24510e+03 9.62221e+02 282.8790  0.00000
+## 191     Length_N_use           NA 5.10000e+01  16.0000  0.00000
+## 192    Length_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 193       Age_lambda           NA 1.00000e+00   1.0000  0.00000
+## 194         Age_like  1.01788e+03 7.87402e+02 230.4830  0.00000
+## 195        Age_N_use           NA 5.10000e+01  16.0000  0.00000
+## 196       Age_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 197 Sizeatage_lambda           NA 1.00000e+00   1.0000  0.00000
+## 198   sizeatage_like  1.05363e+02 4.69403e+01  58.4231  0.00000
+## 199  sizeatage_N_use           NA 2.00000e+00   2.0000  0.00000
+## 200 sizeatage_N_skip           NA 0.00000e+00   0.0000  0.00000
+## 
+## $N_estimated_parameters
+## [1] 74
+## 
+## $table_of_phases
+## 
+## -99  -4  -3  -1   1   2   3   4   5 
+##   4   3  15   1   3  52   2   5  12 
+## 
+## $estimated_non_dev_parameters
+##                               Value Phase     Min   Max      Init Status
+## L_at_Amin_Fem_GP_1        24.804100     2 -10.000 45.00 24.804100     OK
+## L_at_Amax_Fem_GP_1        71.711000     4  40.000 90.00 71.711000     OK
+## VonBert_K_Fem_GP_1         0.148001     4   0.050  0.25  0.148001     OK
+## L_at_Amax_Mal_GP_1        69.926000     4  40.000 90.00 69.926000     OK
+## VonBert_K_Mal_GP_1         0.161276     4   0.050  0.25  0.161276     OK
+## SR_LN(R0)                  8.860060     1   3.000 31.00  8.860060     OK
+## SR_BH_steep                0.631223     4   0.200  1.00  0.631223     OK
+## LnQ_base_SURVEY1(2)        0.403147     1  -7.000  5.00  0.403147     OK
+## LnQ_base_SURVEY2(3)       -6.507480     1  -7.000  5.00 -6.507480     OK
+## Age_inflection_FISHERY(1)  5.367420     2   0.001 30.00  5.367420     OK
+## Age_95%width_FISHERY(1)    4.493150     3   0.001 20.00  4.493150     OK
+## Age_inflection_SURVEY1(2)  1.578420     2   0.001 30.00  1.578420     OK
+## Age_95%width_SURVEY1(2)    1.033490     3   0.001 20.00  1.033490     OK
+##                           Parm_StDev        Gradient  Pr_type Prior Pr_SD
+## L_at_Amin_Fem_GP_1        0.41001900  0.000003618260   Normal 36.00 10.00
+## L_at_Amax_Fem_GP_1        0.27656100  0.000002649320   Normal 70.00 10.00
+## VonBert_K_Fem_GP_1        0.00345789 -0.000000522306   Normal  0.15  0.80
+## L_at_Amax_Mal_GP_1        0.26140900  0.000005548130   Normal 70.00 10.00
+## VonBert_K_Mal_GP_1        0.00376222  0.000000344346   Normal  0.15  0.80
+## SR_LN(R0)                 0.02502060  0.000380362000 No_prior    NA    NA
+## SR_BH_steep               0.03756540  0.000004059230 Sym_Beta  0.70  0.05
+## LnQ_base_SURVEY1(2)       0.09416610  0.000003246890 No_prior    NA    NA
+## LnQ_base_SURVEY2(3)       0.15692700 -0.000000819369 No_prior    NA    NA
+## Age_inflection_FISHERY(1) 0.14034000  0.000016010400 No_prior    NA    NA
+## Age_95%width_FISHERY(1)   0.16623300 -0.000005476610 No_prior    NA    NA
+## Age_inflection_SURVEY1(2) 0.09272000  0.000002064970 No_prior    NA    NA
+## Age_95%width_SURVEY1(2)   0.18659800  0.000001008490 No_prior    NA    NA
+##                                 Pr_Like Afterbound
+## L_at_Amin_Fem_GP_1        0.62673600000         OK
+## L_at_Amax_Fem_GP_1        0.01463680000         OK
+## VonBert_K_Fem_GP_1        0.00000312156         OK
+## L_at_Amax_Mal_GP_1        0.00002738860         OK
+## VonBert_K_Mal_GP_1        0.00009933350         OK
+## SR_LN(R0)                            NA         OK
+## SR_BH_steep               0.00028042300         OK
+## LnQ_base_SURVEY1(2)                  NA         OK
+## LnQ_base_SURVEY2(3)                  NA         OK
+## Age_inflection_FISHERY(1)            NA         OK
+## Age_95%width_FISHERY(1)              NA         OK
+## Age_inflection_SURVEY1(2)            NA         OK
+## Age_95%width_SURVEY1(2)              NA         OK
+## 
+## $log_det_hessian
+## [1] 241.492
+## 
+## $maximum_gradient_component
+## [1] 0.000380403
+## 
+## $parameters_with_highest_gradients
+##                               Value     Gradient
+## SR_LN(R0)                  8.860060  3.80362e-04
+## Age_inflection_FISHERY(1)  5.367420  1.60104e-05
+## Main_RecrDev_1976          0.614635  9.04022e-06
+## Main_RecrDev_1979          0.172564  8.59072e-06
+## Main_RecrDev_2010         -0.335749 -6.85095e-06
+## 
+## $Length_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp mean_Nsamp_in
+## 1692      4     1          0.979581 # 51   51       125       125           125
+## 1693      4     2          1.068620 # 16   16       125       125           125
+##      mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN Curr_Var_Adj
+## 1692            125            NA       NA   129.215      122.448            1
+## 1693            125            NA       NA   138.760      133.577            1
+##      Fleet_name
+## 1692    FISHERY
+## 1693    SURVEY1
+## 
+## $Age_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+## 1767      5     1           1.01374 #        51   51        75        75
+## 1768      5     2           1.04634 #        16   16        75        75
+##      mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN
+## 1767            75             75            NA       NA   81.6991      76.0306
+## 1768            75             75            NA       NA   88.7084      78.4755
+##      Curr_Var_Adj Fleet_name
+## 1767            1    FISHERY
+## 1768            1    SURVEY1
+## 
+## $SBzero
+## [1] 51612.8
+## 
+## $current_depletion
+## [1] 0.2455496
+## 
+## $last_years_SPR
+## [1] 0.497116
+## 
+## $SPRratioLabel
+## [1] &quot;1-SPR&quot;
+## 
+## $sigma_R_in
+## [1] 0.6
+## 
+## $sigma_R_info
+##            period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+## 1            Main     49  0.3714943   0.1380081 0.2904511     0.08825831
+## 2      Early+Main     49  0.3714943   0.1380081 0.2904511     0.08825831
+## 3 Early+Main+Late     51  0.3691784   0.1362927 0.2944668     0.09085599
+##   sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+## 1              0.4756746               0.6191572             0.7927911
+## 2              0.4756746               0.6191572             0.7927911
+## 3              0.4766012               0.6152974             0.7943353
+##   alternative_sigma_R
+## 1           0.4756746
+## 2           0.4756746
+## 3           0.4766012
+## 
+## $rmse_table
+##     ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+## 1  main 49 0.367684         0.375532     0.760734
+## 2 early  0 0.000000         0.000000     0.000000
+## 
+## $cormessage1
+## [1] Range of abs(parameter correlations) is 6.86054e-07 to 0.834473
+## 
+## $cormessage2
+## [1] No correlations above threshold (cormax=0.95)
+## 
+## $cormessage7
+## [1] No uncorrelated parameters below threshold (cormin=0.01)</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">SS_output</span>(<span class="at">dir =</span> dir_4)</span></code></pre></div>
+<pre class="scroll-200"><code>##                        TempFile                            Size 
+## &quot;size of file gradfil1.tmp = 0&quot; &quot;size of file gradfil2.tmp = 0&quot; 
+##                            &lt;NA&gt;                            &lt;NA&gt; 
+## &quot;size of file varssave.tmp = 0&quot;  &quot;size of file cmpdiff.tmp = 0&quot; 
+## $SS_version
+## [1] &quot;3.30.19.00;_safe;_compile_date:_Apr  4 2022;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.3&quot;
+## 
+## $SS_versionshort
+## [1] &quot;3.30&quot;
+## 
+## $SS_versionNumeric
+## [1] 3.3
+## 
+## $StartTime
+## [1] &quot;StartTime: Tue Jan 24 23:42:55 2023&quot;
+## 
+## $RunTime
+## [1] &quot;0 hours, 1 minutes, 6 seconds.&quot;
+## 
+## $Files_used
+## [1] &quot;Data_File: data.ss Control_File: control.ss&quot;
+## 
+## $Nwarnings
+## [1] 3
+## 
+## $warnings
+## [1] &quot;1 NOTE:  Max data length bin: 90  &lt; max pop len bins: 94; so will accumulate larger pop len bins&quot;                                                                                                                                                         
+## [2] &quot;2 NOTE: This model has just one settlement event. Changing to recr_dist_method 4 and removing the recruitment distribution parameters at the end of the MG parms section (below growth parameters) will produce identical results and simplify the model.&quot;
+## [3] &quot;3 Reminder: Number of lamdas !=0.0 and !=1.0:  1&quot;                                                                                                                                                                                                         
+## [4] &quot;N warnings: 3&quot;                                                                                                                                                                                                                                            
+## 
+## $likelihoods_used
+##                                      values lambdas
+## TOTAL                1590.78999999999996362      NA
+## Catch                   0.00000000000130175      NA
+## Equil_catch             0.00000000000000000      NA
+## Survey                 -4.18700000000000028      NA
+## Discard                 8.52725000000000044      NA
+## Mean_body_wt          169.01300000000000523      NA
+## Length_comp           685.35900000000003729      NA
+## Age_comp              614.60400000000004184      NA
+## Size_at_age           123.54000000000000625      NA
+## Recruitment            -7.16913000000000000       1
+## InitEQ_Regime           0.00000000000000000       1
+## Forecast_Recruitment    0.00000000000000000       1
+## Parm_priors             1.10698000000000008       1
+## Parm_softbounds         0.00147008000000000      NA
+## Parm_devs               0.00000000000000000       1
+## Crash_Pen               0.00000000000000000       1
+## 
+## $likelihoods_laplace
+##                                        values lambdas
+## NoBias_corr_Recruitment(info_only)   -7.16913       1
+## Laplace_obj_fun(info_only)         1590.79000      NA
+## 
+## $likelihoods_by_fleet
+##                Label          ALL      FISHERY   SURVEY1  SURVEY2 Depletion
+## 178     Catch_lambda           NA  1.00000e+00   1.00000  1.00000   1.00000
+## 179       Catch_like  1.30175e-12  1.30175e-12   0.00000  0.00000   0.00000
+## 180  Init_equ_lambda           NA  1.00000e+00   1.00000  1.00000   1.00000
+## 181    Init_equ_like  0.00000e+00  0.00000e+00   0.00000  0.00000   0.00000
+## 182      Surv_lambda           NA  1.00000e+00   1.00000  1.00000   0.00010
+## 183        Surv_like -4.18700e+00 -1.84691e-01  -5.95654  1.95386   3.64682
+## 184       Surv_N_use           NA  1.00000e+00   9.00000 12.00000   1.00000
+## 185      Surv_N_skip           NA  0.00000e+00   0.00000  0.00000   0.00000
+## 186      Disc_lambda           NA  1.00000e+00   0.00000  0.00000   0.00000
+## 187        Disc_like  8.52725e+00  8.52725e+00   0.00000  0.00000   0.00000
+## 188       Disc_N_use           NA  2.00000e+00   0.00000  0.00000   0.00000
+## 189      Disc_N_skip           NA  0.00000e+00   0.00000  0.00000   0.00000
+## 190      mnwt_lambda           NA  1.00000e+00   1.00000  1.00000   1.00000
+## 191        mnwt_like  1.69013e+02  1.69013e+02   0.00000  0.00000   0.00000
+## 192       mnwt_N_use           NA  2.00000e+00   0.00000  0.00000   0.00000
+## 193      mnwt_N_skip           NA  0.00000e+00   0.00000  0.00000   0.00000
+## 194    Length_lambda           NA  1.00000e+00   1.00000  0.00000   0.00000
+## 195      Length_like  6.85359e+02  5.46948e+02 138.41000  0.00000   0.00000
+## 196     Length_N_use           NA  3.30000e+01   9.00000  0.00000   0.00000
+## 197    Length_N_skip           NA  0.00000e+00   0.00000  0.00000   0.00000
+## 198       Age_lambda           NA  1.00000e+00   1.00000  0.00000   0.00000
+## 199         Age_like  6.14604e+02  4.84268e+02 130.33600  0.00000   0.00000
+## 200        Age_N_use           NA  3.30000e+01   9.00000  0.00000   0.00000
+## 201       Age_N_skip           NA  0.00000e+00   0.00000  0.00000   0.00000
+## 202 Sizeatage_lambda           NA  1.00000e+00   1.00000  0.00000   0.00000
+## 203   sizeatage_like  1.23540e+02  8.10206e+01  42.51950  0.00000   0.00000
+## 204  sizeatage_N_use           NA  4.00000e+00   2.00000  0.00000   0.00000
+## 205 sizeatage_N_skip           NA  0.00000e+00   0.00000  0.00000   0.00000
+## 
+## $N_estimated_parameters
+## [1] 55
+## 
+## $table_of_phases
+## 
+## -99  -4  -3  -1   1   3   4   5   6 
+##   8   6  20   5   1  34   5   5  10 
+## 
+## $estimated_non_dev_parameters
+##                                         Value Phase    Min   Max      Init
+## L_at_Amin_Fem_GP_1                  21.843900     3 -10.00 45.00 21.843900
+## L_at_Amax_Fem_GP_1                  71.469300     5  40.00 90.00 71.469300
+## VonBert_K_Fem_GP_1                   0.148674     5   0.05  0.25  0.148674
+## L_at_Amax_Mal_GP_1                  69.681100     5  40.00 90.00 69.681100
+## VonBert_K_Mal_GP_1                   0.160802     5   0.05  0.25  0.160802
+## SR_LN(R0)                            8.871560     1   3.00 31.00  8.871560
+## SR_BH_steep                          0.621654     5   0.20  1.00  0.621654
+## Size_inflection_FISHERY(1)          53.666400     3  19.00 80.00 53.666400
+## Size_95%width_FISHERY(1)            18.830700     4   0.01 60.00 18.830700
+## Retain_L_infl_FISHERY(1)            38.735800     4  20.00 70.00 38.735800
+## Retain_L_width_FISHERY(1)            6.222180     4   0.10 10.00  6.222180
+## Retain_L_asymptote_logit_FISHERY(1)  3.738640     4 -10.00 10.00  3.738640
+## Size_inflection_SURVEY1(2)          36.666800     3  19.00 70.00 36.666800
+## Size_95%width_SURVEY1(2)             6.667930     4   0.01 60.00  6.667930
+##                                     Status Parm_StDev          Gradient
+## L_at_Amin_Fem_GP_1                      OK 0.43104800  0.00000013463000
+## L_at_Amax_Fem_GP_1                      OK 0.28097100 -0.00000112033000
+## VonBert_K_Fem_GP_1                      OK 0.00333826 -0.00000027069100
+## L_at_Amax_Mal_GP_1                      OK 0.26818700  0.00000174708000
+## VonBert_K_Mal_GP_1                      OK 0.00359849  0.00000068218300
+## SR_LN(R0)                               OK 0.02776580  0.00000128460000
+## SR_BH_steep                             OK 0.06806940 -0.00000016043400
+## Size_inflection_FISHERY(1)              OK 0.69939500  0.00000072562800
+## Size_95%width_FISHERY(1)                OK 0.69995000 -0.00000062107500
+## Retain_L_infl_FISHERY(1)                OK 1.67077000  0.00000000136531
+## Retain_L_width_FISHERY(1)               OK 0.64820100 -0.00000017783900
+## Retain_L_asymptote_logit_FISHERY(1)     OK 0.22941600 -0.00000011060500
+## Size_inflection_SURVEY1(2)              OK 0.47196100 -0.00000036504600
+## Size_95%width_SURVEY1(2)                OK 0.71945400 -0.00000005310410
+##                                      Pr_type Prior Pr_SD       Pr_Like
+## L_at_Amin_Fem_GP_1                    Normal 36.00 10.00 1.00197000000
+## L_at_Amax_Fem_GP_1                    Normal 70.00 10.00 0.01079460000
+## VonBert_K_Fem_GP_1                    Normal  0.15  0.80 0.00000137283
+## L_at_Amax_Mal_GP_1                    Normal 70.00 10.00 0.00050858600
+## VonBert_K_Mal_GP_1                    Normal  0.15  0.80 0.00009116610
+## SR_LN(R0)                           No_prior    NA    NA            NA
+## SR_BH_steep                         Sym_Beta  0.70  0.05 0.00012167200
+## Size_inflection_FISHERY(1)          Sym_Beta 50.00  0.01 0.00018830000
+## Size_95%width_FISHERY(1)            Sym_Beta 15.00  0.01 0.00149404000
+## Retain_L_infl_FISHERY(1)              Normal 40.00 99.00 0.00008153610
+## Retain_L_width_FISHERY(1)             Normal  1.00 99.00 0.00139124000
+## Retain_L_asymptote_logit_FISHERY(1)   Normal 10.00 99.00 0.00200003000
+## Size_inflection_SURVEY1(2)          Sym_Beta 30.00  0.01 0.00099106100
+## Size_95%width_SURVEY1(2)            Sym_Beta 10.00  0.01 0.00929698000
+##                                     Afterbound
+## L_at_Amin_Fem_GP_1                          OK
+## L_at_Amax_Fem_GP_1                          OK
+## VonBert_K_Fem_GP_1                          OK
+## L_at_Amax_Mal_GP_1                          OK
+## VonBert_K_Mal_GP_1                          OK
+## SR_LN(R0)                                   OK
+## SR_BH_steep                                 OK
+## Size_inflection_FISHERY(1)                  OK
+## Size_95%width_FISHERY(1)                    OK
+## Retain_L_infl_FISHERY(1)                    OK
+## Retain_L_width_FISHERY(1)                   OK
+## Retain_L_asymptote_logit_FISHERY(1)         OK
+## Size_inflection_SURVEY1(2)                  OK
+## Size_95%width_SURVEY1(2)                    OK
+## 
+## $log_det_hessian
+## [1] 160.22
+## 
+## $maximum_gradient_component
+## [1] 2.30271e-06
+## 
+## $parameters_with_highest_gradients
+##                        Value     Gradient
+## Main_RecrDev_1998  -0.544831  2.30271e-06
+## Main_RecrDev_1983  -0.466715  2.07744e-06
+## Main_RecrDev_1999  -0.661744 -2.04341e-06
+## Main_RecrDev_1984  -0.301659 -2.02289e-06
+## L_at_Amax_Mal_GP_1 69.681100  1.74708e-06
+## 
+## $Length_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp mean_Nsamp_in
+## 1460      4     1           1.03866 # 33   33       125       125           125
+## 1461      4     2           1.17142 #  9    9       125       125           125
+##      mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN Curr_Var_Adj
+## 1460            125            NA       NA   134.802      129.833            1
+## 1461            125            NA       NA   152.204      146.428            1
+##      Fleet_name
+## 1460    FISHERY
+## 1461    SURVEY1
+## 
+## $Age_Comp_Fit_Summary
+##      Factor Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+## 1510      5     1           1.01748 #        33   33        75        75
+## 1511      5     2           1.07411 #         9    9        75        75
+##      mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM DM_theta mean_effN HarMean_effN
+## 1510            75             75            NA       NA   82.0590      76.3111
+## 1511            75             75            NA       NA   89.7971      80.5582
+##      Curr_Var_Adj Fleet_name
+## 1510            1    FISHERY
+## 1511            1    SURVEY1
+## 
+## $SBzero
+## [1] 52643.9
+## 
+## $current_depletion
+## [1] 0.1187488
+## 
+## $last_years_SPR
+## [1] 0.556168
+## 
+## $SPRratioLabel
+## [1] &quot;(1-SPR)/(1-SPR_40%)&quot;
+## 
+## $sigma_R_in
+## [1] 0.6
+## 
+## $sigma_R_info
+##            period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+## 1            Main     31  0.4560646   0.2079949 0.3185898      0.1073398
+## 2      Early+Main     31  0.4560646   0.2079949 0.3185898      0.1073398
+## 3 Early+Main+Late     31  0.4560646   0.2079949 0.3185898      0.1073398
+##   sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+## 1              0.5615467               0.7601077             0.9359112
+## 2              0.5615467               0.7601077             0.9359112
+## 3              0.5615467               0.7601077             0.9359112
+##   alternative_sigma_R
+## 1           0.5615467
+## 2           0.5615467
+## 3           0.5615467
+## 
+## $rmse_table
+##     ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+## 1  main 31 0.448649         0.559127            1
+## 2 early  0 0.000000         0.000000            0
+## 
+## $cormessage1
+## [1] Range of abs(parameter correlations) is 4.16969e-06 to 0.791341
+## 
+## $cormessage2
+## [1] No correlations above threshold (cormax=0.95)
+## 
+## $cormessage7
+## [1] No uncorrelated parameters below threshold (cormin=0.01)</code></pre>
+<p>Creamos una lista que resuma los resultados del modelo con la función
+<code>SSsummarize()</code></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mod.sum <span class="ot">&lt;-</span> <span class="fu">SSsummarize</span>(<span class="fu">list</span>(mod1, mod2,mod3,mod4))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>plotcomp <span class="ot">&lt;-</span><span class="fu">paste</span>(dirname.compara,<span class="st">&quot;/plot_comparacion&quot;</span>,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="at">path=</span>plotcomp, <span class="at">showWarnings =</span> <span class="cn">TRUE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="generamos-plots" class="section level2">
+<h2>Generamos Plots</h2>
+<p>Finalmente, generamos los plots con Comparaciones de modelos usando
+la función <code>SSplotComparisons()</code></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SSplotComparisons</span>(mod.sum, </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legendlabels =</span> <span class="fu">c</span>(<span class="st">&quot;modelo 1&quot;</span>, <span class="st">&quot;modelo 2&quot;</span>,<span class="st">&quot;modelo 3&quot;</span>,<span class="st">&quot;modelo 4&quot;</span>),</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pheight=</span><span class="fl">4.5</span>,<span class="at">png=</span><span class="cn">TRUE</span>,<span class="at">plotdir=</span>plotcomp,<span class="at">legendloc=</span><span class="st">&#39;bottomleft&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

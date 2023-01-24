@@ -11,7 +11,7 @@
 
 
 
-<title>index.knit</title>
+<title>10.Tune_comps.knit</title>
 
 <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -369,9 +369,14 @@ div.tocify {
 
 
 <style type="text/css">
-
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+</style>
+<style type="text/css">
 /*----------LOGO above TOC---------*/
-
 #TOC::before {
   content: "";
   display: block;
@@ -382,109 +387,40 @@ div.tocify {
   background-position: center center;
   background-repeat: no-repeat;
 }
-
 </style>
-<p>  </p>
-<div id="contexto" class="section level1">
-<h1>Contexto</h1>
-<p>Stock Synthesis (SS3) es una plataforma de modelado estadístico de la
-dinámica de poblaciones marinas construido en AD Model Builder. SS3 (SS3
-versión 3.30) consiste en un modelo de evaluación estructurado por edad
-y tallas, el cual, ha evolucionado desde sus inicios para modelar una
-amplia gama de dinámicas y poblaciones de peces.</p>
-<div id="submodelos" class="section level2">
-<h2>Submodelos</h2>
-<ul>
-<li>Submodelo de la población que simula los procesos de crecimiento,
-madurez, fecundidad, reclutamiento, movimiento y mortalidad de una
-población.</li>
-<li>Submodelo de observación que estima los valores esperados para
-varios tipos de datos (composiciones de tallas y edades, índices de
-capturas, descarte, campañas, variables ambientales, entre otras.)</li>
-<li>Submodelo estadístico caracteriza la bondad de ajuste de los datos y
-obtiene los parámetros del mejor ajuste con su varianza asociada, y</li>
-<li>Submodelo de pronóstico que permite proyectar las cantidades de
-gestión necesarias.</li>
-</ul>
-</div>
-</div>
-<div id="objetivos-del-workshop" class="section level1">
-<h1>Objetivos del workshop</h1>
-<ul>
-<li>Comprender la estructura de los archivos de entrada y salida de
-SS3.</li>
-<li>Revisar los formatos de los archivos de entrada necesarios para que
-SS3 funcione siguiendo la guía de usuario de SS3.</li>
-<li>Ser capaz de ejecutar un modelo SS3.</li>
-<li>Utilizaremos el ejemplo llamado “Simple” de SS3 para describir el
-formato de entrada de datos y la ejecución se SS3.</li>
-<li>Revisaremos los paquetes de procesamiento y presentación de gráficas
-para los resultados de los modelos, como también la manipulación y
-edición de los archivos de entrada de datos utilizando la librería
-<code>r4ss</code>y ejecutaremos algunos diagnósticos avanzados
-utilizando la librería <code>ss3diags</code>.</li>
-</ul>
-</div>
-<div id="requisitos" class="section level1">
-<h1>Requisitos</h1>
-<ul>
-<li>Consola de comandos</li>
-<li>Editor de texto recomendado: Notepad ++ <a
-href="https://notepad-plus-plus.org/downloads/"
-class="uri">https://notepad-plus-plus.org/downloads/</a></li>
-<li>Ejecutable versión 3.30, ss_win (para Windows) descargar desde
-Github: <a
-href="https://github.com/nmfs-stock-synthesis/stock-synthesis/releases"
-class="uri">https://github.com/nmfs-stock-synthesis/stock-synthesis/releases</a></li>
-<li>Versión de R &gt;= 4 <a href="https://cloud.r-project.org/"
-class="uri">https://cloud.r-project.org/</a></li>
-<li>Rstudio <a href="https://posit.co/download/rstudio-desktop/"
-class="uri">https://posit.co/download/rstudio-desktop/</a></li>
-<li>library(“r4ss”) en R se recomienda instalar desde Github:
-remotes::install_github(“r4ss/r4ss”)</li>
-<li>library(“devtools”) en R instalar de la siguiente forma:
-installed.packages(“devtools”).</li>
-<li>library(“ss3diags”) en R instalar desde Github:
-devtools::install_github(“JABBAmodel/ss3diags”)</li>
-</ul>
-</div>
-<div id="github-de-interés" class="section level1">
-<h1>Github de interés</h1>
-<ul>
-<li>SS3: <a href="https://github.com/nmfs-stock-synthesis"
-class="uri">https://github.com/nmfs-stock-synthesis</a></li>
-<li>Versiones de SS3: <a
-href="https://github.com/nmfs-stock-synthesis/stock-synthesis/releases"
-class="uri">https://github.com/nmfs-stock-synthesis/stock-synthesis/releases</a></li>
-<li>Ejemplos SS3: <a
-href="https://github.com/nmfs-stock-synthesis/user-examples"
-class="uri">https://github.com/nmfs-stock-synthesis/user-examples</a></li>
-<li>SSI: <a href="https://github.com/nmfs-stock-synthesis/ssi"
-class="uri">https://github.com/nmfs-stock-synthesis/ssi</a></li>
-<li>r4ss: <a href="https://github.com/r4ss/r4ss"
-class="uri">https://github.com/r4ss/r4ss</a></li>
-<li>ss3diags: <a
-href="https://github.com/PIFSCstockassessments/ss3diags"
-class="uri">https://github.com/PIFSCstockassessments/ss3diags</a></li>
-</ul>
-</div>
-<div id="manuales-de-usuarios" class="section level1">
-<h1>Manuales de usuarios</h1>
-<ul>
-<li><a
-href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html">Manual
-de usuario SS3 versión 3.30.19</a></li>
-<li><a
-href="https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html">Guía
-de library r4ss</a></li>
-<li><a
-href="https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf">Manual
-de library ss3diags</a></li>
-<li><a href="https://ss3sim.github.io/ss3sim">Manual de library
-ss3sim</a></li>
-<li><a href="https://nmfs-fish-tools.github.io/SSMSE/manual">Manual de
-library SSMSE</a></li>
-</ul>
+<div
+id="calculate-new-tunings-for-length-and-age-compositions-and-rerun-models"
+class="section level1">
+<h1>Calculate new tunings for length and age compositions and (re)run
+models</h1>
+<p>Hay tres rutinas diferentes disponibles para ajustar (o ponderar) los
+datos de composición en Stock Synthesis. Los métodos de ajuste
+McAllister-Ianelli (MI) y Francis son rutinas iterativas de
+reponderación, mientras que la opción Dirichlet-multinomial (DM)
+incorpora parámetros de ponderación directamente en el modelo
+original.</p>
+<p>Debido a que el ajuste se usa comúnmente con los modelos de Stock
+Synthesis, y los usuarios pueden estar interesados en explorar el mismo
+modelo, pero utilizando diferentes métodos de ajuste,
+<code>tune_comps()</code> puede comenzar desde el mismo modelo y
+transformarlo en diferentes métodos de ajuste.</p>
+<p>Como ejemplo, ilustraremos cómo ejecutar el ajuste de Francis en un
+modelo de ejemplo de Stock Synthesis integrado en el paquete
+<code>r4ss</code>. Primero, hacemos una copia del modelo para evitar
+cambiar los archivos del modelo original.</p>
+<p>La siguiente llamada a <code>tune_comps()</code> ejecuta la
+ponderación de Francis para 1 iteración y permite la ponderación
+ascendente. Suponga que un ejecutable llamado “ss o ss.exe” está
+disponible en la carpeta <code>mod_path</code>.</p>
+<p>Ahora, supongamos que queremos ejecutar el mismo modelo, pero usando
+parámetros multinomiales de Dirichlet para ponderar. El modelo se puede
+copiar a una nueva carpeta, luego se puede usar la función
+<code>tune_comps()</code> para agregar parámetros multinomiales de
+Dirichlet (1 para cada flota con datos de composición y para cada tipo
+de datos de composición) y volver a ejecutar el modelo.</p>
+<p>Hay muchas opciones en la función <code>tune_comps()</code>; consulte
+la documentación (?tune_comps en la consola R) para obtener más detalles
+y ejemplos.</p>
 </div>
 
 

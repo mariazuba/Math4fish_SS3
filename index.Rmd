@@ -23,34 +23,53 @@ title: ""
 
 &nbsp;&nbsp;
 
-Esta guía es elaborada para el Proyecto math4fish cuya finalidad es implementar modelos de evaluación de stock en la plataforma de modelado estadístico llamado "Stock Synthesis" (SS3) desarrollada por el grupo de trabajo de la NOAA.
+# Contexto
 
+Stock Synthesis (SS3) es una plataforma de modelado estadístico de la dinámica de poblaciones marinas construido en AD Model Builder.
 SS3 (SS3 versión 3.30) consiste en un modelo de evaluación estructurado por edad y tallas, el cual, ha evolucionado desde sus inicios para modelar una amplia gama de dinámicas y poblaciones de peces.
 
-SS3 tiene un submodelo de la población que simula los procesos de crecimiento, madurez, fecundidad, reclutamiento, movimiento y mortalidad de una población, un submodelo de observación que estima los valores esperados para varios tipos de datos (composiciones de tallas y edades, índices de capturas, descarte, campañas, variables ambientales, entre otras.), un submodelo estadístico caracteriza la bondad de ajuste de los datos y obtiene los parámetros del mejor ajuste con su varianza asociada, y un submodelo de pronóstico que permite proyectar las cantidades de gestión necesarias. 
 
-En esta guía se describen los formatos de los archivos de datos necesarios para que SS3 funcione siguiendo la guía de usuario [@Methot2020].  Se utiliza el ejemplo llamado "Simple" de SS3 para describir el formato de entrada de datos.
+## Submodelos
 
-Los principales beneficios de trabajar con la plataforma de modelación Stock Synthesis son múltiples. Por un lado, conlleva una mejora de la utilización de datos disponibles, comunicación de resultados así como una mejor eficiencia en el aprendizaje y la educación en la comunidad de evaluación pesquera al ser un modelo genérico de amplio uso en el mundo. Su uso reduce el tiempo requerido para la implementación rápida (por ejemplo, en talleres de revisión) de modelos alternativos de variada complejidad y diferentes supuestos. 
-
-Stock Synthesis también tiene asociados paquetes de procesamiento y presentación de gráficas para los resultados de los modelos, como también la manipulación y edición de los archivos de entrada de datos utilizando la librería [**r4ss**](https://github.com/r4ss/r4ss) y puedes ejecutar diagnósticos avanzados utilizando la  librería  [**ss3diags**](https://github.com/jabbamodel/ss3diags), los cuales aplicaremos en esta guía.
-
-Existen otras librarías complementarias para realizar estudios de simulación utilizando la librería [**ss3sim**](https://github.com/ss3sim/ss3sim), y para la aplicación de algoritmos de evaluación de estrategias de gestión mediante la libraría [**SSMSE**](https://github.com/nmfs-fish-tools/SSMSE).  
-
-Estas herramientas reducen el tiempo requerido,  también el riesgo de errores en los códigos, ya que son códigos probados y estandarizados [@Methot2013]. 
+- Submodelo de la población que simula los procesos de crecimiento, madurez, fecundidad, reclutamiento, movimiento y mortalidad de una población.
+- Submodelo de observación que estima los valores esperados para varios tipos de datos (composiciones de tallas y edades, índices de capturas, descarte, campañas, variables ambientales, entre otras.)
+- Submodelo estadístico caracteriza la bondad de ajuste de los datos y obtiene los parámetros del mejor ajuste con su varianza asociada, y 
+- Submodelo de pronóstico que permite proyectar las cantidades de gestión necesarias.
 
 
-El objetivo de esta guía es:
+# Objetivos del workshop
 
-- Comprender la estructura de archivos de entrada y salida para SS3
-
-- Ser capaz de ejecutar un modelo SS3 
-
-- Comprender qué herramientas están disponibles para trabajar con modelos SS3
-
-- Solucionar problemas básicos asociados con la ejecución de un modelo SS3
-
-- Aplicar algunos diagnósticos avanzados 
+- Comprender la estructura de los archivos de entrada y salida de SS3.
+- Revisar los formatos de los archivos de entrada necesarios para que SS3 funcione siguiendo la guía de usuario de SS3. 
+- Ser capaz de ejecutar un modelo SS3. 
+- Utilizaremos el ejemplo llamado “Simple” de SS3 para describir el formato de entrada de datos y la ejecución se SS3.
+- Revisaremos los paquetes de procesamiento y presentación de gráficas para los resultados de los modelos, como también la manipulación y edición de los archivos de entrada de datos utilizando la librería `r4ss`y ejecutaremos algunos diagnósticos avanzados utilizando la librería `ss3diags`.
 
 
-En esta sección seguiremos los pasos propuestos por el **SS3 Development Team** para Desarrollar nuestro primer modelo Stock Synthesis (SS3) https://nmfs-stock-synthesis.github.io/doc/ss_model_tips.html.
+# Requisitos 
+- Consola de comandos
+- Editor de texto recomendado: Notepad ++ https://notepad-plus-plus.org/downloads/ 
+- Ejecutable versión 3.30, ss_win (para Windows) descargar desde Github: https://github.com/nmfs-stock-synthesis/stock-synthesis/releases 
+- Versión de R >= 4 https://cloud.r-project.org/ 
+- Rstudio https://posit.co/download/rstudio-desktop/ 
+- library(“r4ss”) en R se recomienda instalar desde Github: remotes::install_github(“r4ss/r4ss”)
+- library(“devtools”) en R instalar de la siguiente forma: installed.packages(“devtools”).
+- library(“ss3diags”) en R instalar desde Github: devtools::install_github(“JABBAmodel/ss3diags”)
+
+# Github de interés 
+
+- SS3: https://github.com/nmfs-stock-synthesis
+- Versiones de SS3: https://github.com/nmfs-stock-synthesis/stock-synthesis/releases
+- Ejemplos SS3: https://github.com/nmfs-stock-synthesis/user-examples
+- SSI: https://github.com/nmfs-stock-synthesis/ssi
+- r4ss: https://github.com/r4ss/r4ss
+- ss3diags: https://github.com/PIFSCstockassessments/ss3diags
+
+
+# Manuales de usuarios 
+
+- [Manual de usuario SS3 versión 3.30.19](https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html)
+- [Guía de library r4ss](https://r4ss.github.io/r4ss/vignettes/r4ss-intro-vignette.html) 
+- [Manual de library ss3diags](https://github.com/jabbamodel/ss3diags/blob/master/Vignette/ss3diags_handbook.pdf)
+- [Manual de library ss3sim](https://ss3sim.github.io/ss3sim)
+- [Manual de library SSMSE](https://nmfs-fish-tools.github.io/SSMSE/manual)

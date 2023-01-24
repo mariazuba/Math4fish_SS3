@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>FORMATO DE ARCHIVOS DE ENTRADA</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="0.FormatoArchivos.html">Datos</a>
+</li>
+<li>
+  <a href="1.EjecutarSS3.html">Ejecutar</a>
+</li>
+<li>
+  <a href="2.Visualizacion.html">Visualizar</a>
+</li>
+<li>
+  <a href="3.Comparacion_de_modelos.html">CompararModelos</a>
+</li>
+<li>
+  <a href="4.Crear_nuevos_modelosSS3.html">CrearModelos</a>
+</li>
+<li>
+  <a href="5.Residuos.html">Residuos</a>
+</li>
+<li>
+  <a href="6.Perfil_Verosimilitud.html">Verosimilitud</a>
+</li>
+<li>
+  <a href="7.Retrospectivo.html">Retrospectivo</a>
+</li>
+<li>
+  <a href="8.Hindcast.html">Hindcast</a>
+</li>
+<li>
+  <a href="9.Jitter_test.html">Jitter</a>
+</li>
+<li>
+  <a href="10.Tune_comps.html">Tune</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="upper-right-logo"> </div>
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">FORMATO DE ARCHIVOS DE ENTRADA</h1>
+<h4 class="date">Última actualización: enero, 24, 2023</h4>
+
+</div>
+
+
+<style type="text/css">
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+</style>
+<style type="text/css">
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+</style>
+<p>           </p>
+<div id="descripción-general-del-modelo-simple" class="section level1">
+<h1>Descripción general del modelo “simple”</h1>
+<p>Utilizaremos la versión más simple de los modelos de ejemplo de Stock
+Synthesis “Simple”. Se recomienda descargar los archivos del modelo para
+verlos durante el tutorial. Ejecutaremos el modelo y graficaremos los
+resultados usando el paquete de R <code>r4ss</code>.</p>
+<p>Es un modelo de evaluación estructurado por edad de 2 sexos para una
+sola población en 1 área que comienza en 1971 y finaliza en 2001. La
+máxima edad en el modelo es de 40 años. Incluye 1 pesquería y 2
+campañas. La campaña 1 es una campaña independiente de la pesquería,
+mientras que la campaña 2 es dirigida hacia peces de edad 0.</p>
+<p>   </p>
+<div id="datos-de-la-pesquería-y-campañas" class="section level2">
+<h2>Datos de la pesquería y campañas</h2>
+<p>   </p>
+<ul>
+<li><p>La pesquería no descarta y por lo tanto retiene todo el pescado
+que captura.</p></li>
+<li><p>Se asume selectividad logística basada en tallas para la
+pesquería y para la campaña 1.</p></li>
+<li><p>Se asume selectividad total sólo para peces de edad 0 (es decir,
+la prospección no captura ningún pez mayor de 0 años) para la campaña
+2.</p></li>
+<li><p>La capturabilidad se estima para ambas campañas.</p></li>
+<li><p>Para ajustar la calidad de los datos, se especifica una
+desviación estándar adicional (CV).</p></li>
+<li><p>No se asume ningún sesgo de error asignación de edad y se asume
+que la asignación de edad es muy preciso.</p></li>
+</ul>
+<p>   </p>
+</div>
+<div id="supuestos" class="section level2">
+<h2>Supuestos</h2>
+<p>   </p>
+<div id="mortalidad-natural-crecimiento-madurez-y-proporción-sexual"
+class="section level3">
+<h3>Mortalidad natural, crecimiento, madurez y proporción sexual</h3>
+<ul>
+<li><p>Se asume que todos los parámetros son los mismos a lo largo del
+tiempo.</p></li>
+<li><p>La mortalidad natural se especifica en 0,1.</p></li>
+<li><p>Se utiliza una curva de crecimiento de von Bertalanfy con K
+estimado.</p></li>
+<li><p>Se supone que la madurez a la talla es logística con algunos
+valores de parámetros específicos.</p></li>
+<li><p>Se asume que la proporción sexual es de 50-50 hembras y
+machos.</p></li>
+</ul>
+<p>   </p>
+</div>
+<div id="relación-stock-recluta" class="section level3">
+<h3>Relación stock-recluta</h3>
+<ul>
+<li>Se asume una relación stock-recluta de beverton-holt, con valores de
+steepness y R0 estimados.</li>
+</ul>
+<p>   </p>
+</div>
+<div id="reclutamiento" class="section level3">
+<h3>Reclutamiento</h3>
+<ul>
+<li>Se asume desviaciones de reclutamiento y sesgo.</li>
+</ul>
+<p>   </p>
+</div>
+<div id="mortalidad-por-pesca" class="section level3">
+<h3>Mortalidad por pesca</h3>
+<ul>
+<li>Se utiliza un enfoque híbrido, lo que significa que los F son
+parámetros estimados, pero están restringidos usando la aproximación de
+Pope.</li>
+</ul>
+<p>   </p>
+<p>   </p>
+</div>
+</div>
+</div>
+<div id="revisión-de-los-archivos-de-entrada" class="section level1">
+<h1>Revisión de los archivos de entrada</h1>
+<p>   </p>
+<div id="starter.ss-y-forecast.ss" class="section level2">
+<h2><code>Starter.ss</code> y <code>Forecast.ss</code></h2>
+<ul>
+<li><p>SS3 comienza leyendo el archivo <code>starter.ss</code>, el cual
+contiene los nombres de los archivos de datos y control, además de otros
+controles de ejecución.</p></li>
+<li><p>Los nombres de los archivos de <code>control.ss</code> y
+<code>data.ss</code> deben coincidir con los nombres especificados en el
+archivo <code>starter.ss</code>.</p></li>
+<li><p>En esta sección se especifican los ajustes a los parámetros
+iniciales, summary y convergencia del modelo. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#starter-file">Consulte
+la Guía de usuario de SS3: Sección 5 “Starter File”</a>.</p></li>
+<li><p>En el archivo <code>Forecast.ss</code> se puede especificar los
+puntos biológicos de referencia, los años de proyección y reglas de
+control, entre otras especificaciones. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#forecast-file">Consulte
+la Guía de usuario de SS3: Sección 6 “Forecast File”</a>.</p></li>
+<li><p>En este tutorial veremos archivos genéricos de
+<code>starter</code> y <code>forecast</code>. No es necesario
+modificarlos específicamente para este ejemplo. Sin embargo, se debe
+verificar que los nombres de los archivos de datos y control que se
+enumeran en la parte superior del archivo de inicio estén
+correctos:</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_user_info_available_at:https://vlab.ncep.noaa.gov/group/stock-synthesis</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#C starter comment here </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data.ss </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>control.ss  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># 0=use init values in control file; 1=use ss.par</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># run display detail (0,1,2)</span></span></code></pre></div>
+<p>En el caso de este ejemplo, <code>data.ss</code> es el nombre del
+archivo de datos, mientras que <code>control.ss</code> es el nombre del
+archivo control.</p>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="data.ss" class="section level2">
+<h2><code>Data.ss</code></h2>
+<p>Aquí es donde se especifican las entradas de datos.</p>
+<p>   </p>
+<div id="información-general-del-modelo" class="section level3">
+<h3>Información general del modelo</h3>
+<p>En la parte superior se especifica información general del modelo:
+los años del modelo, número de temporadas, número de sexos, edad máxima,
+número de áreas, número de flotas</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#model-dimensions">Consulte
+la Guía de usuario de SS3: Sección 7.5 “Model Dimensions”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Stock Synthesis (SS) is a work of the U.S. Government and is not subject to  </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#copyright protection in the United States.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Foreign copyrights may apply. See copyright.txt for more information.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1971</span> <span class="co">#_StartYr</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2001</span> <span class="co">#_EndYr</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_Nseas</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span> <span class="co">#_months/season</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co">#_Nsubseasons (even number, minimum is 2)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_spawn_month</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co">#_Ngenders: 1, 2, -1  (use -1 for 1 sex setup with SSB multiplied by </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#female_frac parameter)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dv">40</span> <span class="co">#_Nages=accumulator age, first age is always age 0</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_Nareas</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co">#_Nfleets (including surveys)</span></span></code></pre></div>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="tipos-de-flota" class="section level3">
+<h3>Tipos de flota</h3>
+<p>   </p>
+<p>A continuación, se especifican los tipos de flota. Como tenemos una
+pesquería y 2 campañas (3 flotas en total), habrá tres líneas.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fleet-definitions">Consulte
+la Guía de usuario de SS3: Sección 7.6 “Fleet Definitions”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_fleet_type: 1=catch fleet; 2=bycatch only fleet; 3=survey; 4=ignore </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#_sample_timing: -1 for fishing fleet to use season-long catch-at-age for </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#observations, or 1 to use observation month;  (always 1 for surveys)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#_fleet_area:  area the fleet/survey operates in </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#_units of catch:  1=bio; 2=num (ignored for surveys; their units read later)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#_catch_mult: 0=no; 1=yes</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#_rows are fleets</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#_fleet_type fishery_timing area catch_units need_catch_mult fleetname</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> FISHERY  <span class="co"># 1</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">0</span> SURVEY1  <span class="co"># 2</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">0</span> SURVEY2  <span class="co"># 3</span></span></code></pre></div>
+<p>   </p>
+<ul>
+<li><p>Se especifica el tipo de flota (<code>fleet_type</code>), donde
+la pesquería tiene tipo 1 (porque es una flota de captura) y las
+campañas tienen tipo 3.</p></li>
+<li><p>Se especifican las unidades para cada flota (lo que se denomina
+<code>catch_units</code> en el encabezado), aunque para las campañas son
+ignorados.</p></li>
+<li><p>La pesquería tiene <code>catch_units</code> =1, lo que significa
+que está en unidades de biomasa y no en números.</p></li>
+<li><p>Los nombres de las flotas se especifican al final de cada línea
+(antes del comentario).</p></li>
+</ul>
+<p>Por ejemplo, en este caso, la pesquería se ha denominado
+<code>FISHERY</code>, mientras que la primera campaña
+<code>SURVEY1</code>.</p>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="captura" class="section level3">
+<h3>Captura</h3>
+<p>   </p>
+<p>A continuación, se especifica la captura.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catch">Consulte
+la Guía de usuario de SS3: Sección 7.9 “Catch”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_Catch data: yr, seas, fleet, catch, catch_se</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#_catch_se:  standard error of log(catch)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#_NOTE:  catch data is ignored for survey fleets</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">999</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="fl">0.01</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1971</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="fl">0.01</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1972</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">200</span> <span class="fl">0.01</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1973</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1000</span> <span class="fl">0.01</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2000</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3000</span> <span class="fl">0.01</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2001</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3000</span> <span class="fl">0.01</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
+<p>   </p>
+<ul>
+<li><p>La primera línea del fragmento de código anterior muestra los
+encabezados de columna para los datos de captura.</p></li>
+<li><p>Tenga en cuenta que toda la captura proviene de la pesquería. La
+línea <code>-999 1 1 0 0.01</code> especifica la captura de equilibrio
+para los años anteriores al inicio del modelo; en este caso, no hay
+captura de equilibrio porque la columna de captura es 0.</p></li>
+<li><p>Para terminar esta sección de datos de captura, se necesita la
+línea <code>-9999 0 0 0 0</code>. Esto le dice a SS que puede dejar de
+leer datos de captura.</p></li>
+</ul>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="índices-de-abundancia" class="section level3">
+<h3>Índices de abundancia</h3>
+<p>   </p>
+<p>Luego viene la especificación de los índices de abundancia. Primero
+está la configuración para todas las flotas.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#indices">Consulte
+la Guía de usuario de SS3: Sección 7.10 “Indices”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_CPUE_and_surveyabundance_observations</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#_Units:  0=numbers; 1=biomass; 2=F; &gt;=30 for special types</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#_Errtype:  -1=normal; 0=lognormal; &gt;0=T</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#_SD_Report: 0=no sdreport; 1=enable sdreport</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#_Fleet Units Errtype SD_Report</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># FISHERY</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co"># SURVEY1</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># SURVEY2</span></span></code></pre></div>
+<p>   </p>
+<ul>
+<li><p>Los encabezados de las columnas de esta sección están
+directamente encima de los números. Tenga en cuenta que aquí se definen
+todas las flotas (es decir, cada flota necesita una línea), incluida la
+pesquería, y se enumeran en el mismo orden que cuando se especificaron
+los tipos de flota.</p></li>
+<li><p>Lo más importante en esta sección es que se especifican las
+unidades y el tipo de error que se utilizará al leer los índices de
+abundancia.</p></li>
+<li><p>En este caso, la pesquería y la campaña 1 tienen unidades de
+biomasa, mientras que la campaña 2 es en números. Se asume un error
+logarítmico normal para las 3 flotas.</p></li>
+<li><p>Inmediatamente después de su encabezado, se incluyen los datos de
+índices de abundancia:</p></li>
+</ul>
+<p>   </p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_yr month fleet obs stderr</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1977</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">339689</span> <span class="fl">0.3</span> <span class="co">#_ SURVEY1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1980</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">193353</span> <span class="fl">0.3</span> <span class="co">#_ SURVEY1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1983</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">151984</span> <span class="fl">0.3</span> <span class="co">#_ SURVEY1</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2000</span> <span class="dv">7</span> <span class="dv">3</span> <span class="fl">5.97125</span> <span class="fl">0.7</span> <span class="co">#_ SURVEY2</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2001</span> <span class="dv">7</span> <span class="dv">3</span> <span class="fl">1.69379</span> <span class="fl">0.7</span> <span class="co">#_ SURVEY2</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="co"># terminator for survey observations </span></span></code></pre></div>
+<p>   </p>
+<ul>
+<li>Al igual que los datos de captura, se necesita una línea para
+decirle a SS cuándo dejar de leer los índices.</li>
+</ul>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="descartes-y-tallas-medias" class="section level3">
+<h3>Descartes y tallas medias</h3>
+<p>   </p>
+<p>A continuación, se podrían especificar los datos de descartes y
+tallas media, pero son 0 en este ejemplo.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#discard">Consulte
+la Guía de usuario de SS3: Sección 7.11 “Discard”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_N_fleets_with_discard</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_use meanbodysize_data (0/1)</span></span></code></pre></div>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="composición-de-tallas" class="section level3">
+<h3>Composición de tallas</h3>
+<p>   </p>
+<p>La siguiente sección configura los intervalos de talla
+(<code>length bin</code>) de la población.</p>
+<p>Esto debe especificarse ya sea que se utilicen o no datos de
+composiciones de tallas (aunque podría generar los intervalos de
+longitud de la población a partir de los intervalos de datos de
+composiciones de tallas).</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#length-composition-data-structure">Consulte
+la Guía de usuario de SS3: Sección 7.14 “Length Composition Data
+Structure”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up population length bin structure (note - irrelevant if not using size </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#data and using empirical wtatage</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># length bin method: 1=use databins; 2=generate from binwidth,min,max below; </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#3=read vector</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co"># binwidth for population size comp </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="co"># minimum size in the population (lower edge of first bin and size at age 0.00) </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dv">94</span> <span class="co"># maximum size in the population (lower edge of last bin) </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># use length composition data (0/1)</span></span></code></pre></div>
+<p>   </p>
+<p>Después de los intervalos de tallas de la población está la
+especificación para la composición de tallas (asumiendo 1 línea por
+flota):</p>
+<p>   </p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="fl">1e-007</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co">#_fleet:1_FISHERY</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="fl">1e-007</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co">#_fleet:2_SURVEY1</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="fl">1e-007</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co">#_fleet:3_SURVEY2</span></span></code></pre></div>
+<p>   </p>
+<p>La especificación del vector de tallas:</p>
+<p>   </p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="co">#_N_LengthBins; then enter lower edge of each length bin</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="dv">26</span> <span class="dv">28</span> <span class="dv">30</span> <span class="dv">32</span> <span class="dv">34</span> <span class="dv">36</span> <span class="dv">38</span> <span class="dv">40</span> <span class="dv">42</span> <span class="dv">44</span> <span class="dv">46</span> <span class="dv">48</span> <span class="dv">50</span> <span class="dv">52</span> <span class="dv">54</span> <span class="dv">56</span> <span class="dv">58</span> <span class="dv">60</span> <span class="dv">62</span> <span class="dv">64</span> <span class="dv">68</span> <span class="dv">72</span> <span class="dv">76</span> <span class="dv">80</span> <span class="dv">90</span></span></code></pre></div>
+<p>   </p>
+<p>Y luego los datos de composición de tallas:</p>
+<p>   </p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_yr month fleet sex part Nsamp datavector(female-male)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> <span class="dv">1971</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">125</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">11</span> <span class="dv">8</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">9</span> <span class="dv">17</span> <span class="dv">8</span> <span class="dv">3</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a> <span class="dv">1972</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">125</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">10</span> <span class="dv">10</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">8</span> <span class="dv">11</span> <span class="dv">4</span> <span class="dv">10</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1973</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">125</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">10</span> <span class="dv">12</span> <span class="dv">6</span> <span class="dv">10</span> <span class="dv">9</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">0</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">1974</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">125</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">10</span> <span class="dv">4</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">15</span> <span class="dv">11</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">1998</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">125</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">10</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">2001</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">125</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">5</span> <span class="dv">9</span> <span class="dv">2</span> <span class="dv">9</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">1</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> </span></code></pre></div>
+<p>   </p>
+<p>En este modelo de 2 sexos, los datos de composición de tallas se
+introducen para las hembras, con 1 número por intervalo de tallas
+especificado previamente, seguido de los datos de composición de tallas
+para los machos, también con 1 número por intervalo de tallas.</p>
+<p>   </p>
+</div>
+<div id="composiciones-de-edad" class="section level3">
+<h3>Composiciones de edad</h3>
+<p>   </p>
+<p>A continuación se presentan los datos de composición por edad. En
+primer lugar, se establecen las categorías de edad y las definiciones de
+error de edad.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#age-composition-option">Consulte
+la Guía de usuario de SS3: Sección 7.16 “Age Composition
+Option”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span> <span class="co">#_N_age_bins</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">20</span> <span class="dv">25</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_N_ageerror_definitions</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.5</span> <span class="fl">1.5</span> <span class="fl">2.5</span> <span class="fl">3.5</span> <span class="fl">4.5</span> <span class="fl">5.5</span> <span class="fl">6.5</span> <span class="fl">7.5</span> <span class="fl">8.5</span> <span class="fl">9.5</span> <span class="fl">10.5</span> <span class="fl">11.5</span> <span class="fl">12.5</span> <span class="fl">13.5</span> <span class="fl">14.5</span> <span class="fl">15.5</span> <span class="fl">16.5</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a> <span class="fl">17.5</span> <span class="fl">18.5</span> <span class="fl">19.5</span> <span class="fl">20.5</span> <span class="fl">21.5</span> <span class="fl">22.5</span> <span class="fl">23.5</span> <span class="fl">24.5</span> <span class="fl">25.5</span> <span class="fl">26.5</span> <span class="fl">27.5</span> <span class="fl">28.5</span> <span class="fl">29.5</span> <span class="fl">30.5</span> <span class="fl">31.5</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a> <span class="fl">32.5</span> <span class="fl">33.5</span> <span class="fl">34.5</span> <span class="fl">35.5</span> <span class="fl">36.5</span> <span class="fl">37.5</span> <span class="fl">38.5</span> <span class="fl">39.5</span> <span class="fl">40.5</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span> <span class="fl">0.001</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.001</span> <span class="fl">0.001</span></span></code></pre></div>
+<p>   </p>
+<p>Para los intervalos de edad, SS lee el número (17 en este caso) y
+luego espera ese número de entradas para los intervalos de edad (los 17
+valores debajo).</p>
+<p>A continuación, SS lee las definiciones de errores de edad. En este
+caso, solo hay 1 definición, por lo que SS espera 2 vectores, cada uno
+de los cuales contiene el número máximo de edades +1 valores (41 valores
+por vector en este caso). La primera línea define el sesgo
+(<code>bias</code>) del error de la asignación de la edad, mientras que
+el Segundo vector define la desviación estándar
+(<code>standard deviation</code>) .</p>
+<p>Este ejemplo no tiene error de asignación de edad y tiene una
+precisión muy alta (desviación estandar baja), por lo que está cerca de
+asumir que no hay error en la asignación de edad.</p>
+<p>Luego vienen las líneas de configuración de composición de edad.</p>
+<p>   </p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_mintailcomp addtocomp combM+F CompressBins CompError ParmSelect minsamplesize</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="fl">1e-007</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co">#_fleet:1_FISHERY</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="fl">1e-007</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co">#_fleet:2_SURVEY1</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="fl">1e-007</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="co">#_fleet:3_SURVEY2</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_Lbin_method_for_Age_Data: 1=poplenbins; 2=datalenbins; 3=lengths</span></span></code></pre></div>
+<p>   </p>
+<p>Que incluye el método <code>length bin</code> para las edades.
+Finalmente, se ingresan los datos de composiciones de edades:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_yr month fleet sex part ageerr Lbin_lo Lbin_hi Nsamp datavector(female-male)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a> <span class="dv">1971</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">75</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">13</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">8</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a> <span class="dv">1972</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">75</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">5</span> <span class="dv">1</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1973</span> <span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">75</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">6</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">1998</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">75</span> <span class="dv">9</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2001</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">75</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">11</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">7</span> <span class="dv">11</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">2</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
+<p>   </p>
+<p>Una nota importante aquí es que el uso de <code>Lbin_lo</code> y
+<code>Lbin_hi</code> =-1 selecciona el contenedor de longitud completo
+como si se usara para las edades.</p>
+<p>Similar a los datos de composición de tallas, SS asume valor 1 para
+hembras en cada categoría de datos, seguido de valores para machos en
+cada categoría de datos (en este caso, hay 34 valores en el vector de
+datos).</p>
+<p>   </p>
+<p>   </p>
+</div>
+<div id="opciones-adicionales" class="section level3">
+<h3>Opciones adicionales</h3>
+<p>   </p>
+<p>SS tiene algunas opciones adicionales que no hemos usado aquí y, por
+lo tanto, se establecen en 0:</p>
+<p>   </p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_Use_MeanSize-at-Age_obs (0/1)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_N_environ_variables</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Yr Variable Value</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># N sizefreq methods to read </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># do tags (0/1)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#    morphcomp data(0/1) </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  Nobs, Nmorphs, mincomp</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  yr, seas, type, partition, Nsamp, datavector_by_Nmorphs</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>  <span class="co">#  Do dataread for selectivity priors(0/1)</span></span></code></pre></div>
+<p>   </p>
+<p>Y finalmente, el archivo de datos debe terminar en <code>999</code>
+para decirle a SS que deje de leer.</p>
+<p>   </p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">999</span></span></code></pre></div>
+<p>   </p>
+<p>   </p>
+</div>
+</div>
+<div id="control.ss" class="section level2">
+<h2><code>Control.ss</code></h2>
+<p>   </p>
+<div id="peso-empírico" class="section level3">
+<h3>Peso empírico</h3>
+<p>   </p>
+<p>El archivo <code>control.ss</code> contiene las especificaciones de
+los valores de los parámetros del modelo (tanto valores fijos como
+valores estimados).</p>
+<p>La primera opción a tener en cuenta es una línea para leer el peso
+empírico en el archivo de edad:</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#weight-at-age">Consulte
+la Guía de usuario de SS3: Sección 8.4.1. ” Weight-at-Age”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>  <span class="co"># 0 means do not read wtatage.ss; 1 means read and use wtatage.ss and also read </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#and use growth parameters</span></span></code></pre></div>
+<p>   </p>
+<p>En este caso, no se usa, por lo que se establece en 0.</p>
+<p>Si se usara el peso empírico por edad, SS ignoraría todas las
+entradas relacionadas con el crecimiento, la madurez y la fecundidad que
+se especifican más adelante en el archivo de control (aunque todavía
+espera entradas).</p>
+<p>   </p>
+</div>
+<div id="crecimiento-y-platoons" class="section level3">
+<h3>Crecimiento y platoons</h3>
+<p>   </p>
+<p>Luego están las opciones para el número de patrones de crecimiento y
+platoons. Estos se establecen en 1 porque asumimos que toda la población
+tiene el mismo patrón de crecimiento y no hay platoons dentro de los
+patrones de crecimiento.</p>
+<p>   </p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="co">#_N_Growth_Patterns (Growth Patterns, Morphs, Bio Patterns, GP are terms used </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#interchangeably in SS)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_N_platoons_Within_GrowthPattern </span></span></code></pre></div>
+<p>   </p>
+<ul>
+<li><p>Luego se especifica la distribución del reclutamiento.</p></li>
+<li><p>Suponemos que para esta población solo hay 1 patrón de
+crecimiento, 1 tiempo de asentamiento (settlement) y 1 área, por lo que
+podemos usar la opción 4.</p></li>
+<li><p>Esta es la más simple, porque no requiere líneas completas de
+parámetros más adelante en el archivo control.</p></li>
+</ul>
+<p>   </p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="co"># recr_dist_method for parameters:  2=main effects for GP, Area, Settle timing; </span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#3=each Settle entity; 4=none (only when N_GP*Nsettle*pop==1)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># not yet implemented; Future usage: Spawner-Recruitment: 1=global; 2=by area</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#  number of recruitment settlement assignments </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co"># unused option</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#GPattern month  area  age (for each settlement assignment)</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
+<p>   </p>
+<p>Tenga en cuenta que también usamos 1 asignación de asentamiento
+(settlement) y especificamos que los peces se establecieron en enero a
+la edad 0.</p>
+<p>Esto podría modificarse si los peces se establecieron a una edad o
+momento diferente.</p>
+<p>   </p>
+</div>
+<div id="bloques" class="section level3">
+<h3>Bloques</h3>
+<p>   </p>
+<p>No estamos usando bloques de tiempo, pero hay algunos especificados
+en el modelo.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#time-blocks">Consulte
+la Guía de usuario de SS3: Sección 8.4.4. “Time Blocks”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_Nblock_Patterns</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_blocks_per_pattern </span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># begin and end years of blocks</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1970</span> <span class="dv">1970</span></span></code></pre></div>
+<p>   </p>
+<p>Tenga en cuenta que cualquier bloque puede especificarse y no usarse
+(los bloques se especifican aquí, pero no se usan hasta que se
+especifica dentro de una línea de parámetro), por lo que podría haber
+cualquier cantidad de bloques especificados aquí.</p>
+<p>   </p>
+</div>
+<div id="parámetros-variables-en-el-tiempo" class="section level3">
+<h3>Parámetros variables en el tiempo</h3>
+<p>   </p>
+<p>Así mismo, no se utilizan parámetros variables en el tiempo, por lo
+que no es importante lo que se especifica en los parámetros de control
+variables en el tiempo.</p>
+<p>   </p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># controls for all timevary parameters </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#parm bounds; 3=no bound check)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># AUTOGEN</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># autogen: 1st element for biology, 2nd for SR, 3rd for Q, 4th reserved, </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th for selex where: 0 = autogen all time-varying parms; </span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#1 = read each time-varying parm line; </span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#2 = read then autogen if parm min==-12345</span></span></code></pre></div>
+<p>   </p>
+</div>
+<div id="parámetros-biológicos" class="section level3">
+<h3>Parámetros biológicos</h3>
+<p>   </p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#biology">Consulte
+la Guía de usuario de SS3: Sección 8.5 “Biology”</a>.</p>
+<p>   </p>
+<div id="mortalidad-natural-y-crecimiento" class="section level4">
+<h4>Mortalidad natural y crecimiento</h4>
+<p>   </p>
+<p>La opción 0 se usa para la mortalidad natural porque solo se asume 1
+valor.</p>
+<p>El modelo de crecimiento 1 se usa para especificar un modelo de
+crecimiento de von Bertalanffy, seguido de líneas que especifican
+detalles sobre el crecimiento.</p>
+<p>   </p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#4=agespec_withseasinterpolate _no additional input for selected M option;read 1P per morph</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co"># GrowthModel: 1=vonBert with L1&amp;L2; 2=Richards with L1&amp;L2; 3=age_specific_K_incr; </span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#4=age_specific_K_decr; 5=age_specific_K_each; 6=NA; 7=NA; 8=growth cessation</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_Age(post-settlement)_for_L1;linear growth below this</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="co">#_Growth_Age_for_L2 (999 to use as Linf)</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">999</span> <span class="co">#_exponential decay for growth above maxage (value should approx initial Z; </span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#-999 replicates 3.24; -998 to not allow growth above maxage)</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>  <span class="co">#_placeholder for future growth feature</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
+<p>   </p>
+</div>
+<div id="madurez-y-fecundidad" class="section level4">
+<h4>Madurez y fecundidad</h4>
+<p>Luego, las líneas de configuración por madurez, fecundidad y otras
+opciones especializadas:</p>
+<p>   </p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_First_Mature_Age</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#(5)eggs=a+b*W</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="co">#_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female </span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#age-specific fxn</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#_parameter_offset_approach (1=none, 2= M, G, CV_G as offset from female-GP1, </span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#3=like SS2 V1.x)</span></span></code></pre></div>
+<p>   </p>
+<ul>
+<li><p>Las líneas de parámetros resultantes de la mortalidad natural, el
+crecimiento y la madurez (esta sección a veces se denomina parámetros
+MG) se especifican a continuación.</p></li>
+<li><p>El número de líneas de parámetros depende de las opciones
+seleccionadas en las líneas de especificación.</p></li>
+<li><p>Los parámetros también deben especificarse en un orden
+particular, con los parámetros de las hembras antes que los de machos en
+un modelo de 2 sexos.</p></li>
+</ul>
+<p>   </p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&amp;link dev_link dev_minyr dev_maxyr </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dev_PH Block Block_Fxn</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 1  BioPattern: 1  NatMort</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.15</span> <span class="fl">0.1</span> <span class="fl">0.1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># NatM_p_1_Fem_GP_1</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 1  BioPattern: 1  Growth</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">10</span> <span class="dv">45</span> <span class="fl">21.6535</span> <span class="dv">36</span> <span class="dv">10</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># L_at_Amin_Fem_GP_1</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">40</span> <span class="dv">90</span> <span class="fl">71.6493</span> <span class="dv">70</span> <span class="dv">10</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># L_at_Amax_Fem_GP_1</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.25</span> <span class="fl">0.147297</span> <span class="fl">0.15</span> <span class="fl">0.8</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># VonBert_K_Fem_GP_1</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.25</span> <span class="fl">0.1</span> <span class="fl">0.1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># CV_young_Fem_GP_1</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.25</span> <span class="fl">0.1</span> <span class="fl">0.1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># CV_old_Fem_GP_1</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 1  BioPattern: 1  WtLen</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">3</span> <span class="fl">2.44e-006</span> <span class="fl">2.44e-006</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Wtlen_1_Fem_GP_1</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">4</span> <span class="fl">3.34694</span> <span class="fl">3.34694</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Wtlen_2_Fem_GP_1</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 1  BioPattern: 1  Maturity&amp;Fecundity</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">50</span> <span class="dv">60</span> <span class="dv">55</span> <span class="dv">55</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Mat50%_Fem_GP_1</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">3</span> <span class="sc">-</span><span class="fl">0.25</span> <span class="sc">-</span><span class="fl">0.25</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Mat_slope_Fem_GP_1</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Eggs/kg_inter_Fem_GP_1</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Eggs/kg_slope_wt_Fem_GP_1</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 2  BioPattern: 1  NatMort</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.15</span> <span class="fl">0.1</span> <span class="fl">0.1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># NatM_p_1_Mal_GP_1</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 2  BioPattern: 1  Growth</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">45</span> <span class="dv">0</span> <span class="dv">36</span> <span class="dv">10</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># L_at_Amin_Mal_GP_1</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a> <span class="dv">40</span> <span class="dv">90</span> <span class="fl">69.5362</span> <span class="dv">70</span> <span class="dv">10</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># L_at_Amax_Mal_GP_1</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.25</span> <span class="fl">0.163533</span> <span class="fl">0.15</span> <span class="fl">0.8</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># VonBert_K_Mal_GP_1</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.25</span> <span class="fl">0.1</span> <span class="fl">0.1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># CV_young_Mal_GP_1</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.05</span> <span class="fl">0.25</span> <span class="fl">0.1</span> <span class="fl">0.1</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># CV_old_Mal_GP_1</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex: 2  BioPattern: 1  WtLen</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">3</span> <span class="fl">2.44e-006</span> <span class="fl">2.44e-006</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Wtlen_1_Mal_GP_1</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">3</span> <span class="dv">4</span> <span class="fl">3.34694</span> <span class="fl">3.34694</span> <span class="fl">0.8</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># Wtlen_2_Mal_GP_1</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Hermaphroditism</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="co">#  Recruitment Distribution  </span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="co">#  Cohort growth dev base</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.1</span> <span class="dv">10</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># CohortGrowDev</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co">#  Movement</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="co">#  Age Error from parameters</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="co">#  catch multiplier</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="co">#  fraction female, by GP</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a> <span class="fl">1e-006</span> <span class="fl">0.999999</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">99</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># FracFemale_GP_1</span></span></code></pre></div>
+<p>   </p>
+<p>Tenga en cuenta que la primera línea en el bloque de entrada SS
+anterior muestra los encabezados de columna.</p>
+<p>Todas las secciones con líneas de parámetros largas dentro del
+archivo de control tienen estos mismo encabezados.</p>
+<ul>
+<li><p>Hay muchas especificaciones en estas largas líneas de parámetros,
+pero algunas de particular importancia son:</p></li>
+<li><p>Todo lo que tenga fase negativa (séptimo valor en una línea larga
+de parámetros) no se estima y se establece en el valor inicial (tercer
+valor en la línea), mientras que las fases positivas sí se
+estiman.</p></li>
+<li><p>La mortalidad natural tanto para machos como para hembras se
+especifican en 0,1.</p></li>
+<li><p>Se estiman los tres parámetros de la curva de crecimiento de von
+Bertalanffy.</p></li>
+</ul>
+<p>A continuación se presentan algunas opciones no utilizadas, porque no
+hay estacionalidad en los parámetros biológicos:</p>
+<p>   </p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_no timevary MG parameters</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#_seasonal_effects_on_biology_parms</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co">#_femwtlen1,femwtlen2,mat1,mat2,fec1,fec2,Malewtlen1,malewtlen2,L1,K</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#_ LO HI INIT PRIOR PR_SD PR_type PHASE</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#_Cond -2 2 0 0 -1 99 -2 #_placeholder when no seasonal MG parameters</span></span></code></pre></div>
+<p>   </p>
+</div>
+</div>
+<div id="relación-stock-recluta-1" class="section level3">
+<h3>Relación stock-recluta</h3>
+<p>   </p>
+<p>A continuación, se especifican la configuración de la relación
+stock-recluta y las líneas de parámetros SR. Para configurar las líneas,
+se especifica una curva SR de Beverton-Holt.</p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#spawner-recruitment">Consulte
+la Guía de usuario de SS3: Sección 8.6 “Spawner-Recruitment”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co">#_Spawner-Recruitment; Options: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>  <span class="co"># 0/1 to use steepness in initial equ recruitment calculation</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>  <span class="co">#  future feature:  0/1 to make realized sigmaR a function of SR curvature</span></span></code></pre></div>
+<p>   </p>
+<p>Lo que afecta al número de líneas de parámetros SR que siguen:</p>
+<p>   </p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>             <span class="dv">3</span>            <span class="dv">31</span>       <span class="fl">8.81505</span>          <span class="fl">10.3</span>            <span class="dv">10</span>             <span class="dv">0</span>          <span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span> <span class="co"># SR_LN(R0)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="fl">0.2</span>             <span class="dv">1</span>      <span class="fl">0.614248</span>           <span class="fl">0.7</span>          <span class="fl">0.05</span>             <span class="dv">1</span>          <span class="dv">4</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span> <span class="co"># SR_BH_steep</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>             <span class="dv">2</span>           <span class="fl">0.6</span>           <span class="fl">0.8</span>           <span class="fl">0.8</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">4</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span> <span class="co"># SR_sigmaR</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>            <span class="sc">-</span><span class="dv">5</span>             <span class="dv">5</span>             <span class="dv">0</span>             <span class="dv">0</span>             <span class="dv">1</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">4</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span> <span class="co"># SR_regime</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>             <span class="dv">0</span>             <span class="dv">0</span>             <span class="dv">0</span>             <span class="dv">0</span>             <span class="dv">0</span>        <span class="sc">-</span><span class="dv">99</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span> <span class="co"># SR_autocorr</span></span></code></pre></div>
+<p>   </p>
+</div>
+<div id="desvíos-de-reclutamiento" class="section level3">
+<h3>Desvíos de reclutamiento</h3>
+<p>   </p>
+<p>Las opciones de desviación de reclutamiento se especifican después de
+los parámetros de SR. Primero están las opciones de desviaciones
+estándar de reclutamiento:</p>
+<p>   </p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="co">#do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1971</span> <span class="co"># first year of main recr_devs; early devs can preceed this era</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2001</span> <span class="co"># last year of main recr_devs; forecast devs start in following year</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="co">#_recdev phase </span></span></code></pre></div>
+<p>   </p>
+<p>Estos definen las principales desviaciones de reclutamientos, que en
+este caso duran desde el primer año del modelo hasta el último año.
+También se leen opciones avanzadas:</p>
+<p>   </p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="co"># (0/1) to read 13 advanced options</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span>    <span class="co">#_recdev_early_start (0=none; neg value makes relative to recdev_start)</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">4</span>   <span class="co">#_recdev_early_phase</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span>    <span class="co">#_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span>    <span class="co">#_lambda for Fcast_recr_like occurring before endyr+1</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1900</span> <span class="co">#_last_yr_nobias_adj_in_MPD; begin of ramp</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">1900</span> <span class="co">#_first_yr_fullbias_adj_in_MPD; begin of plateau</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">2001</span> <span class="co">#_last_yr_fullbias_adj_in_MPD</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">2002</span> <span class="co">#_end_yr_for_ramp_in_MPD (can be in forecast to shape ramp, but SS sets bias_adj to 0.0 for fcast yrs)</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span>    <span class="co">#_max_bias_adj_in_MPD (-1 to override ramp and set biasadj=1.0 for all estimated recdevs)</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span>    <span class="co">#_period of cycles in recruitment (N parms read below)</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="dv">5</span>   <span class="co">#min rec_dev</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span>    <span class="co">#max rec_dev</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span>    <span class="co">#_read_recdevs</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>      <span class="co">#_end of advanced SR options</span></span></code></pre></div>
+<p>   </p>
+<p>Las opciones avanzadas permiten al usuario sesgar el ajuste de las
+desviaciones de reclutamiento. Hay más información sobre el ajuste del
+sesgo en el manual del usuario de SS, pero la idea general es tener en
+cuenta el hecho de que las desviaciones de reclutamiento anteriores y
+posteriores probablemente tengan menos información que las del
+medio.</p>
+<p>La rampa de ajuste de sesgo tiene esto en cuenta y, por lo general,
+se “ajusta” observando la rampa de sesgo en los resultados del modelo
+después de ejecutarlo, volviendo a especificar la rampa de sesgo según
+sea necesario y volviendo a ejecutar el modelo.</p>
+<p>   </p>
+</div>
+<div id="mortalidad-por-pesca-1" class="section level3">
+<h3>Mortalidad por pesca</h3>
+<p>   </p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#fishing-mortality-method">Consulte
+la Guía de usuario de SS3: Sección 8.7 “Fishing Mortality
+Method”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Fishing Mortality info </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.3</span> <span class="co"># F ballpark</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">2001</span> <span class="co"># F ballpark year (neg value to disable)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="co"># F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fl">2.95</span> <span class="co"># max F or harvest rate, depends on F_Method</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># no additional F input needed for Fmethod 1</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># if Fmethod=3; read N iterations for tuning for Fmethod 3</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  <span class="co"># N iterations for tuning F in hybrid method (recommend 3 to 7)</span></span></code></pre></div>
+<p>   </p>
+<p>No hay configuraciones especiales particulares para la información de
+mortalidad por pesca para este modelo, pero tenga en cuenta que se
+utiliza el método F híbrido recomendado.</p>
+<p>   </p>
+</div>
+<div id="capturabilidad" class="section level3">
+<h3>Capturabilidad</h3>
+<p>   </p>
+<p><a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#catchability">Consulte
+la Guía de usuario de SS3: Sección 8.8 “Catchability”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_Q_setup for fleets with cpue or survey data</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#_1:  fleet number</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#_2:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm; 4=mirror with offset, 2 parm)</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#_3:  extra input for link, i.e. mirror fleet# or dev index number</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">#_4:  0/1 to select extra sd parameter</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#_5:  0/1 for biasadj or not</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#_6:  0/1 to float</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#_   fleet      link link_info  extra_se   biasadj     float  #  fleetname</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>         <span class="dv">2</span>         <span class="dv">1</span>         <span class="dv">0</span>         <span class="dv">1</span>         <span class="dv">0</span>         <span class="dv">0</span>  <span class="co">#  SURVEY1</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>         <span class="dv">3</span>         <span class="dv">1</span>         <span class="dv">0</span>         <span class="dv">0</span>         <span class="dv">0</span>         <span class="dv">0</span>  <span class="co">#  SURVEY2</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9999</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">#_Q_parms(if_any);Qunits_are_ln(q)</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">#_ LO HI INIT PRIOR PR_SD PR_type PHASE env-var use_dev dev_mnyr dev_mxyr dev_PH Block Blk_Fxn # parm_name</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>   <span class="sc">-</span><span class="dv">7</span> <span class="dv">5</span>   <span class="fl">0.516018</span> <span class="dv">0</span>    <span class="dv">1</span> <span class="dv">0</span>  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>  <span class="co">#  LnQ_base_SURVEY1(2)</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span> <span class="fl">0.5</span> <span class="dv">0</span>        <span class="fl">0.05</span> <span class="dv">1</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>  <span class="co">#  Q_extraSD_SURVEY1(2)</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>   <span class="sc">-</span><span class="dv">7</span> <span class="dv">5</span>   <span class="sc">-</span><span class="fl">6.6281</span>  <span class="dv">0</span>    <span class="dv">1</span> <span class="dv">0</span>  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>  <span class="co">#  LnQ_base_SURVEY2(3)</span></span></code></pre></div>
+<p>   </p>
+<p>Debido a que la pesquería no se usa como un índice de abundancia, no
+requiere ninguna línea o parámetro de configuración de
+capturabilidad.</p>
+<p>Tenga en cuenta que los parámetros de capturabilidad a escala
+logarítmica (LNQ) se estiman para las campañas.</p>
+<p>Además, para la flota 2 en las líneas de configuración, se especificó
+que se usara un error estándar adicional, por lo que hay un valor fijo
+<code>extraSD</code> especificado como una línea de parámetro.</p>
+<p>   </p>
+</div>
+<div id="selectividad" class="section level3">
+<h3>Selectividad</h3>
+<p>   </p>
+<p>En esta sección se especifican las líneas de selectividad a la talla
+y edad. <a
+href="https://nmfs-stock-synthesis.github.io/doc/SS330_User_Manual.html#selectivity-and-discard">Consulte
+la Guía de usuario de SS3: Sección 8.9 “Selectivity and
+Discard”</a>.</p>
+<p>   </p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_size_selex_patterns</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#_Pattern Discard Male Special</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># 1 FISHERY</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># 2 SURVEY1</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># 3 SURVEY2</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a> <span class="co">#</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">#_age_selex_patterns</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a> ...</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a> <span class="co">#_Pattern Discard Male Special</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">11</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># 1 FISHERY</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">11</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># 2 SURVEY1</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">11</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="co"># 3 SURVEY2</span></span></code></pre></div>
+<p>   </p>
+<p>Se debe especificar un patrón tanto para la selectividad por talla
+como para la selectividad a la edad para cada flota; sin embargo, el uso
+de los patrones 0 y 1 para la selectividad a la talla permite al usuario
+especificar que la selectividad sea la misma en todas las tallas (dentro
+del rango especificado, si se usa el patrón 1).</p>
+<p>Aquí, el patrón de selectividad por edad 11 (logística) se utiliza
+para todas las flotas. Las líneas de configuración de selectividad van
+seguidas de las líneas de parámetros de selectividad.</p>
+<p>   </p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1   FISHERY LenSelex</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>            <span class="dv">19</span>            <span class="dv">80</span>       <span class="fl">53.6411</span>            <span class="dv">50</span>          <span class="fl">0.01</span>             <span class="dv">1</span>          <span class="dv">2</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  Size_inflection_FISHERY(1)</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>          <span class="fl">0.01</span>            <span class="dv">60</span>       <span class="fl">18.9232</span>            <span class="dv">15</span>          <span class="fl">0.01</span>             <span class="dv">1</span>          <span class="dv">3</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  Size_95%width_FISHERY(1)</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2   SURVEY1 LenSelex</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>            <span class="dv">19</span>            <span class="dv">70</span>        <span class="fl">36.653</span>            <span class="dv">30</span>          <span class="fl">0.01</span>             <span class="dv">1</span>          <span class="dv">2</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  Size_inflection_SURVEY1(2)</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>          <span class="fl">0.01</span>            <span class="dv">60</span>       <span class="fl">6.59179</span>            <span class="dv">10</span>          <span class="fl">0.01</span>             <span class="dv">1</span>          <span class="dv">3</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  Size_95%width_SURVEY1(2)</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3   SURVEY2 LenSelex</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1   FISHERY AgeSelex</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>            <span class="dv">40</span>             <span class="dv">0</span>             <span class="dv">5</span>            <span class="dv">99</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  minage@sel=1_FISHERY(1)</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>            <span class="dv">40</span>            <span class="dv">40</span>             <span class="dv">6</span>            <span class="dv">99</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  maxage@sel=1_FISHERY(1)</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2   SURVEY1 AgeSelex</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>            <span class="dv">40</span>             <span class="dv">0</span>             <span class="dv">5</span>            <span class="dv">99</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  minage@sel=1_SURVEY1(2)</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>            <span class="dv">40</span>            <span class="dv">40</span>             <span class="dv">6</span>            <span class="dv">99</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  maxage@sel=1_SURVEY1(2)</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3   SURVEY2 AgeSelex</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>            <span class="dv">40</span>             <span class="dv">0</span>             <span class="dv">5</span>            <span class="dv">99</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  minage@sel=1_SURVEY2(3)</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>             <span class="dv">0</span>            <span class="dv">40</span>             <span class="dv">0</span>             <span class="dv">6</span>            <span class="dv">99</span>             <span class="dv">0</span>         <span class="sc">-</span><span class="dv">1</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>          <span class="dv">0</span>  <span class="co">#  maxage@sel=1_SURVEY2(3)</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co">#_no timevary selex parameters</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
+<p>   </p>
+<p>Estas líneas de parámetros se especifican en orden, con las líneas de
+selectividad de tamaño (o longitud) especificadas antes de las líneas de
+selectividad de edad y las flotas en el mismo orden que en las líneas de
+configuración.</p>
+<p>Además, el patrón de selectividad utilizado determina la cantidad de
+parámetros necesarios para especificar el tamaño o la selectividad por
+edad de cada flota.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

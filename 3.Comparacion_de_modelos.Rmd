@@ -1,0 +1,197 @@
+---
+title: "Comparación de modelo"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 200px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval=T,echo=T, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center")
+```
+
+# Comparación de modelos 
+
+
+Instalar librerías
+
+```{r eval=FALSE}
+
+install.packages('r4ss')
+install.packages('here')
+
+```
+
+## Directorios de trabajo
+Cargar librería `here()`
+ 
+```{r}
+
+library(here)
+here()
+dir(here())
+
+```
+ 
+ 
+ 
+ Luego, identificar el directorio  donde están los archivos del modelo 
+```{r}
+dir(here("modelos_SS3"))
+dir1 <- here("modelos_SS3","simple")
+dir2 <- here("modelos_SS3","simple_long")
+dir3 <- here("modelos_SS3","simple_long_wtatage")
+dir4 <- here("modelos_SS3","simple_with_discard")
+```
+
+Revisamos que esten todos los archivos de entrada
+
+```{r}
+dir(dir1)
+dir(dir2)
+dir(dir3)
+dir(dir4)
+```
+
+Creamos un nuevo directorio en la carpeta `Ejercicios` para ejecutar los ejemplos
+
+```{r}
+dirname.compara <- here("Ejercicios","3_Comparacion_de_modelos")
+dir.create(path=dirname.compara, showWarnings = TRUE, recursive = TRUE)
+dirname.compara
+
+dir(dirname.compara)
+```
+
+
+```{r}
+dir_1 <-paste(dirname.compara,"/mod1",sep="")
+dir_2 <-paste(dirname.compara,"/mod2",sep="")
+dir_3 <-paste(dirname.compara,"/mod3",sep="")
+dir_4 <-paste(dirname.compara,"/mod4",sep="")
+
+dir.create(path=dir_1, showWarnings = TRUE, recursive = TRUE)
+dir.create(path=dir_2, showWarnings = TRUE, recursive = TRUE)
+dir.create(path=dir_3, showWarnings = TRUE, recursive = TRUE)
+dir.create(path=dir_4, showWarnings = TRUE, recursive = TRUE)
+
+dir(dirname.compara)
+
+```
+
+Copiamos  los archivos del directorio donde están los archivos del modelo SS3  en la carpeta donde ejecutaremos el ejercicio 
+
+```{r}
+file.copy(Sys.glob(paste(dir1, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   dir_1)
+
+file.copy(Sys.glob(paste(dir2, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   dir_2)
+
+file.copy(Sys.glob(paste(dir3, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   dir_3)
+
+file.copy(Sys.glob(paste(dir4, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   dir_4)
+
+```
+
+
+
+Luego, identificamos el directorio  donde está el archivo ejecutable (`ss.exe`)
+
+```{r}
+exe_path <- here("Ejecutables_SS3","3.30.19_release")
+ss_exe <- paste(exe_path,"ss_win.exe",sep= "/")
+```
+
+Cargamos la librería `r4ss`
+
+```{r}
+library(r4ss)
+```
+
+
+## Ejecutamos el modelo SS3 
+
+Ejecutamos el modelo con la función `run_SS_models()`
+
+
+```{r}
+r4ss::run_SS_models(dirvec=dir_1,model=ss_exe,skipfinished=FALSE)
+
+r4ss::run_SS_models(dirvec=dir_2,model=ss_exe,skipfinished=FALSE)
+
+r4ss::run_SS_models(dirvec=dir_3,model=ss_exe,skipfinished=FALSE)
+
+r4ss::run_SS_models(dirvec=dir_4,model=ss_exe,skipfinished=FALSE)
+```
+
+
+
+Leemos las salidas de los  modelos 
+
+```{r}
+mod1 <- SS_output(dir = dir_1)
+mod2 <- SS_output(dir = dir_2)
+mod3 <- SS_output(dir = dir_3)
+mod4 <- SS_output(dir = dir_4)
+```
+
+
+Creamos una lista que resuma los resultados del modelo con la función `SSsummarize()`
+
+```{r}
+mod.sum <- SSsummarize(list(mod1, mod2,mod3,mod4))
+plotcomp <-paste(dirname.compara,"/plot_comparacion",sep = "")
+dir.create(path=plotcomp, showWarnings = TRUE, recursive = TRUE)
+
+```
+
+
+## Generamos Plots
+
+Finalmente, generamos los plots con Comparaciones de modelos usando la función `SSplotComparisons()`
+
+```{r eval=F}
+SSplotComparisons(mod.sum, 
+                  legendlabels = c("modelo 1", "modelo 2","modelo 3","modelo 4"),
+                  pheight=4.5,png=TRUE,plotdir=plotcomp,legendloc='bottomleft')
+```
+
+
+

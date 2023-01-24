@@ -1,0 +1,439 @@
+---
+title: "¿CÓMO EJECUTAR SS3?"
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
+---
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+```{css,echo=FALSE}
+
+
+.scroll-200{
+            max-height: 300px; 
+            overflow-y: auto; 
+            background-color: #f1f1f1;
+            }
+```
+
+
+
+```{css,echo=FALSE}
+
+/*----------LOGO above TOC---------*/
+
+#TOC::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin: 2em 20px 40px 20px;
+  background-image: url("LOGO_2SN_recortado.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+```
+
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(echo=T, warning=FALSE, message=FALSE,class.output="scroll-200",fig.align = "center" )
+library(here)
+
+```
+
+
+# ARCHIVOS
+## Archivos de entrada a SS3
+
+
+&nbsp; &nbsp;
+
+En primer lugar, debemos asegurarnos que los archivos de datos necesarios para que SS3 funcione se encuentren en nuestro directorio de trabajo.
+
+1. `starter.ss`
+2. `data.ss`
+3. `control.ss`
+4. `forecast.ss`
+5. `ss.exe`
+
+
+&nbsp; &nbsp;
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","files_data.png"))
+
+```
+
+
+&nbsp; &nbsp;
+
+Una vez que todos los archivos del modelo y el ejecutable SS3 estén en la misma carpeta, puede abrir la terminal (consola de comandos) de su elección en la ubicación de los archivos del modelo.
+
+
+
+&nbsp; &nbsp;
+
+&nbsp; &nbsp;
+
+## Archivos de salida de SS3
+
+
+&nbsp; &nbsp;
+Los archivos de salida más útiles se pueden dividir en :
+
+**1. Archivos que contienen resultados**
+
+- `ss_summary.sso` y `Report.sso` que contienen los resultados del modelo resumidos de diferentes maneras.
+
+**2.`.ss_new files`**
+
+- Estos archivos repiten los archivos de entrada SS3, pero incluyen comentarios estandarizados. 
+- Los valores deben ser los mismos que los archivos de entrada, excepto `control.ss_new`, que actualiza los valores iniciales a los valores estimados finales. 
+- Los archivos `.ss_new`pueden ser útiles para estandarizar los comentarios en los archivos de entrada y se pueden verificar para asegurarse de que SS3 interpretó las entradas como pretendía el usuario.
+
+**3. Archivos utilizados para debugging** 
+
+- `warnings.sso` y `echoinput.sso`
+
+&nbsp; &nbsp;
+
+# EJECUTAR SS3
+
+## EJECUTAR DESDE UNA TERMINAL
+
+
+### ¿Cómo abrir una consola de comandos?
+
+#### Desde cmd
+
+Windows permite abrir CMD en una carpeta usando la barra de direcciones del explorador de archivos. 
+
+Lo único que tendremos que hacer es escribir “cmd” en la barra de direcciones y presionar “Enter”. 
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","cmd consola.png"))
+
+```
+
+
+La consola de comandos se abrirá con el directorio establecido en la carpeta que estamos ubicados.
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","cmd_exe.png"))
+
+```
+
+#### Desde PowerShell
+
+Otra opción para abrir una consola de comandos es dando clic al botón derecho del ratón sobre cualquier zona vacía de la ventana correspondiente a la carpeta que contiene los archivos del modelo y seleccionar la opción del menú para abrir la consola de su elección (por ejemplo, Windows PowerShell). 
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","opcion1_consola.png"))
+
+```
+
+Esto debería abrir una ventana de comandos.
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","windows_PowerShell.png"))
+
+```
+
+Luego, escriba `ss_win` (u otro nombre del `ss.exe`) y presione enter.
+
+Si no funciona, verificar que el nombre del `.exe` está correcto (por ejemplo, necesitaría escribir `ss` para un ejecutable llamado `ss.exe`). Y que la línea de comando tiene el directorio correcto.
+
+
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","cmd_dir.png"))
+
+```
+
+Tenga en cuenta que si está utilizando Windows Powershell, deberá escribir `./ss_win`
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","opcion1_Windows_PoweShell.png"))
+
+```
+&nbsp; &nbsp;
+
+## EJECUTAR DESDE R
+
+&nbsp; &nbsp;
+
+### 1. Ejecutar SS3 usando `system()` 
+
+En primer lugar debe instalar la librería `here()`, la cual utilizaremos para que siempre nos ubique en el directorio base de nuestro proyecto.
+
+
+```{r eval=FALSE}
+
+install.packages('here')
+
+```
+
+ Cargar librería `here()`
+
+```{r}
+library(here)
+here()
+dir(here())
+```
+
+Luego, debemos identificar el directorio donde están los archivos del modelo SS3
+
+```{r}
+
+dir(here("modelos_SS3"))
+
+mod_path <- here("modelos_SS3","simple")
+
+```
+
+Revisamos que esten todos los archivos de entrada
+
+```{r}
+dir(mod_path)
+
+```
+
+
+Creamos un nuevo directorio en la carpeta `Ejercicios` para ejecutar los ejemplos
+
+```{r}
+dirname.run.sys <- here("Ejercicios","1_Ejecutar_system")
+dir.create(path=dirname.run.sys, showWarnings = TRUE, recursive = TRUE)
+dirname.run.sys
+
+dir(dirname.run.sys)
+```
+
+```{r echo=FALSE,eval=F}
+unlink(dirname.run.sys, recursive = TRUE)
+```
+
+Copiamos  los archivos del directorio donde están los archivos del modelo SS3  en la carpeta donde ejecutaremos el ejercicio 
+
+```{r}
+file.copy(Sys.glob(paste(mod_path, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   dirname.run.sys)
+```
+
+
+
+Ejecutamos el modelo con la función `system()`
+
+```{r eval=T}
+setwd(dirname.run.sys)
+system("ss_win")
+```
+
+ y revisamos los archivos de salida
+ 
+Los archivos de salida que contienen resultados normalmente se escriben en el directorio de trabajo donde fue ejecutado el modelo SS3.
+
+```{r}
+
+dir(dirname.run.sys)
+
+```
+
+
+&nbsp; &nbsp;
+
+
+### 2. Ejecutar SS3 usando `r4ss()` 
+
+En primer lugar debemos instalar la librería `r4ss`
+
+```{r eval=FALSE}
+
+install.packages('r4ss')
+
+```
+
+ Cargamos  la librería `r4ss`
+
+```{r}
+library(r4ss)
+```
+
+
+Identificamos el directorio donde están los archivos del modelo SS3
+
+```{r}
+mod_path2 <- here("modelos_SS3","simple_with_discard")
+```
+
+Revisamos que esten todos los archivos de entrada
+
+```{r}
+
+dir(mod_path2)
+```
+
+
+Identificamos el directorio donde está el archivo ejecutable (`ss_win.exe`)
+
+```{r}
+exe_path <- here("Ejecutables_SS3","3.30.19_release")
+ss_exe <- paste(exe_path,"ss_win.exe",sep= "/")
+```
+
+Creamos un nuevo directorio en la carpeta `Ejercicios` para ejecutar los ejemplos
+
+```{r}
+dirname.run.r4ss <- here("Ejercicios","2_Ejecutar_r4ss")
+dir.create(path=dirname.run.r4ss, showWarnings = TRUE, recursive = TRUE)
+dirname.run.r4ss
+
+
+```
+
+
+```{r echo=FALSE,eval=F}
+unlink(dirname.run.r4ss, recursive = TRUE)
+```
+
+Copiamos  los archivos del directorio donde están los archivos del modelo SS3  en la carpeta donde ejecutaremos el ejercicio 
+
+```{r}
+file.copy(Sys.glob(paste(mod_path2, "*.*", sep="/"),
+                   dirmark = FALSE),
+                   dirname.run.r4ss)
+
+dir(dirname.run.r4ss)
+
+```
+
+
+Ejecutamos el modelo SS3 usando la función `run_SS_models()` 
+
+```{r eval=T}
+#?run_SS_models
+
+r4ss::run_SS_models(dirvec=dirname.run.r4ss, 
+                    model=ss_exe,
+                    skipfinished=FALSE)
+
+```
+
+
+Revisamos los archivos de salida
+```{r}
+
+dir(dirname.run.r4ss)
+
+```
+
+&nbsp; &nbsp;
+
+
+# ¿CÓMO SABER SI HEMOS EJECUTADO CORRECTAMENTE SS3?
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+Al iniciar la ejecución, SS3 siempre lee los archivos `starter.ss`, `data.ss` y `forecast.ss`, `control.ss` en el mismo orden, escribiendo las salidas de debugging en `echoinput.sso` y advertencias en `warning.sso` a medida que se leen.
+
+&nbsp; &nbsp;
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","run_simple_initial.png"))
+
+```
+&nbsp; &nbsp;
+
+
+
+Si la estructura de los datos de entrada  están correctos debería comenzar la optimización de parámetros. 
+
+SS3 va a la sección de procedimiento donde ADMB realiza cambios iterativos de parámetros (iteration) para minimizar la función de verosimilitud (`-log(L)`). 
+
+
+
+Cuando ADMB logra la convergencia se realiza el cálculo de la varianza de los parámetros ( a menos que se especifique la opción `–nohess`).
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","run_simple_iteration.png"))
+
+```
+&nbsp; &nbsp;
+
+
+
+
+Luego, SS3 pasa a la sección de código de bechmarck y forecast y luego al reporte final.
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","run_simple.png"))
+
+```
+&nbsp; &nbsp;
+
+
+
+Cuando se completa la ejecución de SS3 aparece !! Run has completed !!
+
+
+&nbsp; &nbsp;
+
+
+
+
+&nbsp; &nbsp;
+
+# ¿QUÉ HACER SI LA OPTIMIZACIÓN DE LOS PARÁMETROS NO COMIENZA? 
+
+&nbsp; &nbsp;
+&nbsp; &nbsp;
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","debugging.png"))
+
+```
+
+&nbsp; &nbsp;
+
+
+Siga los siguientes pasos:
+
+- Asegúrese que todos los archivos y directorios tengan el nombre correcto.
+- Verifique que el archivo `starter.ss` tenga los nombres correctos de los archivos de `control.ss` y `data.ss`.
+- Si SS3 comienza a leer archivos y luego falla, revise los archivos `warnings.sso` y `echoinput.sso`. 
+- Mirar el último contenido escrito en `echoinput.sso` y compararlo con sus archivos de entrada puede proporcionar pistas sobre dónde (y posiblemente por qué) falló la ejecución.
+
+
+&nbsp; &nbsp;
+
+
+```{r echo=FALSE,   out.width = "80%" }
+
+knitr::include_graphics(here("Script_Rmd","Figuras","debugging2.png"))
+
+```
